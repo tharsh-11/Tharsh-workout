@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<title>BAND STRONG</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07070f;--s1:#0f0f1a;--s2:#13131f;--b:rgba(255,255,255,.07);
+  --txt:#ede8dd;--m:#5a5a72;--a:#FF6B35;--g:#3DD68C;--b2:#4EC9C0;
+  --y:#FFD93D;--p:#B39DDB;--r:#FF5C7A;
+  --fd:'Barlow Condensed',sans-serif;--fb:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--txt);font-family:var(--fb);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--a);border-radius:4px;}
+button{cursor:pointer;font-family:var(--fb);border:none;}
+input,textarea{font-family:var(--fb);}
+
+/* HEADER */
+#hdr{background:rgba(7,7,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,107,53,.13);position:sticky;top:0;z-index:300;padding:0 14px;}
+.hdr-in{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:54px;}
+.logo{font-family:var(--fd);font-weight:800;font-size:22px;color:var(--a);letter-spacing:2px;}
+.logo small{font-size:9px;color:var(--m);letter-spacing:1.5px;display:block;font-weight:400;font-family:var(--fb);margin-top:1px;}
+nav{display:flex;gap:4px;}
+.nb{padding:6px 11px;border-radius:50px;border:1px solid rgba(255,255,255,.09);background:transparent;color:#777;font-size:11px;font-weight:500;transition:all .2s;display:flex;align-items:center;gap:3px;}
+.nb.on{border-color:var(--a);background:rgba(255,107,53,.16);color:var(--a);}
+
+/* STRIP */
+#strip{background:rgba(255,107,53,.05);border-bottom:1px solid rgba(255,107,53,.1);padding:7px 14px;}
+.strip-in{max-width:860px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;}
+.sv{display:flex;align-items:baseline;gap:5px;}
+.sl{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:1.2px;}
+.sn{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--a);}
+
+main{max-width:860px;margin:0 auto;padding:20px 13px 90px;}
+.view{display:none;animation:fu .3s ease both;}
+.view.on{display:block;}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.sec-t{font-family:var(--fd);font-weight:700;font-size:12px;letter-spacing:2.5px;color:var(--m);margin:20px 0 10px;}
+.card{background:var(--s1);border-radius:13px;border:1px solid var(--b);padding:15px;margin-bottom:9px;}
+
+/* DATE STRIP */
+.date-strip{display:flex;gap:5px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:none;}
+.date-strip::-webkit-scrollbar{display:none;}
+.dc{min-width:48px;height:62px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid rgba(255,255,255,.07);background:var(--s2);cursor:pointer;transition:all .15s;flex-shrink:0;}
+.dc.today{border-color:var(--a);background:rgba(255,107,53,.14);}
+.dc.has-data{border-color:rgba(61,214,140,.3);}
+.dc-day{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.8px;}
+.dc-num{font-family:var(--fd);font-weight:700;font-size:20px;color:var(--txt);}
+.dc.today .dc-num{color:var(--a);}
+.dc-dot{width:5px;height:5px;border-radius:50%;background:var(--g);}
+
+/* WORKOUT SECTION */
+.split-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:50px;margin-bottom:14px;font-size:12px;font-weight:600;}
+.tex{background:var(--s2);border-radius:10px;border:1px solid rgba(255,255,255,.06);margin-bottom:6px;overflow:hidden;transition:all .18s;}
+.tex.ck{background:rgba(61,214,140,.04);border-color:rgba(61,214,140,.2);}
+.tex-r{display:flex;align-items:center;gap:10px;padding:12px 13px;}
+.cb{width:25px;height:25px;border-radius:7px;flex-shrink:0;border:2px solid #2c2c42;background:transparent;display:flex;align-items:center;justify-content:center;transition:all .2s cubic-bezier(.34,1.56,.64,1);}
+.cb.ck{background:var(--g);border-color:var(--g);}
+.cb:hover{transform:scale(1.1);}
+.pop{animation:pp .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pp{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1)}}
+.tex-inf{flex:1;cursor:pointer;}
+.tex-nm{font-size:13px;font-weight:500;color:var(--txt);transition:all .18s;}
+.tex-nm.ck{text-decoration:line-through;color:var(--g);opacity:.5;}
+.tex-ms{font-size:10px;color:var(--m);margin-top:1px;}
+.tex-st{font-family:var(--fd);font-weight:700;font-size:16px;}
+.chev{color:#2a2a42;font-size:14px;cursor:pointer;transition:transform .2s;margin-left:2px;}
+.tex-b{display:none;padding:0 13px 11px 48px;border-top:1px solid rgba(255,255,255,.04);}
+.tex-b.op{display:block;}
+.tip{padding-top:10px;font-size:12px;color:#7a7a9a;font-style:italic;line-height:1.6;}
+.ytb{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:50px;border:1px solid rgba(255,50,50,.2);background:rgba(255,0,0,.08);color:#ff7070;font-size:11px;font-weight:600;text-decoration:none;transition:all .2s;}
+.ytb:hover{background:rgba(255,0,0,.2);}
+
+/* WARMUP */
+.wu-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:7px;margin-bottom:8px;}
+.wu-item{background:var(--s2);border-radius:10px;border:1px solid rgba(61,214,140,.12);padding:11px;display:flex;flex-direction:column;gap:4px;cursor:pointer;transition:all .18s;}
+.wu-item.ck{border-color:rgba(61,214,140,.4);background:rgba(61,214,140,.06);}
+.wu-top{display:flex;align-items:center;justify-content:space-between;}
+.wu-name{font-size:12px;font-weight:600;color:var(--txt);}
+.wu-dur{font-family:var(--fd);font-size:14px;color:var(--g);font-weight:700;}
+.wu-tip{font-size:10px;color:var(--m);line-height:1.4;}
+.wu-cb{width:20px;height:20px;border-radius:5px;border:2px solid rgba(61,214,140,.35);background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;}
+.wu-cb.ck{background:var(--g);border-color:var(--g);}
+
+/* SCROLLING SCALE */
+.scale-wrap{padding:10px 0;}
+.scale-label{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;color:var(--m);}
+.scale-track{position:relative;height:44px;overflow:hidden;}
+.scale-scroll{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;cursor:grab;user-select:none;padding:0 50%;height:44px;align-items:flex-end;}
+.scale-scroll::-webkit-scrollbar{display:none;}
+.scale-scroll:active{cursor:grabbing;}
+.scale-tick{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px;}
+.tick-line{width:1px;background:rgba(255,255,255,.15);transition:background .1s;}
+.tick-line.major{width:2px;background:rgba(255,255,255,.35);}
+.tick-line.selected{background:var(--a);width:2px;}
+.tick-num{font-family:var(--fd);font-size:9px;color:var(--m);margin-top:3px;transition:color .1s;}
+.tick-num.selected{color:var(--a);font-size:11px;}
+.scale-pointer{position:absolute;left:50%;top:0;transform:translateX(-50%);pointer-events:none;display:flex;flex-direction:column;align-items:center;}
+.pointer-line{width:2px;height:28px;background:var(--a);}
+.pointer-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--a);}
+.scale-val{font-family:var(--fd);font-weight:700;font-size:28px;text-align:center;margin-bottom:4px;}
+.scale-unit{font-size:11px;color:var(--m);text-align:center;}
+
+/* WATER */
+.water-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.wcup{width:34px;height:34px;border-radius:8px;border:2px solid rgba(78,201,192,.2);background:transparent;font-size:17px;transition:all .18s;cursor:pointer;}
+.wcup.f{background:rgba(78,201,192,.2);border-color:rgba(78,201,192,.55);}
+.wcup:hover{transform:scale(1.1);}
+
+/* DAILY NOTE */
+textarea{width:100%;background:var(--bg);border:1px solid #222235;border-radius:9px;color:#ccc;font-size:12px;padding:9px 12px;line-height:1.6;resize:none;}
+textarea:focus{outline:none;border-color:var(--a);}
+
+/* PROGRESS BAR SMALL */
+.pbar{height:4px;background:#181828;border-radius:4px;overflow:hidden;margin-top:6px;}
+.pbar-f{height:100%;border-radius:4px;transition:width .4s ease;}
+
+/* REST DAY */
+.rest-c{background:var(--s1);border-radius:13px;border:1px solid var(--b);padding:40px 20px;text-align:center;}
+
+/* PLAN */
+.stabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
+.stab{padding:8px 15px;border-radius:50px;border:1px solid rgba(255,255,255,.09);background:transparent;color:#777;font-size:12px;font-weight:500;transition:all .18s;}
+.stab:hover{opacity:.8;transform:scale(1.03);}
+.hero{border-radius:13px;overflow:hidden;margin-bottom:14px;}
+.hero-in{padding:18px 20px;position:relative;}
+.hero-in::after{content:attr(data-e);position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:50px;opacity:.18;pointer-events:none;}
+.hero-t{font-family:var(--fd);font-weight:800;font-size:24px;color:#fff;letter-spacing:1px;}
+.hero-tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.htag{background:rgba(0,0,0,.3);border-radius:50px;padding:2px 11px;font-size:10px;color:#fff;font-weight:600;}
+.exc{background:var(--s1);border-radius:10px;border:1px solid var(--b);margin-bottom:6px;overflow:hidden;transition:transform .15s;}
+.exc:hover{transform:translateX(3px);}
+.exc-h{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;}
+.exc-n{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:800;font-size:13px;flex-shrink:0;}
+.exc-nm{font-weight:600;font-size:13px;color:var(--txt);}
+.exc-ms{font-size:10px;color:var(--m);margin-top:1px;}
+.exc-st{font-family:var(--fd);font-weight:700;font-size:16px;text-align:right;}
+.exc-sl{font-size:9px;color:var(--m);text-align:right;}
+.chev2{color:#2a2a42;font-size:14px;transition:transform .2s;margin-left:2px;}
+.exc-b{display:none;padding:0 14px 12px 54px;border-top:1px solid rgba(255,255,255,.04);}
+.exc-b.op{display:block;}
+.sched{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:6px;}
+.sch-c{border-radius:9px;border:1px solid var(--b);padding:10px 9px;background:var(--s2);}
+.sch-d{font-family:var(--fd);font-weight:700;font-size:11px;letter-spacing:.5px;}
+.sch-e{font-size:15px;margin-top:3px;}
+.sch-n{font-size:9px;color:var(--m);margin-top:3px;}
+
+/* PROGRESS */
+.stats-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:7px;margin-bottom:20px;}
+.sc{background:var(--s1);border-radius:11px;padding:12px 11px;}
+.sc-ico{font-size:16px;margin-bottom:3px;}
+.sc-big{font-family:var(--fd);font-weight:800;font-size:22px;}
+.sc-lbl{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:1.2px;margin-top:1px;}
+.leg{display:flex;align-items:center;gap:5px;margin-bottom:11px;flex-wrap:wrap;}
+.ld{width:15px;height:15px;border-radius:3px;}
+.ll{font-size:9px;color:var(--m);}
+.mo-blk{margin-bottom:16px;}
+.mo-lbl{font-family:var(--fd);font-weight:700;font-size:10px;color:var(--m);letter-spacing:2px;margin-bottom:6px;}
+.mo-wks{display:flex;gap:4px;flex-wrap:wrap;}
+.wbox{width:48px;height:48px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;border:2px solid transparent;transition:all .13s;}
+.wbox:hover{transform:scale(1.12);z-index:5;}
+.wbn{font-family:var(--fd);font-weight:700;font-size:11px;}
+.wbp{font-size:8px;color:rgba(255,255,255,.7);}
+.wbs{font-size:7px;color:var(--y);}
+.bkdn{background:var(--s1);border-radius:11px;border:1px solid var(--b);padding:14px;margin-top:8px;}
+.brow{margin-bottom:10px;}
+.brow-h{display:flex;justify-content:space-between;margin-bottom:3px;}
+.brow-n{font-size:12px;color:#ccc;}
+.brow-c{font-family:var(--fd);font-size:13px;}
+.brow-t{height:4px;background:#1a1a2a;border-radius:4px;overflow:hidden;}
+.brow-f{height:100%;border-radius:4px;transition:width .6s ease;}
+.je{background:var(--s1);border-radius:10px;border:1px solid var(--b);padding:11px 13px;margin-bottom:6px;cursor:pointer;}
+.je:hover{border-color:rgba(255,107,53,.3);}
+.je-top{display:flex;justify-content:space-between;margin-bottom:3px;}
+.je-wk{font-family:var(--fd);color:var(--a);font-weight:700;font-size:13px;}
+.je-dt{font-size:10px;color:var(--m);}
+.je-tx{font-size:11px;color:#888;font-style:italic;line-height:1.5;}
+
+/* REPORT */
+.rpt-card{background:var(--s1);border-radius:13px;border:1px solid var(--b);padding:16px;margin-bottom:10px;}
+.rpt-t{font-family:var(--fd);font-weight:700;font-size:16px;letter-spacing:.5px;margin-bottom:3px;}
+.rpt-s{font-size:11px;color:var(--m);margin-bottom:13px;line-height:1.5;}
+.rpt-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:50px;font-size:13px;font-weight:600;transition:all .2s;cursor:pointer;border:none;font-family:var(--fb);}
+.rpt-btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.rpt-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.rpt-out{background:var(--bg);border-radius:9px;padding:13px;margin-top:12px;font-size:12px;line-height:1.85;color:#ccc;white-space:pre-wrap;display:none;border:1px solid rgba(255,255,255,.05);}
+.rpt-out.vis{display:block;}
+.rpt-meta{font-size:9px;color:var(--m);margin-top:8px;}
+.dot-anim::after{content:'';animation:dots 1.2s infinite;}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}100%{content:''}}
+
+/* STARS */
+.stars{display:flex;gap:4px;margin-bottom:10px;}
+.star{width:30px;height:30px;border-radius:7px;border:1px solid #222235;background:transparent;color:#333;font-size:14px;transition:all .15s;}
+.star.lit{border-color:rgba(255,217,61,.35);background:rgba(255,217,61,.13);color:var(--y);}
+
+/* DO NOT DO THIS */
+.dnd-card{background:var(--s1);border-radius:13px;border:1px solid rgba(255,92,122,.25);padding:15px;margin-bottom:9px;}
+.dnd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.dnd-title{font-family:var(--fd);font-weight:700;font-size:13px;letter-spacing:2px;color:#FF5C7A;display:flex;align-items:center;gap:7px;}
+.dnd-badge{background:rgba(255,92,122,.15);border:1px solid rgba(255,92,122,.3);border-radius:50px;padding:2px 10px;font-size:10px;color:#FF5C7A;font-weight:600;}
+.dnd-add{display:flex;gap:7px;margin-bottom:10px;}
+.dnd-input{flex:1;background:rgba(255,92,122,.06);border:1px solid rgba(255,92,122,.2);border-radius:9px;color:var(--txt);font-size:12px;padding:8px 12px;font-family:var(--fb);}
+.dnd-input::placeholder{color:rgba(255,92,122,.4);}
+.dnd-input:focus{outline:none;border-color:rgba(255,92,122,.5);}
+.dnd-add-btn{padding:8px 14px;border-radius:9px;background:rgba(255,92,122,.15);border:1px solid rgba(255,92,122,.3);color:#FF5C7A;font-size:12px;font-weight:600;white-space:nowrap;}
+.dnd-add-btn:hover{background:rgba(255,92,122,.25);}
+.dnd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;background:rgba(255,92,122,.04);border:1px solid rgba(255,92,122,.12);margin-bottom:6px;transition:all .2s;}
+.dnd-item.yes-bad{background:rgba(255,92,122,.13);border-color:rgba(255,92,122,.4);}
+.dnd-item.no-good{background:rgba(61,214,140,.06);border-color:rgba(61,214,140,.28);}
+.dnd-name{flex:1;font-size:13px;font-weight:500;color:var(--txt);transition:all .2s;}
+.dnd-item.yes-bad .dnd-name{color:#FF5C7A;text-decoration:line-through;opacity:.65;}
+.dnd-item.no-good .dnd-name{color:#3DD68C;}
+.dnd-yn{display:flex;gap:5px;flex-shrink:0;}
+.dnd-yes,.dnd-no{width:38px;height:28px;border-radius:7px;font-size:11px;font-weight:700;letter-spacing:.5px;transition:all .18s;cursor:pointer;border:1.5px solid;}
+.dnd-yes{border-color:rgba(255,92,122,.3);background:transparent;color:rgba(255,92,122,.5);}
+.dnd-yes.active{background:#FF5C7A;border-color:#FF5C7A;color:#fff;box-shadow:0 0 10px rgba(255,92,122,.4);}
+.dnd-yes:hover{border-color:#FF5C7A;color:#FF5C7A;}
+.dnd-no{border-color:rgba(61,214,140,.3);background:transparent;color:rgba(61,214,140,.5);}
+.dnd-no.active{background:#3DD68C;border-color:#3DD68C;color:#07070f;box-shadow:0 0 10px rgba(61,214,140,.35);}
+.dnd-no:hover{border-color:#3DD68C;color:#3DD68C;}
+.dnd-del{background:transparent;border:none;color:#2e2e45;font-size:15px;padding:2px 4px;transition:color .15s;margin-left:2px;}
+.dnd-del:hover{color:#FF5C7A;}
+.dnd-empty{font-size:12px;color:rgba(255,92,122,.35);font-style:italic;padding:8px 0;}
+.dnd-hint{font-size:10px;color:var(--m);margin-top:8px;line-height:1.5;}
+
+/* GRAPH CARDS */
+.graph-card{background:var(--s1);border-radius:13px;border:1px solid var(--b);padding:16px;margin-bottom:12px;}
+.graph-title{font-family:var(--fd);font-weight:700;font-size:14px;letter-spacing:.5px;color:var(--txt);margin-bottom:12px;}
+.graph-sub{font-size:10px;color:var(--m);font-family:var(--fb);font-weight:400;letter-spacing:0;margin-left:6px;}
+.graph-empty{font-size:12px;color:var(--m);font-style:italic;padding:20px 0;text-align:center;}
+
+
+/* EDIT MODALS */
+.edit-modal{background:var(--s2);border-radius:12px;border:1px solid rgba(255,107,53,.25);padding:14px;margin-top:8px;display:none;}
+.edit-modal.vis{display:block;}
+.edit-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.edit-inp{flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb);}
+.edit-inp:focus{outline:none;border-color:var(--a);}
+.edit-save{padding:7px 14px;border-radius:8px;background:var(--a);border:none;color:#fff;font-size:11px;font-weight:600;font-family:var(--fb);cursor:pointer;}
+.edit-del{padding:7px 10px;border-radius:8px;background:rgba(255,92,122,.15);border:1px solid rgba(255,92,122,.3);color:var(--r);font-size:11px;cursor:pointer;}
+.edit-cancel{padding:7px 10px;border-radius:8px;background:transparent;border:1px solid #333;color:#777;font-size:11px;cursor:pointer;font-family:var(--fb);}
+.edit-btn{background:transparent;border:none;color:#555;font-size:12px;cursor:pointer;padding:2px 5px;transition:color .15s;}
+.edit-btn:hover{color:var(--a);}
+
+@media(max-width:480px){.logo{font-size:19px;}.nb .nl{display:none;}.wbox{width:42px;height:42px;}}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div class="hdr-in">
+    <div class="logo">BAND STRONG<small>52-WEEK TRACKER</small></div>
+    <nav>
+      <button class="nb on" onclick="sv('today')" id="n-today">📅 <span class="nl">Today</span></button>
+      <button class="nb" onclick="sv('plan')" id="n-plan">📋 <span class="nl">Plan</span></button>
+      <button class="nb" onclick="sv('progress')" id="n-progress">📈 <span class="nl">Progress</span></button>
+      <button class="nb" onclick="sv('report')" id="n-report">🤖 <span class="nl">Report</span></button>
+    </nav>
+  </div>
+</div>
+
+<div id="strip">
+  <div class="strip-in">
+    <div class="sv"><span class="sl">📅 Today</span><span class="sn" id="s-date">—</span></div>
+    <div class="sv"><span class="sl">✅ Tasks</span><span class="sn" id="s-tasks">0/0</span></div>
+    <div class="sv"><span class="sl">💧 Water</span><span class="sn" id="s-water">0/8</span></div>
+    <div class="sv"><span class="sl">🔥 Streak</span><span class="sn" id="s-streak">0w</span></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ═══ TODAY ═══ -->
+<div id="view-today" class="view on">
+  <!-- Date scroller -->
+  <div class="date-strip" id="date-strip"></div>
+
+  <!-- Workout -->
+  <div id="today-workout"></div>
+
+  <!-- Warmup -->
+  <div class="sec-t">🔥 WARMUP — 10 MIN (No Equipment)</div>
+  <div class="wu-list" id="wu-list"></div>
+
+  <!-- Water -->
+  <div class="card">
+    <div class="sec-t" style="margin-top:0;margin-bottom:8px">💧 WATER INTAKE</div>
+    <div style="display:flex;align-items:baseline;gap:5px">
+      <span style="font-family:var(--fd);font-weight:700;font-size:28px;color:var(--b2)" id="w-val">0</span>
+      <span style="font-size:12px;color:var(--m)">/ 8 cups today</span>
+    </div>
+    <div class="water-row" id="water-cups"></div>
+    <div class="pbar" style="margin-top:10px"><div class="pbar-f" id="w-bar" style="background:var(--b2);width:0%"></div></div>
+  </div>
+
+  <!-- Protein Scale -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="sec-t" style="margin:0">🥩 PROTEIN INTAKE</div>
+      <button class="edit-btn" onclick="toggleEdit('edit-protein')" title="Edit target">✏️ Edit</button>
+    </div>
+    <div id="edit-protein" class="edit-modal">
+      <div style="font-size:11px;color:var(--m);margin-bottom:7px">Set your daily protein target (g)</div>
+      <div class="edit-row">
+        <input class="edit-inp" id="ep-target" type="number" placeholder="Target grams e.g. 150"/>
+        <button class="edit-save" onclick="saveProteinTarget()">Save</button>
+        <button class="edit-cancel" onclick="toggleEdit('edit-protein')">✕</button>
+      </div>
+    </div>
+    <div class="scale-val" id="prot-val" style="color:var(--r)">0</div>
+    <div class="scale-unit">grams today — drag to set</div>
+    <div class="scale-wrap">
+      <div class="scale-label"><span>0g</span><span>50g</span><span>100g</span><span>150g</span><span>200g</span></div>
+      <div class="scale-track">
+        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
+        <div class="scale-scroll" id="prot-scale" data-key="protein" data-max="200" data-step="5"></div>
+      </div>
+    </div>
+    <div class="pbar"><div class="pbar-f" id="prot-bar" style="background:var(--r);width:0%"></div></div>
+    <div style="font-size:10px;color:var(--m);margin-top:5px">Target: 150g · Drag the scale ←→ to update</div>
+  </div>
+
+  <!-- Food / Meal Quality Scale -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="sec-t" style="margin:0">🍽️ MEAL QUALITY</div>
+      <button class="edit-btn" onclick="toggleEdit('edit-meal')" title="Edit">✏️ Edit</button>
+    </div>
+    <div id="edit-meal" class="edit-modal">
+      <div style="font-size:11px;color:var(--m);margin-bottom:7px">Rename the meal quality label if needed</div>
+      <div class="edit-row">
+        <input class="edit-inp" id="em-label" placeholder="Label e.g. Diet Quality"/>
+        <button class="edit-save" onclick="saveMealLabel()">Save</button>
+        <button class="edit-cancel" onclick="toggleEdit('edit-meal')">✕</button>
+      </div>
+    </div>
+    <div class="scale-val" id="food-val" style="color:var(--y)">0</div>
+    <div class="scale-unit">out of 10 — how clean was your eating today?</div>
+    <div class="scale-wrap">
+      <div class="scale-label"><span>Poor</span><span>OK</span><span>Good</span><span>Great</span><span>Perfect</span></div>
+      <div class="scale-track">
+        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
+        <div class="scale-scroll" id="food-scale" data-key="food" data-max="10" data-step="1"></div>
+      </div>
+    </div>
+    <div class="pbar"><div class="pbar-f" id="food-bar" style="background:var(--y);width:0%"></div></div>
+  </div>
+
+  <!-- Daily Note -->
+  <div class="card">
+    <div class="sec-t" style="margin-top:0;margin-bottom:8px">📝 TODAY'S NOTE</div>
+    <textarea id="daily-note" rows="4" placeholder="How did today feel? What was hard? What to improve tomorrow? Any wins to celebrate?"></textarea>
+    <div style="font-size:10px;color:var(--m);margin-top:5px">Saved automatically · Used in your weekly AI report</div>
+  </div>
+
+  <!-- Sleep -->
+  <div class="card" style="margin-bottom:4px">
+    <div class="sec-t" style="margin-top:0;margin-bottom:4px">😴 SLEEP LAST NIGHT</div>
+    <div class="scale-val" id="sleep-val" style="color:var(--p)">0</div>
+    <div class="scale-unit">hours — drag to set</div>
+    <div class="scale-wrap">
+      <div class="scale-label"><span>0h</span><span>2h</span><span>4h</span><span>6h</span><span>8h+</span></div>
+      <div class="scale-track">
+        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
+        <div class="scale-scroll" id="sleep-scale" data-key="sleep" data-max="10" data-step="0.5"></div>
+      </div>
+    </div>
+    <div class="pbar"><div class="pbar-f" id="sleep-bar" style="background:var(--p);width:0%"></div></div>
+  </div>
+
+  <!-- Do Not Do This -->
+  <div class="dnd-card" style="margin-top:10px">
+    <div class="dnd-header">
+      <div class="dnd-title">🚫 DO NOT DO THIS <span class="dnd-badge">DANGER ZONE</span></div>
+      <button class="edit-btn" onclick="toggleEdit('edit-dnd-rules')" title="Manage rules" style="color:#FF5C7A;font-size:11px">✏️ Manage</button>
+      <span id="dnd-score" style="font-family:var(--fd);font-size:13px;color:#FF5C7A"></span>
+    </div>
+    <p style="font-size:11px;color:rgba(255,92,122,.6);margin-bottom:10px;line-height:1.5">Rules you add here appear <strong style="color:rgba(255,92,122,.9)">every day</strong>. Answer YES/NO daily — tracked in reports and graphs.</p>
+    <div class="dnd-add">
+      <input class="dnd-input" id="dnd-input" placeholder="e.g. No junk food, No skipping warmup..." maxlength="60" onkeydown="if(event.key==='Enter')addDND()"/>
+      <button class="dnd-add-btn" onclick="addDND()">+ Add Rule</button>
+    </div>
+    <div id="dnd-list"></div>
+    <div id="edit-dnd-rules" class="edit-modal"><div id="edit-dnd-list"></div></div>
+    <div class="dnd-hint">🔴 YES = I did it (bad) &nbsp;·&nbsp; 🟢 NO = I didn't do it (good) &nbsp;·&nbsp; Rules persist every day automatically</div>
+  </div>
+
+  <!-- Day rating -->
+  <div class="card" style="margin-top:10px">
+    <div class="sec-t" style="margin-top:0;margin-bottom:8px">⭐ RATE THIS DAY</div>
+    <div class="stars" id="day-stars"></div>
+  </div>
+</div>
+
+<!-- ═══ PLAN ═══ -->
+<div id="view-plan" class="view">
+  <div class="stabs" id="stabs"></div>
+  <div id="p-hero"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:16px 0 10px">
+    <div class="sec-t" style="margin:0">💪 EXERCISES</div>
+    <button onclick="showAddEx()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:50px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.35);color:var(--a);font-size:11px;font-weight:600;font-family:var(--fb)">+ Add Exercise</button>
+  </div>
+  <!-- Add exercise modal -->
+  <div id="add-ex-modal" style="display:none;background:var(--s2);border-radius:12px;border:1px solid rgba(255,107,53,.3);padding:14px;margin-bottom:12px">
+    <div style="font-family:var(--fd);font-size:12px;letter-spacing:2px;color:var(--a);margin-bottom:10px">NEW EXERCISE</div>
+    <input id="aex-name" placeholder="Exercise name" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb)"/>
+    <div style="font-size:10px;color:var(--m);margin-bottom:4px;letter-spacing:.5px">ADD TO MUSCLE GROUP</div>
+    <select id="aex-muscle" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb);appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23888%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 10px center;cursor:pointer"></select>
+    <div style="display:flex;gap:7px;margin-bottom:7px">
+      <input id="aex-sets" placeholder="Sets e.g. 3" type="number" min="1" max="10" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
+      <input id="aex-reps" placeholder="Reps e.g. 12-15" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
+    </div>
+    <input id="aex-tip" placeholder="Form tip (optional)" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:10px;font-family:var(--fb)"/>
+    <div style="display:flex;gap:7px">
+      <button onclick="saveAddEx()" style="flex:1;padding:9px;border-radius:8px;background:var(--a);border:none;color:#fff;font-size:12px;font-weight:600;font-family:var(--fb)">Save Exercise</button>
+      <button onclick="document.getElementById('add-ex-modal').style.display='none'" style="padding:9px 14px;border-radius:8px;background:transparent;border:1px solid #333;color:#888;font-size:12px;font-family:var(--fb)">Cancel</button>
+    </div>
+  </div>
+  <div id="p-exs"></div>
+  <div class="sec-t">📅 WEEKLY SCHEDULE</div>
+  <div class="sched" id="sched"></div>
+</div>
+
+<!-- ═══ PROGRESS ═══ -->
+<div id="view-progress" class="view">
+  <div style="font-family:var(--fd);font-weight:700;font-size:15px;letter-spacing:2px;color:var(--txt);margin-bottom:16px;padding-top:2px">PROGRESS GRAPHS</div>
+  <div class="graph-card"><div class="graph-title">💪 Workout Completion <span class="graph-sub">% of exercises done per training day</span></div><div style="position:relative;height:160px"><canvas id="chart-workout"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">🥩 Protein Intake <span class="graph-sub">grams per day</span></div><div style="position:relative;height:160px"><canvas id="chart-protein"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">🍽️ Meal Quality <span class="graph-sub">score out of 10</span></div><div style="position:relative;height:160px"><canvas id="chart-meal"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">😴 Sleep <span class="graph-sub">hours per night</span></div><div style="position:relative;height:160px"><canvas id="chart-sleep"></canvas></div></div>
+  <div class="graph-card">
+    <div class="graph-title">🚫 Do Not Do This <span class="graph-sub">NO=kept(1) · YES=broke(0)</span></div>
+    <div id="dnd-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:4px"></div>
+    <div style="position:relative;height:160px"><canvas id="chart-dnd"></canvas></div>
+  </div>
+</div>
+
+<!-- ═══ REPORT ═══ -->
+<div id="view-report" class="view">
+  <div class="sec-t" style="margin-top:0">AI PROGRESS REPORTS</div>
+  <p style="font-size:12px;color:var(--m);margin-bottom:16px;line-height:1.7">Reports are built from your actual daily notes, task completions, nutrition scales, and sleep — the more you log, the smarter the report.</p>
+
+  <div class="rpt-card">
+    <div class="rpt-t">📊 Weekly Report — Week <span id="rpt-wk">1</span></div>
+    <div class="rpt-s">Covers your workout completions, daily notes, nutrition, sleep and gives specific next-week recommendations based on what you wrote.</div>
+    <button class="rpt-btn" id="btn-wk" onclick="genReport('weekly')" style="background:linear-gradient(135deg,var(--a),#ff3366);color:#fff;">✨ Generate This Week's Report</button>
+    <div class="rpt-out" id="out-wk"></div>
+  </div>
+
+  <div class="rpt-card">
+    <div class="rpt-t">📅 Yearly Overview</div>
+    <div class="rpt-s">A full-year analysis of your consistency, strongest and weakest splits, nutrition trends from your notes, and goals for the year ahead.</div>
+    <button class="rpt-btn" id="btn-yr" onclick="genReport('yearly')" style="background:linear-gradient(135deg,var(--b2),#2196F3);color:#fff;">✨ Generate Yearly Report</button>
+    <div class="rpt-out" id="out-yr"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-t" style="margin-top:0;margin-bottom:8px">⬇️ EXPORT DATA</div>
+    <p style="font-size:12px;color:var(--m);margin-bottom:11px">Download all your progress, notes and nutrition as a text file.</p>
+    <button class="rpt-btn" onclick="exportData()" style="background:var(--s2);color:var(--txt);border:1px solid var(--b)">⬇️ Export as .txt</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════
+const WARMUP = [
+  {name:"March in Place",dur:"1 min",tip:"Lift knees high, swing arms"},
+  {name:"Arm Circles",dur:"1 min",tip:"Big slow circles, 30s each way"},
+  {name:"Hip Circles",dur:"1 min",tip:"Hands on hips, big slow circles"},
+  {name:"Bodyweight Squat",dur:"1 min",tip:"Full depth, slow and controlled"},
+  {name:"Leg Swings",dur:"1 min",tip:"Forward/back then side-to-side, 30s each"},
+  {name:"Cat-Cow",dur:"1 min",tip:"On all fours, arch and round spine slowly"},
+  {name:"Shoulder Rolls",dur:"30 sec",tip:"Forward then backward, full rotation"},
+  {name:"Hip Flexor Lunge",dur:"1 min",tip:"Hold 30s each side, feel the stretch"},
+  {name:"Torso Rotation",dur:"1 min",tip:"Arms out, rotate slowly left & right"},
+  {name:"Wrist & Ankle Circles",dur:"30 sec",tip:"Both directions, loosen the joints"},
+];
+
+const SPLITS = {
+  "Chest / Shoulder / Triceps":{
+    days:["Monday","Thursday"],emoji:"💪",ac:"#FF6B35",gr:"linear-gradient(135deg,#FF6B35,#FF3366)",
+    muscleGroups:{
+      "Chest":[
+        {name:"Banded Push-Up",sets:4,reps:"10–12",tip:"Loop band across upper back under shoulders, hold ends under palms. Feel extra resistance on the way up.",yt:"https://www.youtube.com/results?search_query=resistance+band+push+up+tutorial",ytl:"🔍 Search: Resistance Band Push-Up"},
+        {name:"Band Chest Press (Standing)",sets:4,reps:"12–15",tip:"Anchor band behind you at chest height. Stand in staggered stance, press handles straight forward. Squeeze pecs at full extension.",yt:"https://www.youtube.com/results?search_query=resistance+band+chest+press+standing+tutorial",ytl:"🔍 Search: Band Chest Press"},
+        {name:"Band Chest Fly (Standing)",sets:3,reps:"12–15",tip:"Anchor band at chest height either side. Bring hands together in wide arc in front, squeeze at centre for 1 sec.",yt:"https://www.youtube.com/results?search_query=resistance+band+chest+fly+standing+tutorial",ytl:"🔍 Search: Band Chest Fly"},
+      ],
+      "Shoulders":[
+        {name:"Band Overhead Press",sets:4,reps:"12–15",tip:"Stand on band centre, hold handles at shoulders. Press straight overhead until arms fully extend. Control the descent.",yt:"https://www.youtube.com/results?search_query=resistance+band+overhead+press+tutorial",ytl:"🔍 Search: Band Overhead Press"},
+        {name:"Band Lateral Raise",sets:3,reps:"15",tip:"Stand on band, raise arms out to shoulder height with slight elbow bend. Don't shrug — keep traps relaxed.",yt:"https://www.youtube.com/results?search_query=resistance+band+lateral+raise+tutorial",ytl:"🔍 Search: Band Lateral Raise"},
+        {name:"Band Front Raise",sets:3,reps:"12",tip:"Stand on band, raise arms straight in front to shoulder height. Control the lowering phase slowly.",yt:"https://www.youtube.com/results?search_query=resistance+band+front+raise+tutorial",ytl:"🔍 Search: Band Front Raise"},
+      ],
+      "Triceps":[
+        {name:"Band Overhead Tricep Extension",sets:3,reps:"15",tip:"Step on band, hold behind head with both hands, fully extend arms upward. Keep elbows pointing forward.",yt:"https://www.youtube.com/results?search_query=resistance+band+overhead+tricep+extension+tutorial",ytl:"🔍 Search: Band Overhead Tricep Extension"},
+        {name:"Band Tricep Pushdown",sets:3,reps:"15",tip:"Anchor band overhead. Keep elbows at sides, push handles down until arms fully straight. Squeeze at bottom.",yt:"https://www.youtube.com/results?search_query=resistance+band+tricep+pushdown+tutorial",ytl:"🔍 Search: Band Tricep Pushdown"},
+        {name:"Band Tricep Kickback",sets:3,reps:"12 each",tip:"Hinge forward 45°, anchor band under front foot, fix upper arm parallel to floor, extend forearm back.",yt:"https://www.youtube.com/results?search_query=resistance+band+tricep+kickback+tutorial",ytl:"🔍 Search: Band Tricep Kickback"},
+      ],
+    },
+    get exercises(){return Object.values(this.muscleGroups).flat();}
+  },
+  "Back / Biceps":{
+    days:["Tuesday","Friday"],emoji:"🏋️",ac:"#4EC9C0",gr:"linear-gradient(135deg,#4EC9C0,#2196F3)",
+    muscleGroups:{
+      "Back":[
+        {name:"Seated Band Row",sets:4,reps:"12–15",tip:"Sit tall, loop band around feet, pull handles to belly button, drive elbows behind you and squeeze shoulder blades together.",yt:"https://www.youtube.com/results?search_query=resistance+band+seated+row+tutorial",ytl:"🔍 Search: Seated Band Row"},
+        {name:"Band Lat Pulldown",sets:4,reps:"12",tip:"Anchor band overhead, kneel or sit tall. Pull elbows down to your sides — not your hands. Feel the lats stretch at top.",yt:"https://www.youtube.com/results?search_query=resistance+band+lat+pulldown+tutorial",ytl:"🔍 Search: Band Lat Pulldown"},
+        {name:"Bent-Over Band Row",sets:3,reps:"12–15",tip:"Stand on band, hinge 45° at hips, keep back flat. Pull handles to lower ribs — not upper chest. Elbows close to body.",yt:"https://www.youtube.com/results?search_query=resistance+band+bent+over+row+tutorial",ytl:"🔍 Search: Bent-Over Band Row"},
+        {name:"Band Face Pull",sets:3,reps:"15",tip:"Anchor at face height. Pull handles toward ears, elbows high and flared out. Great for rear delts and rotator cuff.",yt:"https://www.youtube.com/results?search_query=resistance+band+face+pull+tutorial",ytl:"🔍 Search: Band Face Pull"},
+      ],
+      "Biceps":[
+        {name:"Band Bicep Curl",sets:3,reps:"15",tip:"Stand on band, curl handles up with palms forward. Slow 3-second lowering builds more muscle than rushing down.",yt:"https://www.youtube.com/results?search_query=resistance+band+bicep+curl+tutorial",ytl:"🔍 Search: Band Bicep Curl"},
+        {name:"Band Hammer Curl",sets:3,reps:"12",tip:"Neutral grip (thumbs up), curl with full control. Hits brachialis and forearm thickness alongside biceps.",yt:"https://www.youtube.com/results?search_query=resistance+band+hammer+curl+tutorial",ytl:"🔍 Search: Band Hammer Curl"},
+        {name:"Band Concentration Curl",sets:3,reps:"12 each",tip:"Stand on band one foot, curl one arm at a time. Elbow braced against inner thigh for strict isolation.",yt:"https://www.youtube.com/results?search_query=resistance+band+concentration+curl+tutorial",ytl:"🔍 Search: Band Concentration Curl"},
+      ],
+    },
+    get exercises(){return Object.values(this.muscleGroups).flat();}
+  },
+  "Legs":{
+    days:["Wednesday","Saturday"],emoji:"🦵",ac:"#FFD93D",gr:"linear-gradient(135deg,#FFD93D,#FF6B35)",
+    muscleGroups:{
+      "Quads & Glutes":[
+        {name:"Band Squat",sets:4,reps:"15–20",tip:"Stand on band, hold handles at shoulders. Sit deep until thighs parallel, drive through heels to stand. Keep knees tracking toes.",yt:"https://www.youtube.com/results?search_query=resistance+band+squat+tutorial",ytl:"🔍 Search: Band Squat"},
+        {name:"Band Reverse Lunge",sets:3,reps:"12 each",tip:"Stand on band with front foot, hold handles at shoulders. Step back and lower knee toward floor with control.",yt:"https://www.youtube.com/results?search_query=resistance+band+reverse+lunge+tutorial",ytl:"🔍 Search: Band Reverse Lunge"},
+        {name:"Lateral Band Walk",sets:3,reps:"15 each way",tip:"Place band above knees or hold handles. Wide side steps maintaining tension — great for glute medius activation.",yt:"https://www.youtube.com/results?search_query=resistance+band+lateral+walk+tutorial",ytl:"🔍 Search: Band Lateral Walk"},
+      ],
+      "Hamstrings":[
+        {name:"Band Romanian Deadlift",sets:4,reps:"12–15",tip:"Stand on band, hold handles. Hinge at hips, push them back, keep back straight. Feel the hamstring stretch before driving back up.",yt:"https://www.youtube.com/results?search_query=resistance+band+romanian+deadlift+tutorial",ytl:"🔍 Search: Band Romanian Deadlift"},
+        {name:"Band Glute Bridge",sets:3,reps:"20",tip:"Lie on back, band across hips anchored to floor under feet, drive through heels to lift. Squeeze glutes hard at top for 1 full second before lowering.",yt:"https://www.youtube.com/results?search_query=resistance+band+glute+bridge+tutorial",ytl:"🔍 Search: Band Glute Bridge"},
+        {name:"Band Leg Curl (Standing)",sets:3,reps:"12",tip:"Anchor band at ankle height, hook it around your ankle, curl heel toward glute. Control the extension slowly.",yt:"https://www.youtube.com/results?search_query=resistance+band+standing+leg+curl+tutorial",ytl:"🔍 Search: Band Standing Leg Curl"},
+      ],
+      "Calves":[
+        {name:"Band Calf Raise",sets:4,reps:"20",tip:"Stand on band, hold handles. Rise on toes slowly — 2 seconds up, hold 1 sec, 3 seconds down. Full range of motion.",yt:"https://www.youtube.com/results?search_query=resistance+band+calf+raise+tutorial",ytl:"🔍 Search: Band Calf Raise"},
+      ],
+    },
+    get exercises(){return Object.values(this.muscleGroups).flat();}
+  }
+};
+
+
+const DS = {Monday:"Chest / Shoulder / Triceps",Tuesday:"Back / Biceps",Wednesday:"Legs",Thursday:"Chest / Shoulder / Triceps",Friday:"Back / Biceps",Saturday:"Legs",Sunday:null};
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const WEEKS = Array.from({length:52},(_,i)=>{const d=new Date(2026,2,23);d.setDate(d.getDate()+i*7);return{n:i+1,month:d.getMonth(),date:`${MO[d.getMonth()]} ${d.getDate()}`};});
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let S = {logs:{},warmup:{},nut:{},notes:{},dayRating:{},wkRating:{}};
+let selectedDate = todayStr();
+let cSplit = "Chest / Shoulder / Triceps";
+let exPlan = null;
+let exTrack = null;
+
+function todayStr(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function dateToDay(ds){const d=new Date(ds+"T12:00:00");return DAYS[d.getDay()===0?6:d.getDay()-1];}
+function dateToWeekNum(ds){
+  const d=new Date(ds+"T12:00:00");
+  const start=new Date(2026,2,23);
+  const diff=Math.floor((d-start)/(7*24*60*60*1000));
+  return Math.max(1,Math.min(52,diff+1));
+}
+function load(){try{const r=localStorage.getItem("bs_v4");if(r)S=JSON.parse(r);}catch(e){console.warn("Load error",e);}}
+function save(){try{localStorage.setItem("bs_v4",JSON.stringify(S));}catch(e){console.warn("Save error",e);}}
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+function sv(v){
+  document.querySelectorAll(".view").forEach(e=>e.classList.remove("on"));
+  const el=document.getElementById("view-"+v);
+  el.classList.add("on");
+  el.style.animation="none";
+  void el.offsetHeight;
+  el.style.animation="";
+  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("on"));
+  const nb=document.getElementById("n-"+v);
+  if(nb) nb.classList.add("on");
+  if(v==="today") rToday();
+  if(v==="plan") rPlan();
+  if(v==="progress") setTimeout(rProgress,50);
+  if(v==="report") rReport();
+  updateStrip();
+}
+
+// ═══════════════════════════════════════════════
+// STRIP
+// ═══════════════════════════════════════════════
+function updateStrip(){
+  const d=new Date(selectedDate+"T12:00:00");
+  document.getElementById("s-date").textContent=`${MO[d.getMonth()]} ${d.getDate()}`;
+  const dayName=dateToDay(selectedDate);
+  const split=DS[dayName];
+  let done=0,total=0;
+  if(split){
+    SPLITS[split].exercises.forEach((_,i)=>{
+      total++;
+      if(S.logs&&(S.logs[`${selectedDate}-ex-b${i}`]||S.logs[`${selectedDate}-ex-${i}`]))done++;
+    });
+    (getCustomEx(split)||[]).forEach((_,ci)=>{
+      total++;
+      if(S.logs&&S.logs[`${selectedDate}-ex-c${ci}`])done++;
+    });
+  }
+  WARMUP.forEach((_,i)=>{total++;if(S.warmup&&S.warmup[`${selectedDate}-wu-${i}`])done++;});
+  document.getElementById("s-tasks").textContent=`${done}/${total}`;
+  const nut=getNut(selectedDate);
+  document.getElementById("s-water").textContent=`${nut.water||0}/8`;
+  // streak
+  let streak=0;
+  const today=new Date(todayStr()+"T12:00:00");
+  for(let i=0;i<52;i++){
+    const d2=new Date(today);d2.setDate(today.getDate()-i*7);
+    const ds=d2.toISOString().split("T")[0];
+    const wn=dateToWeekNum(ds);
+    if(weekPct(wn)>=50)streak++;else break;
+  }
+  document.getElementById("s-streak").textContent=streak+"w";
+}
+
+// ═══════════════════════════════════════════════
+// DATE STRIP
+// ═══════════════════════════════════════════════
+function buildDateStrip(){
+  const strip=document.getElementById("date-strip");
+  const today=new Date(todayStr()+"T12:00:00");
+  const dates=[];
+  for(let i=-14;i<=7;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    dates.push(d);
+  }
+  strip.innerHTML=dates.map(d=>{
+    const ds=d.toISOString().split("T")[0];
+    const isToday=ds===todayStr();
+    const isSel=ds===selectedDate;
+    const dayName=DAYS[d.getDay()===0?6:d.getDay()-1];
+    const split=DS[dayName];
+    let hasData=false;
+    if(S.logs){Object.keys(S.logs).forEach(k=>{if(k.startsWith(ds))hasData=true;});}
+    if(S.warmup){Object.keys(S.warmup).forEach(k=>{if(k.startsWith(ds))hasData=true;});}
+    return `<div class="dc${isToday?" today":""}${isSel?" today":""}" onclick="selDate('${ds}')">
+      <div class="dc-day">${DAYS[d.getDay()===0?6:d.getDay()-1].slice(0,3)}</div>
+      <div class="dc-num">${d.getDate()}</div>
+      ${hasData?`<div class="dc-dot"></div>`:`<div style="height:5px"></div>`}
+    </div>`;
+  }).join("");
+  // scroll to today
+  setTimeout(()=>{
+    const el=strip.querySelector(".today");
+    if(el) el.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+  },100);
+}
+
+function selDate(ds){selectedDate=ds;rToday();updateStrip();}
+
+// ═══════════════════════════════════════════════
+// TODAY VIEW
+// ═══════════════════════════════════════════════
+function getNut(ds){return (S.nut&&S.nut[ds])||{water:0,protein:0,food:0,sleep:0};}
+function setNut(ds,obj){if(!S.nut)S.nut={};S.nut[ds]=obj;save();}
+
+function rToday(){
+  buildDateStrip();
+  const dayName=dateToDay(selectedDate);
+  const split=DS[dayName];
+  const sp=split?SPLITS[split]:null;
+
+  // Workout section
+  const wc=document.getElementById("today-workout");
+  if(!sp){
+    wc.innerHTML=`<div class="rest-c"><div style="font-size:46px">😴</div><div style="font-family:var(--fd);font-size:20px;color:var(--m);margin-top:10px;letter-spacing:1px">REST DAY — ${dayName}</div><div style="font-size:12px;color:#444;margin-top:5px">Stretch, hydrate, recover. You've earned it.</div></div>`;
+  } else {
+    const builtDone=sp.exercises.filter((_,i)=>S.logs&&(S.logs[`${selectedDate}-ex-b${i}`]||S.logs[`${selectedDate}-ex-${i}`])).length;
+    const custDone=(getCustomEx(split)||[]).filter((_,ci)=>S.logs&&S.logs[`${selectedDate}-ex-c${ci}`]).length;
+    const done=builtDone+custDone;
+    const total=sp.exercises.length+(getCustomEx(split)||[]).length;
+    const allDone=done===total;
+    const pct=Math.round(done/total*100);
+    wc.innerHTML=`
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:50px;background:${sp.ac}20;border:1px solid ${sp.ac}55;font-size:12px;font-weight:600;color:${sp.ac}">${sp.emoji} ${split}</div>
+        </div>
+        <div style="font-family:var(--fd);font-size:18px;color:${allDone?"var(--g)":sp.ac}">${done}/${total}${allDone?" ✓":""}</div>
+      </div>
+      <div class="pbar" style="margin-bottom:12px"><div class="pbar-f" style="background:${sp.gr};width:${pct}%"></div></div>
+      ${(()=>{
+        let trackerHtml='';
+        const mgKeys2=Object.keys(sp.muscleGroups);
+        const cExs2=getCustomEx(split);
+        let bIdx=0;
+        let tNum=0;
+        mgKeys2.forEach(mgName=>{
+          const mgExs=sp.muscleGroups[mgName];
+          const mgCustom=cExs2.map((ex,ci)=>({ex,ci})).filter(({ex})=>(ex.muscleGroup||ex.muscle)===mgName);
+          trackerHtml+=`<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}12;border-left:2px solid ${sp.ac};padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
+          mgExs.forEach(ex=>{
+            tNum++;
+            const ov=S.exOverrides&&S.exOverrides[split]&&S.exOverrides[split][bIdx];
+            const dex=ov?{...ex,...ov}:ex;
+            const key=`${selectedDate}-ex-b${bIdx}`;
+            const ck=S.logs&&(S.logs[key]||S.logs[`${selectedDate}-ex-${bIdx}`]);
+            const tk="tr-"+key;const op=exTrack===tk;
+            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}">
+              <div class="tex-r">
+                <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
+                <div class="tex-inf" onclick="tTrEx('${tk}')">
+                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${dex.name}</div>
+                  <div class="tex-ms">${mgName}</div>
+                </div>
+                <div class="tex-st" style="color:${sp.ac}">${dex.sets}×${dex.reps}</div>
+                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
+              </div>
+              <div class="tex-b${op?" op":""}" id="tb-${tk}">
+                <div class="tip">💡 ${dex.tip||"Focus on good form."}</div>
+                ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
+              </div>
+            </div>`;
+            bIdx++;
+          });
+          mgCustom.forEach(({ex,ci})=>{
+            tNum++;
+            const key=`${selectedDate}-ex-c${ci}`;
+            const ck=S.logs&&S.logs[key];
+            const tk="tr-"+key;const op=exTrack===tk;
+            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}" style="border-color:${sp.ac}55">
+              <div class="tex-r">
+                <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
+                <div class="tex-inf" onclick="tTrEx('${tk}')">
+                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${ex.name} <span style="font-size:9px;color:${sp.ac};background:${sp.ac}20;border-radius:3px;padding:1px 4px">CUSTOM</span></div>
+                  <div class="tex-ms">${mgName}</div>
+                </div>
+                <div class="tex-st" style="color:${sp.ac}">${ex.sets}×${ex.reps}</div>
+                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
+              </div>
+              <div class="tex-b${op?" op":""}" id="tb-${tk}">
+                <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+              </div>
+            </div>`;
+          });
+        });
+        const ungrouped2=cExs2.map((ex,ci)=>({ex,ci})).filter(({ex})=>{
+          const mg=ex.muscleGroup||ex.muscle;
+          return !mg||!mgKeys2.includes(mg);
+        });
+        if(ungrouped2.length>0){
+          trackerHtml+=`<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:#666;background:rgba(255,255,255,.04);border-left:2px solid #444;padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">OTHER</div>`;
+          ungrouped2.forEach(({ex,ci})=>{
+            tNum++;
+            const key=`${selectedDate}-ex-c${ci}`;
+            const ck=S.logs&&S.logs[key];
+            const tk="tr-"+key;const op=exTrack===tk;
+            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}">
+              <div class="tex-r">
+                <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
+                <div class="tex-inf" onclick="tTrEx('${tk}')">
+                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${ex.name}</div>
+                  <div class="tex-ms">${ex.muscle||"Custom"}</div>
+                </div>
+                <div class="tex-st" style="color:#888">${ex.sets}×${ex.reps}</div>
+                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
+              </div>
+              <div class="tex-b${op?" op":""}" id="tb-${tk}">
+                <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+              </div>
+            </div>`;
+          });
+        }
+        return trackerHtml;
+      })()}`;
+  }
+
+  // Warmup
+  document.getElementById("wu-list").innerHTML=WARMUP.map((w,i)=>{
+    const ck=S.warmup&&S.warmup[`${selectedDate}-wu-${i}`];
+    return `<div class="wu-item${ck?" ck":""}" onclick="tWU(${i})">
+      <div class="wu-top"><span class="wu-name">${w.name}</span><div class="wu-cb${ck?" ck":""}">${ck?ckIco():""}</div></div>
+      <div class="wu-dur">${w.dur}</div>
+      <div class="wu-tip">${w.tip}</div>
+    </div>`;
+  }).join("");
+
+  // Water
+  const nut=getNut(selectedDate);
+  document.getElementById("w-val").textContent=nut.water||0;
+  document.getElementById("w-bar").style.width=Math.min(100,(nut.water||0)/8*100)+"%";
+  document.getElementById("water-cups").innerHTML=Array.from({length:8},(_,i)=>
+    `<button class="wcup${i<(nut.water||0)?" f":""}" onclick="setWater(${i+1})">💧</button>`
+  ).join("");
+
+  // Scales
+  initScale("prot-scale","prot-val","prot-bar",nut.protein||0,200,5,"var(--r)",150);
+  initScale("food-scale","food-val","food-bar",nut.food||0,10,1,"var(--y)",8);
+  initScale("sleep-scale","sleep-val","sleep-bar",nut.sleep||0,10,0.5,"var(--p)",8);
+
+  // Note
+  const noteEl=document.getElementById("daily-note");
+  noteEl.value=(S.notes&&S.notes[selectedDate])||"";
+  noteEl.oninput=e=>{if(!S.notes)S.notes={};S.notes[selectedDate]=e.target.value;save();};
+
+  // Do Not Do This
+  rDND();
+
+  // Day rating
+  const dr=S.dayRating&&S.dayRating[selectedDate]||0;
+  document.getElementById("day-stars").innerHTML=[1,2,3,4,5].map(r=>
+    `<button class="star${dr>=r?" lit":""}" onclick="setDayRating(${r})">★</button>`
+  ).join("");
+
+  updateStrip();
+}
+
+function tEx(key,tk){
+  if(!S.logs)S.logs={};
+  S.logs[key]=!S.logs[key];
+  save();
+  const btn=document.getElementById("cb-"+key);
+  if(btn){btn.classList.add("pop");setTimeout(()=>btn&&btn.classList.remove("pop"),400);}
+  setTimeout(()=>{rToday();updateStrip();},120);
+}
+function tTrEx(k){
+  const wasOpen = exTrack === k;
+  exTrack = wasOpen ? null : k;
+  document.querySelectorAll('.tex-b.op').forEach(el => el.classList.remove('op'));
+  document.querySelectorAll('.chev').forEach(el => el.style.transform = 'none');
+  if (!wasOpen) {
+    const panel = document.getElementById('tb-' + k);
+    const chev  = document.getElementById('ch-' + k);
+    if (panel) panel.classList.add('op');
+    if (chev)  chev.style.transform = 'rotate(90deg)';
+  }
+}
+function tWU(i){
+  if(!S.warmup)S.warmup={};
+  const key=`${selectedDate}-wu-${i}`;
+  S.warmup[key]=!S.warmup[key];
+  save();rToday();updateStrip();
+}
+function setWater(n){
+  const nut=getNut(selectedDate);nut.water=n;setNut(selectedDate,nut);rToday();updateStrip();
+}
+function setDayRating(r){
+  if(!S.dayRating)S.dayRating={};S.dayRating[selectedDate]=r;save();rToday();
+}
+
+// ═══════════════════════════════════════════════
+// DO NOT DO THIS — GLOBAL RULES
+// ═══════════════════════════════════════════════
+// S.dndRules = [{id, text, addedDate}]  — global list, persists forever
+// S.dndAnswers = { "YYYY-MM-DD": { ruleId: 'yes'|'no'|null } }
+
+function getDNDRules(){return S.dndRules||[];}
+function getDNDAnswers(ds){return (S.dndAnswers&&S.dndAnswers[ds])||{};}
+function setDNDAnswers(ds,obj){if(!S.dndAnswers)S.dndAnswers={};S.dndAnswers[ds]=obj;save();}
+
+// backward compat: migrate old per-day dnd data if exists
+function migrateDND(){
+  if(S.dnd&&!S.dndRules){
+    const rules=[];const seenTexts={};
+    Object.entries(S.dnd).forEach(([ds,items])=>{
+      (items||[]).forEach(item=>{
+        if(item.text&&!seenTexts[item.text]){seenTexts[item.text]=true;rules.push({id:item.text.replace(/\s+/g,'-').toLowerCase(),text:item.text,addedDate:ds});}
+      });
+    });
+    S.dndRules=rules;
+    S.dndAnswers={};
+    Object.entries(S.dnd).forEach(([ds,items])=>{
+      const ans={};
+      (items||[]).forEach(item=>{if(item.text&&item.answer)ans[item.text.replace(/\s+/g,'-').toLowerCase()]=item.answer;});
+      if(Object.keys(ans).length) S.dndAnswers[ds]=ans;
+    });
+    save();
+  }
+}
+
+function rDND(){
+  const rules=getDNDRules();
+  const answers=getDNDAnswers(selectedDate);
+  const list=document.getElementById("dnd-list");
+  const score=document.getElementById("dnd-score");
+  if(!list)return;
+  const yesCount=rules.filter(r=>answers[r.id]==='yes').length;
+  const noCount=rules.filter(r=>answers[r.id]==='no').length;
+  if(rules.length>0&&(yesCount+noCount)>0){
+    score.innerHTML=`<span style="color:#3DD68C">${noCount} NO</span> &nbsp;<span style="color:#FF5C7A">${yesCount} YES</span>`;
+  } else { score.textContent=rules.length>0?`${rules.length} rules`:""; }
+  if(rules.length===0){
+    list.innerHTML=`<div class="dnd-empty">No rules yet. Add one above — it will appear every day automatically.</div>`;
+    return;
+  }
+  list.innerHTML=rules.map((rule,i)=>{
+    const ans=answers[rule.id];
+    const isYes=ans==='yes', isNo=ans==='no';
+    let cls="dnd-item";
+    if(isYes) cls+=" yes-bad";
+    if(isNo) cls+=" no-good";
+    return `<div class="${cls}">
+      <span class="dnd-name">${rule.text}</span>
+      <div class="dnd-yn">
+        <button class="dnd-yes${isYes?' active':''}" onclick="answerDND('${rule.id}','yes')" title="YES — I did it (bad)">YES</button>
+        <button class="dnd-no${isNo?' active':''}" onclick="answerDND('${rule.id}','no')" title="NO — I didn't do it (good)">NO</button>
+      </div>
+      <button class="dnd-del" onclick="deleteDNDRule('${rule.id}')" title="Remove rule permanently">✕</button>
+    </div>`;
+  }).join("");
+}
+
+function addDND(){
+  const input=document.getElementById("dnd-input");
+  const text=(input.value||"").trim();
+  if(!text)return;
+  if(!S.dndRules)S.dndRules=[];
+  const id='r'+Date.now();
+  S.dndRules.push({id,text,addedDate:selectedDate});
+  save();input.value="";rDND();
+}
+
+function answerDND(id,answer){
+  const answers=getDNDAnswers(selectedDate);
+  answers[id]=answers[id]===answer?null:answer;
+  setDNDAnswers(selectedDate,answers);
+  rDND();
+}
+
+function deleteDNDRule(id){
+  if(!S.dndRules)return;
+  S.dndRules=S.dndRules.filter(r=>r.id!==id);
+  save();rDND();
+}
+
+// ═══════════════════════════════════════════════
+// SCROLLING SCALE
+// ═══════════════════════════════════════════════
+function initScale(scrollId, valId, barId, currentVal, maxVal, step, color, target){
+  const scroll=document.getElementById(scrollId);
+  if(!scroll)return;
+  const steps=Math.round(maxVal/step)+1;
+  scroll.innerHTML="";
+  for(let i=0;i<steps;i++){
+    const val=+(i*step).toFixed(2);
+    const isMajor=i%Math.round(1/step)===0;
+    const isSel=Math.abs(val-currentVal)<step*0.5;
+    const tick=document.createElement("div");
+    tick.className="scale-tick";
+    const lineH=isMajor?22:14;
+    tick.innerHTML=`<div class="${"tick-line"+(isMajor?" major":"")+(isSel?" selected":"")}" style="height:${lineH}px"></div>`+
+      (isMajor?`<div class="tick-num${isSel?" selected":""}">${val}</div>`:"<div style='height:13px'></div>");
+    scroll.appendChild(tick);
+  }
+  // scroll to current value
+  const idx=Math.round(currentVal/step);
+  const tickW=20;
+  const scrollW=scroll.parentElement.offsetWidth;
+  scroll.scrollLeft=idx*tickW;
+
+  // drag scroll
+  let isDragging=false,startX=0,startScroll=0;
+  scroll.onmousedown=e=>{isDragging=true;startX=e.pageX;startScroll=scroll.scrollLeft;e.preventDefault();};
+  scroll.ontouchstart=e=>{isDragging=true;startX=e.touches[0].pageX;startScroll=scroll.scrollLeft;};
+  const onMove=e=>{
+    if(!isDragging)return;
+    const x=e.touches?e.touches[0].pageX:e.pageX;
+    scroll.scrollLeft=startScroll-(x-startX);
+    const tickIdx=Math.round(scroll.scrollLeft/tickW);
+    const newVal=+(Math.min(maxVal,Math.max(0,tickIdx*step)).toFixed(2));
+    updateScaleDisplay(scrollId,valId,barId,newVal,maxVal,step,color,target);
+    const nut=getNut(selectedDate);
+    const key=scrollId.replace("-scale","").replace("prot","protein").replace("food","food").replace("sleep","sleep");
+    nut[key]=newVal;setNut(selectedDate,nut);updateStrip();
+  };
+  const onEnd=()=>{isDragging=false;};
+  scroll.onmousemove=onMove;scroll.ontouchmove=onMove;
+  scroll.onmouseup=onEnd;scroll.onmouseleave=onEnd;scroll.ontouchend=onEnd;
+}
+
+function updateScaleDisplay(scrollId,valId,barId,val,maxVal,step,color,target){
+  const valEl=document.getElementById(valId);
+  const barEl=document.getElementById(barId);
+  if(valEl)valEl.textContent=val%1===0?val:val.toFixed(1);
+  if(barEl)barEl.style.width=Math.min(100,val/maxVal*100)+"%";
+  // re-highlight ticks
+  const scroll=document.getElementById(scrollId);
+  if(!scroll)return;
+  const steps=Math.round(maxVal/step)+1;
+  const ticks=scroll.querySelectorAll(".scale-tick");
+  ticks.forEach((tick,i)=>{
+    const tv=+(i*step).toFixed(2);
+    const isSel=Math.abs(tv-val)<step*0.5;
+    const isMajor=i%Math.round(1/step)===0;
+    const line=tick.querySelector(".tick-line");
+    const num=tick.querySelector(".tick-num");
+    if(line){line.className="tick-line"+(isMajor?" major":"")+(isSel?" selected":"");}
+    if(num){num.className="tick-num"+(isSel?" selected":"");}
+  });
+}
+
+function ckIco(){return`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#07070f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;}
+function ytIco(){return`<svg width="11" height="11" viewBox="0 0 24 24" fill="#ff4444"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>`;}
+
+// ═══════════════════════════════════════════════
+// PLAN VIEW
+// ═══════════════════════════════════════════════
+function rPlan(){
+  document.getElementById("stabs").innerHTML=Object.entries(SPLITS).map(([n,sp])=>
+    `<button class="stab${cSplit===n?" active":""}" style="${cSplit===n?`border-color:${sp.ac};background:${sp.ac}1a;color:${sp.ac}`:""}" onclick="selSplit('${n}')">${sp.emoji} ${n}</button>`
+  ).join("");
+  const sp=SPLITS[cSplit];
+  const customExs=getCustomEx(cSplit);
+  const mgKeys=Object.keys(sp.muscleGroups);
+  const totalCount=sp.exercises.length+customExs.length;
+  document.getElementById("p-hero").innerHTML=`
+    <div class="hero"><div class="hero-in" style="background:${sp.gr}" data-e="${sp.emoji}">
+      <div class="hero-t">${cSplit.toUpperCase()}</div>
+      <div class="hero-tags">${sp.days.map(d=>`<span class="htag">${d}</span>`).join("")}<span class="htag">${totalCount} exercises</span></div>
+    </div></div>`;
+
+  // Single unified display counter across ALL exercises (built-in + custom)
+  let displayNum=0;
+  let builtInIdx=0;
+  let exHtml='';
+
+  mgKeys.forEach(mgName=>{
+    const mgExs=sp.muscleGroups[mgName];
+    const mgCustom=customExs.map((ex,ci)=>({ex,ci})).filter(({ex})=>(ex.muscleGroup||ex.muscle)===mgName);
+    exHtml+=`<div style="margin-bottom:4px">
+      <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}15;border-left:3px solid ${sp.ac};padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">${mgName.toUpperCase()}</div>`;
+
+    // Built-in exercises for this muscle group
+    mgExs.forEach(ex=>{
+      displayNum++;
+      const ov=S.exOverrides&&S.exOverrides[cSplit]&&S.exOverrides[cSplit][builtInIdx];
+      const dex=ov?{...ex,...ov}:ex;
+      const k=`plan-${cSplit}-${builtInIdx}`;
+      const op=exPlan===k;
+      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${builtInIdx}-b`;
+      exHtml+=`<div class="exc" id="${sid}">
+        <div class="exc-h" onclick="tPlanEx('${k}')">
+          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(displayNum).padStart(2,"0")}</div>
+          <div style="flex:1"><div class="exc-nm">${dex.name}</div><div class="exc-ms">${mgName}</div></div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div><div class="exc-st" style="color:${sp.ac}">${dex.sets}×${dex.reps}</div><div class="exc-sl">sets×reps</div></div>
+            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${builtInIdx},false)" title="Edit">✏️</button>
+          </div>
+          <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
+        </div>
+        <div class="exc-b${op?" op":""}">
+          <div class="tip">💡 ${dex.tip||"Focus on good form."}</div>
+          ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
+        </div>
+      </div>`;
+      builtInIdx++;
+    });
+
+    // Custom exercises for this muscle group — numbered in sequence
+    mgCustom.forEach(({ex,ci})=>{
+      displayNum++;
+      const k=`plan-${cSplit}-custom-${ci}`;
+      const op=exPlan===k;
+      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
+      exHtml+=`<div class="exc" id="${sid}" style="border-color:${sp.ac}55">
+        <div class="exc-h" onclick="tPlanEx('${k}')">
+          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(displayNum).padStart(2,"0")}</div>
+          <div style="flex:1"><div class="exc-nm">${ex.name} <span style="font-size:9px;color:${sp.ac};background:${sp.ac}20;border-radius:4px;padding:1px 5px">CUSTOM</span></div><div class="exc-ms">${mgName}</div></div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div><div class="exc-st" style="color:${sp.ac}">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
+            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${ci},true)" title="Edit">✏️</button>
+          </div>
+          <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
+        </div>
+        <div class="exc-b${op?" op":""}">
+          <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+        </div>
+      </div>`;
+    });
+    exHtml+=`</div>`;
+  });
+
+  // Fallback: custom exercises with unrecognised muscle group
+  const ungrouped=customExs.map((ex,ci)=>({ex,ci})).filter(({ex})=>{
+    const mg=ex.muscleGroup||ex.muscle;
+    return !mg||!mgKeys.includes(mg);
+  });
+  if(ungrouped.length>0){
+    exHtml+=`<div style="margin-bottom:4px">
+      <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:#888;background:rgba(255,255,255,.05);border-left:3px solid #555;padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">OTHER</div>`;
+    ungrouped.forEach(({ex,ci})=>{
+      displayNum++;
+      const k=`plan-${cSplit}-custom-${ci}`;
+      const op=exPlan===k;
+      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
+      exHtml+=`<div class="exc" id="${sid}">
+        <div class="exc-h" onclick="tPlanEx('${k}')">
+          <div class="exc-n" style="background:#55555522;color:#888">${String(displayNum).padStart(2,"0")}</div>
+          <div style="flex:1"><div class="exc-nm">${ex.name} <span style="font-size:9px;color:#555;background:#1e1e2a;border-radius:4px;padding:1px 5px">CUSTOM</span></div><div class="exc-ms">${ex.muscle||"Custom"}</div></div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div><div class="exc-st" style="color:#888">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
+            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${ci},true)" title="Edit">✏️</button>
+          </div>
+          <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
+        </div>
+        <div class="exc-b${op?" op":""}">
+          <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+        </div>
+      </div>`;
+    });
+    exHtml+=`</div>`;
+  }
+
+  document.getElementById("p-exs").innerHTML=exHtml;
+  document.getElementById("sched").innerHTML=DAYS.map(day=>{
+    const split=DS[day];const sp2=split?SPLITS[split]:null;
+    return `<div class="sch-c" style="border-color:${sp2?sp2.ac+"44":"var(--b)"};background:${sp2?sp2.ac+"0d":"var(--s2)"}">
+      <div class="sch-d" style="color:${sp2?sp2.ac:"#333"}">${day.slice(0,3).toUpperCase()}</div>
+      <div class="sch-e">${sp2?sp2.emoji:"😴"}</div>
+      <div class="sch-n">${split?split.split(" / ")[0]:"Rest"}</div>
+    </div>`;
+  }).join("");
+}
+function selSplit(n){
+  cSplit=n;
+  // Close the add exercise modal so dropdown refreshes with new split's muscle groups
+  const m=document.getElementById('add-ex-modal');
+  if(m) m.style.display='none';
+  rPlan();
+}
+function tPlanEx(k){exPlan=exPlan===k?null:k;rPlan();}
+
+// ═══════════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════════
+function weekPct(wn){
+  const wk=WEEKS[wn-1];if(!wk)return 0;
+  const start=new Date(2026,2,23);
+  let t=0,d=0;
+  DAYS.forEach((day,di)=>{
+    const dt=new Date(start);dt.setDate(start.getDate()+(wn-1)*7+di);
+    const ds=dt.toISOString().split("T")[0];
+    const split=DS[day];
+    if(split){SPLITS[split].exercises.forEach((_,i)=>{t++;if(S.logs&&S.logs[`${ds}-ex-${i}`])d++;});}
+    WARMUP.forEach((_,i)=>{t++;if(S.warmup&&S.warmup[`${ds}-wu-${i}`])d++;});
+  });
+  return t?Math.round(d/t*100):0;
+}
+
+// ═══════════════════════════════════════════════
+// PURE CANVAS GRAPHS — no external library needed
+// ═══════════════════════════════════════════════
+function drawGraph(canvasId, vals, color, yMax, labelStep){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  // Set actual pixel size from parent container
+  const parent = canvas.parentElement;
+  const W = parent.offsetWidth || 320;
+  const H = 160;
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const pad = {top:12, right:12, bottom:28, left:36};
+  const gW = W - pad.left - pad.right;
+  const gH = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0,0,W,H);
+
+  const max = yMax || Math.max(...vals.filter(v=>v>0), 1);
+  const n = vals.length;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth = 1;
+  for(let g=0; g<=4; g++){
+    const y = pad.top + gH - (g/4)*gH;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left+gW, y); ctx.stroke();
+    ctx.fillStyle = '#555';
+    ctx.font = '9px DM Sans, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round((g/4)*max), pad.left-4, y+3);
+  }
+
+  // X axis labels
+  ctx.fillStyle = '#444';
+  ctx.font = '9px DM Sans, sans-serif';
+  ctx.textAlign = 'center';
+  const step = Math.max(1, Math.floor(n/8));
+  for(let i=0; i<n; i+=step){
+    const x = pad.left + (i/(n-1||1))*gW;
+    ctx.fillText(labelStep[i]||'', x, H-8);
+  }
+
+  // Fill area
+  if(vals.some(v=>v>0)){
+    ctx.beginPath();
+    let started = false;
+    for(let i=0;i<n;i++){
+      const x = pad.left + (i/(n-1||1))*gW;
+      const y = pad.top + gH - (vals[i]/max)*gH;
+      if(!started){ctx.moveTo(x, pad.top+gH); ctx.lineTo(x,y); started=true;}
+      else ctx.lineTo(x,y);
+    }
+    ctx.lineTo(pad.left+gW, pad.top+gH);
+    ctx.closePath();
+    ctx.fillStyle = color+'22';
+    ctx.fill();
+  }
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  let lineStarted = false;
+  for(let i=0;i<n;i++){
+    const x = pad.left + (i/(n-1||1))*gW;
+    const y = pad.top + gH - (vals[i]/max)*gH;
+    if(!lineStarted){ctx.moveTo(x,y);lineStarted=true;}
+    else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Dots on non-zero points
+  for(let i=0;i<n;i++){
+    if(vals[i]>0){
+      const x = pad.left + (i/(n-1||1))*gW;
+      const y = pad.top + gH - (vals[i]/max)*gH;
+      ctx.beginPath();
+      ctx.arc(x,y,3.5,0,Math.PI*2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+  }
+}
+
+function drawDNDGraph(canvasId, legendId, dates, labelStep){
+  const canvas = document.getElementById(canvasId);
+  const leg = document.getElementById(legendId);
+  if(!canvas) return;
+  const rules = getDNDRules();
+  const COLORS=['#FF5C7A','#3DD68C','#FFD93D','#4EC9C0','#B39DDB','#FF6B35','#64B5F6','#FFCC80'];
+
+  const parent = canvas.parentElement;
+  const W = parent.offsetWidth || 320;
+  const H = 160;
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const pad = {top:12, right:12, bottom:28, left:44};
+  const gW = W - pad.left - pad.right;
+  const gH = H - pad.top - pad.bottom;
+  const n = dates.length;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Legend
+  if(leg) leg.innerHTML = rules.map((r,i)=>`<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#ccc"><span style="width:9px;height:9px;border-radius:2px;background:${COLORS[i%COLORS.length]};display:inline-block"></span>${r.text}</span>`).join('');
+
+  // Y axis labels
+  ctx.fillStyle='#555';ctx.font='9px DM Sans,sans-serif';ctx.textAlign='right';
+  ctx.fillText('NO',pad.left-4, pad.top+4);
+  ctx.fillText('YES',pad.left-4, pad.top+gH+4);
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;
+  for(let g=0;g<=1;g++){
+    const y=pad.top+gH-(g/1)*gH;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+gW,y);ctx.stroke();
+  }
+
+  // X labels
+  ctx.fillStyle='#444';ctx.textAlign='center';
+  const step=Math.max(1,Math.floor(n/8));
+  for(let i=0;i<n;i+=step){
+    const x=pad.left+(i/(n-1||1))*gW;
+    ctx.fillText(labelStep[i]||'',x,H-8);
+  }
+
+  if(rules.length===0){
+    ctx.fillStyle='#333';ctx.font='11px DM Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Add rules on Today tab to see graph',W/2,H/2);
+    return;
+  }
+
+  rules.forEach((rule,ri)=>{
+    const color=COLORS[ri%COLORS.length];
+    const ruleStart=rule.addedDate||'2026-03-23';
+    ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.lineJoin='round';
+    let moved=false;
+    dates.forEach((ds,i)=>{
+      if(ds<ruleStart)return;
+      const ans=S.dndAnswers&&S.dndAnswers[ds]&&S.dndAnswers[ds][rule.id];
+      if(ans==null)return;
+      const v=ans==='no'?1:0;
+      const x=pad.left+(i/(n-1||1))*gW;
+      const y=pad.top+gH-(v/1)*gH;
+      if(!moved){ctx.moveTo(x,y);moved=true;}
+      else ctx.lineTo(x,y);
+    });
+    if(moved) ctx.stroke();
+    // dots
+    dates.forEach((ds,i)=>{
+      if(ds<ruleStart)return;
+      const ans=S.dndAnswers&&S.dndAnswers[ds]&&S.dndAnswers[ds][rule.id];
+      if(ans==null)return;
+      const v=ans==='no'?1:0;
+      const x=pad.left+(i/(n-1||1))*gW;
+      const y=pad.top+gH-(v/1)*gH;
+      ctx.beginPath();
+      ctx.arc(x,y,4.5,0,Math.PI*2);
+      ctx.fillStyle=ans==='no'?'#3DD68C':'#FF5C7A';
+      ctx.fill();
+    });
+  });
+}
+
+function rProgress(){
+  const START = new Date(2026,2,23);
+  const today = new Date(todayStr()+"T12:00:00");
+  const YEAR_END = new Date(2027,2,22);
+  const end = today < YEAR_END ? today : YEAR_END;
+
+  const dates=[];
+  for(let d=new Date(START.getTime());d<=end;d.setDate(d.getDate()+1))
+    dates.push(d.toISOString().split('T')[0]);
+
+  // X label array — empty string except every N days
+  const N = dates.length>180?14:dates.length>60?7:dates.length>28?3:1;
+  const xlabels = dates.map((ds,i)=>{
+    if(i%N!==0) return '';
+    const d=new Date(ds+"T12:00:00");
+    return (d.getMonth()+1)+'/'+d.getDate();
+  });
+
+  // Workout vals — 0 = rest or not done, % = exercises ticked
+  const wVals = dates.map(ds=>{
+    const dn = DAYS[new Date(ds+"T12:00:00").getDay()===0?6:new Date(ds+"T12:00:00").getDay()-1];
+    const split = DS[dn]; if(!split) return 0;
+    const exs = SPLITS[split].exercises;
+    const bDone = exs.filter((_,j)=>S.logs&&(S.logs[`${ds}-ex-b${j}`]||S.logs[`${ds}-ex-${j}`])).length;
+    const cDone = (getCustomEx(split)||[]).filter((_,ci)=>S.logs&&S.logs[`${ds}-ex-c${ci}`]).length;
+    const total = exs.length + (getCustomEx(split)||[]).length;
+    return total>0 ? Math.round((bDone+cDone)/total*100) : 0;
+  });
+
+  const protVals = dates.map(ds=>+(getNut(ds).protein||0));
+  const mealVals = dates.map(ds=>+(getNut(ds).food||0));
+  const sleepVals = dates.map(ds=>+(getNut(ds).sleep||0));
+
+  // Draw all graphs after a short delay so the view is fully rendered
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      drawGraph('chart-workout', wVals, '#FF6B35', 100, xlabels);
+      drawGraph('chart-protein', protVals, '#FF5C7A', 200, xlabels);
+      drawGraph('chart-meal', mealVals, '#FFD93D', 10, xlabels);
+      drawGraph('chart-sleep', sleepVals, '#B39DDB', 12, xlabels);
+      drawDNDGraph('chart-dnd','dnd-legend', dates, xlabels);
+    });
+  });
+}
+
+
+// ═══════════════════════════════════════════════
+// REPORT
+// ═══════════════════════════════════════════════
+function rReport(){
+  const wn=dateToWeekNum(selectedDate);
+  document.getElementById("rpt-wk").textContent=wn;
+}
+
+function buildWeeklyCtx(){
+  const wn=dateToWeekNum(selectedDate);
+  const wk=WEEKS[wn-1];
+  const start=new Date(2026,2,23);
+  const days=DAYS.map((day,di)=>{
+    const dt=new Date(start);dt.setDate(start.getDate()+(wn-1)*7+di);
+    const ds=dt.toISOString().split("T")[0];
+    const split=DS[day];
+    let exDone=0,exTotal=0;
+    if(split){
+      SPLITS[split].exercises.forEach((_,i)=>{exTotal++;if(S.logs&&(S.logs[`${ds}-ex-b${i}`]||S.logs[`${ds}-ex-${i}`]))exDone++;});
+      getCustomEx(split).forEach((_,ci)=>{exTotal++;if(S.logs&&S.logs[`${ds}-ex-c${ci}`])exDone++;});
+    }
+    let wuDone=WARMUP.filter((_,i)=>S.warmup&&S.warmup[`${ds}-wu-${i}`]).length;
+    const nut=getNut(ds);
+    const note=(S.notes&&S.notes[ds])||"";
+    const rating=S.dayRating&&S.dayRating[ds]||0;
+    const dndRules=getDNDRules();
+    const dndAnswers=getDNDAnswers(ds);
+    const dndYes=dndRules.filter(r=>dndAnswers[r.id]==='yes').map(r=>r.text);
+    const dndNo=dndRules.filter(r=>dndAnswers[r.id]==='no').map(r=>r.text);
+    const dndStr=dndRules.length
+      ?`\n  - Said YES (broke rule 🔴): ${dndYes.length?dndYes.join(", "):"none"}\n  - Said NO (kept rule 🟢): ${dndNo.length?dndNo.join(", "):"none"}`
+      :"";
+    return `${day} (${MO[dt.getMonth()]} ${dt.getDate()}):
+  - Split: ${split||"Rest day"}
+  - Exercises: ${exDone}/${exTotal}${split?" completed":""}
+  - Warmup: ${wuDone}/${WARMUP.length} done
+  - Water: ${nut.water||0}/8 cups
+  - Protein: ${nut.protein||0}g
+  - Meal quality: ${nut.food||0}/10
+  - Sleep: ${nut.sleep||0}h
+  - Day rating: ${rating?rating+"/5":"not rated"}${dndStr}
+  - Personal note: "${note||"(none)"}"`;
+  }).join("\n\n");
+  return `WEEK ${wn} DATA (${wk?.date}):\n\n${days}\n\nOverall completion: ${weekPct(wn)}%`;
+}
+
+function buildYearlyCtx(){
+  const start=new Date(2026,2,23);
+  let totalEx=Object.values(S.logs||{}).filter(Boolean).length;
+  let totalWU=Object.values(S.warmup||{}).filter(Boolean).length;
+  const allNotes=Object.entries(S.notes||{}).filter(([,v])=>v).map(([ds,n])=>{
+    const d=new Date(ds+"T12:00:00");return`${MO[d.getMonth()]} ${d.getDate()}: "${n}"`;
+  }).join("\n");
+  const weekSummaries=WEEKS.filter(w=>weekPct(w.n)>0).map(w=>`Week ${w.n} (${w.date}): ${weekPct(w.n)}%`).join(", ");
+  const allRatings=Object.entries(S.dayRating||{}).filter(([,v])=>v);
+  const avgRat=allRatings.length?(allRatings.reduce((a,b)=>a+(+b[1]),0)/allRatings.length).toFixed(1):"N/A";
+  // DND summary across all days
+  const dndRulesAll=getDNDRules();
+  const dndTotals={};
+  dndRulesAll.forEach(rule=>{dndTotals[rule.id]={text:rule.text,yes:0,no:0,total:0};});
+  Object.entries(S.dndAnswers||{}).forEach(([ds,answers])=>{
+    Object.entries(answers||{}).forEach(([id,ans])=>{
+      if(!dndTotals[id])return;
+      if(ans==='yes'){dndTotals[id].yes++;dndTotals[id].total++;}
+      if(ans==='no'){dndTotals[id].no++;dndTotals[id].total++;}
+    });
+  });
+  const dndSummary=Object.values(dndTotals).length
+    ?Object.values(dndTotals).map(d=>{
+        const slip=d.total?Math.round(d.yes/d.total*100):0;
+        return `"${d.text}": YES (broke) ${d.yes}x · NO (kept) ${d.no}x · ${slip}% slip rate`;
+      }).join("\n")
+    :"No do-not-do rules tracked yet";
+  return `YEARLY DATA:\nTotal exercises logged: ${totalEx}\nTotal warmups: ${totalWU}\nWeeks with data: ${WEEKS.filter(w=>weekPct(w.n)>0).length}/52\nAverage day rating: ${avgRat}/5\n\nWeek completions:\n${weekSummaries||"No weeks logged yet"}\n\nDo-Not-Do habit tracking:\n${dndSummary}\n\nAll daily notes:\n${allNotes||"No notes yet"}`;
+}
+
+async function genReport(type){
+  const btnId=type==="weekly"?"btn-wk":"btn-yr";
+  const outId=type==="weekly"?"out-wk":"out-yr";
+  const btn=document.getElementById(btnId);
+  const out=document.getElementById(outId);
+  btn.disabled=true;
+  const orig=btn.innerHTML;
+  btn.innerHTML=`<span class="dot-anim">Generating</span>`;
+  out.classList.add("vis");
+  out.textContent="Analyzing your data...";
+
+  const ctx=type==="weekly"?buildWeeklyCtx():buildYearlyCtx();
+  const wn=dateToWeekNum(selectedDate);
+  const prompt=type==="weekly"
+    ?`You are a supportive personal fitness coach. The user has given you their Week ${wn} workout data including daily notes they wrote themselves. Analyze everything and write a warm, specific, actionable weekly progress report. Structure it as:\n1. 💬 Week Summary (2-3 sentences, personal)\n2. 💪 Workout Performance\n3. 🥗 Nutrition & Recovery\n4. 🚫 Habit Control (comment on their Do-Not-Do rules — what they kept vs broke, and how to improve)\n5. ✍️ From Your Notes (directly reference what they wrote)\n6. 🎯 3 Specific Goals for Next Week\n\nBe encouraging but honest. Use their actual words from the notes. Keep it under 420 words.\n\nDATA:\n${ctx}`
+    :`You are a personal fitness coach writing an end-of-year review. Analyze the full 52-week data and write an inspiring, honest yearly report:\n1. 🏆 Year Highlights\n2. 📊 Consistency Analysis\n3. 💪 Strongest & Weakest Areas\n4. 🚫 Habit Patterns (analyze the Do-Not-Do tracking data — which rules were hardest to keep, what patterns emerged)\n5. ✍️ Themes From Your Notes\n6. 🚀 Focus Areas for Next Year\n\nBe specific, reference real data points and quotes from their notes. Keep it under 550 words.\n\nDATA:\n${ctx}`;
+
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})
+    });
+    if(!res.ok)throw new Error("API error "+res.status);
+    const data=await res.json();
+    const text=(data.content&&data.content[0]&&data.content[0].text)||"Could not generate report.";
+    out.textContent=text;
+    const meta=document.createElement("div");
+    meta.className="rpt-meta";
+    meta.textContent=`Generated ${new Date().toLocaleDateString()} · Based on your logged notes & completions`;
+    out.appendChild(meta);
+  }catch(e){
+    out.textContent="⚠️ Could not connect. Make sure you have internet access and try again.";
+    console.warn("Report error:",e);
+  }
+  btn.disabled=false;
+  btn.innerHTML=orig;
+}
+
+function exportData(){
+  try{
+    const lines=["=== BAND STRONG EXPORT ===",`Date: ${new Date().toLocaleDateString()}`,""];
+    WEEKS.forEach(w=>{
+      const pct=weekPct(w.n);
+      if(pct>0) lines.push(`Week ${w.n} (${w.date}): ${pct}%`);
+    });
+    lines.push("","=== DO NOT DO THIS — HABIT LOG ===");
+    const dndRulesExp=getDNDRules();
+    if(dndRulesExp.length){
+      lines.push("","=== DO NOT DO THIS — HABIT LOG ===");
+      lines.push("Rules: "+dndRulesExp.map(r=>r.text).join(", "));
+      Object.entries(S.dndAnswers||{}).sort(([a],[b])=>a.localeCompare(b)).forEach(([ds,answers])=>{
+        const yes=dndRulesExp.filter(r=>answers[r.id]==='yes').map(r=>r.text);
+        const no=dndRulesExp.filter(r=>answers[r.id]==='no').map(r=>r.text);
+        if(yes.length||no.length) lines.push(`${ds} — NO/kept: [${no.join(", ")||"none"}] | YES/broke: [${yes.join(", ")||"none"}]`);
+      });
+    }
+    lines.push("","=== DAILY NOTES ===");
+    Object.entries(S.notes||{}).filter(([,v])=>v).sort(([a],[b])=>a.localeCompare(b)).forEach(([ds,n])=>{
+      const r=S.dayRating&&S.dayRating[ds];
+      lines.push(`${ds}${r?" ["+r+"★]":""}: ${n}`);
+    });
+    const blob=new Blob([lines.join("\n")],{type:"text/plain"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="bandstrong-export.txt";a.click();
+    URL.revokeObjectURL(a.href);
+  }catch(e){alert("Export failed: "+e.message);}
+}
+
+
+// ═══════════════════════════════════════════════
+// ADD / EDIT EXERCISES
+// ═══════════════════════════════════════════════
+// Custom exercises stored in S.customEx = { splitName: [{name,muscle,sets,reps,tip}] }
+function getCustomEx(split){ return (S.customEx&&S.customEx[split])||[]; }
+
+function showAddEx(){
+  const m=document.getElementById('add-ex-modal');
+  const isOpen=m.style.display==='block';
+  m.style.display=isOpen?'none':'block';
+  if(!isOpen){
+    // Always reset fields and repopulate dropdown for the current split
+    document.getElementById('aex-name').value='';
+    document.getElementById('aex-sets').value='';
+    document.getElementById('aex-reps').value='';
+    document.getElementById('aex-tip').value='';
+    const sel=document.getElementById('aex-muscle');
+    const groups=Object.keys(SPLITS[cSplit].muscleGroups);
+    sel.innerHTML=groups.map(g=>`<option value="${g}">${g}</option>`).join('');
+    sel.selectedIndex=0;
+  }
+}
+
+function saveAddEx(){
+  const name=document.getElementById('aex-name').value.trim();
+  const muscleGroup=document.getElementById('aex-muscle').value;
+  const sets=+document.getElementById('aex-sets').value||3;
+  const reps=document.getElementById('aex-reps').value.trim()||'12';
+  const tip=document.getElementById('aex-tip').value.trim()||'Focus on good form.';
+  if(!name){alert('Please enter an exercise name');return;}
+  if(!S.customEx)S.customEx={};
+  if(!S.customEx[cSplit])S.customEx[cSplit]=[];
+  S.customEx[cSplit].push({name,muscle:muscleGroup,muscleGroup,sets,reps,tip});
+  save();
+  document.getElementById('add-ex-modal').style.display='none';
+  rPlan();
+  rToday();
+}
+
+function deleteCustomEx(split, idx){
+  if(!S.customEx||!S.customEx[split])return;
+  S.customEx[split].splice(idx,1);
+  save();rPlan();rToday();
+}
+
+function showEditEx(split, idx, isCustom){
+  // inline edit — toggle a mini form below the exercise card
+  const eid='editex-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b');
+  const existing=document.getElementById(eid);
+  if(existing){existing.remove();return;}
+  const ex=isCustom?getCustomEx(split)[idx]:SPLITS[split].exercises[idx];
+  if(!ex)return;
+  const div=document.createElement('div');
+  div.id=eid;
+  div.className='edit-modal vis';
+  div.style.marginTop='6px';
+  div.innerHTML=`
+    <div style="font-size:10px;color:var(--m);margin-bottom:7px">EDIT EXERCISE</div>
+    <input class="edit-inp" id="${eid}-name" value="${ex.name}" placeholder="Name" style="width:100%;margin-bottom:5px"/>
+    <input class="edit-inp" id="${eid}-muscle" value="${ex.muscle}" placeholder="Muscle" style="width:100%;margin-bottom:5px"/>
+    <div style="display:flex;gap:6px;margin-bottom:5px">
+      <input class="edit-inp" id="${eid}-sets" value="${ex.sets}" type="number" placeholder="Sets" style="flex:1"/>
+      <input class="edit-inp" id="${eid}-reps" value="${ex.reps}" placeholder="Reps" style="flex:1"/>
+    </div>
+    <input class="edit-inp" id="${eid}-tip" value="${ex.tip||''}" placeholder="Form tip" style="width:100%;margin-bottom:8px"/>
+    <div style="display:flex;gap:6px">
+      <button class="edit-save" onclick="applyEditEx('${eid}','${split}',${idx},${isCustom})">Save</button>
+      <button class="edit-del" onclick="deleteCustomEx('${split}',${idx})">Delete</button>
+      <button class="edit-cancel" onclick="document.getElementById('${eid}').remove()">Cancel</button>
+    </div>`;
+  const card=document.getElementById('exc-card-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b'));
+  if(card) card.after(div);
+}
+
+function applyEditEx(eid, split, idx, isCustom){
+  const name=document.getElementById(eid+'-name').value.trim();
+  const muscle=document.getElementById(eid+'-muscle').value.trim();
+  const sets=+document.getElementById(eid+'-sets').value||3;
+  const reps=document.getElementById(eid+'-reps').value.trim()||'12';
+  const tip=document.getElementById(eid+'-tip').value.trim();
+  if(!name)return;
+  if(isCustom){
+    if(!S.customEx||!S.customEx[split])return;
+    S.customEx[split][idx]={name,muscle,sets,reps,tip};
+  } else {
+    // Store built-in overrides separately
+    if(!S.exOverrides)S.exOverrides={};
+    if(!S.exOverrides[split])S.exOverrides[split]={};
+    S.exOverrides[split][idx]={name,muscle,sets,reps,tip};
+  }
+  save();rPlan();
+}
+
+// ═══════════════════════════════════════════════
+// EDIT HELPERS
+// ═══════════════════════════════════════════════
+function toggleEdit(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.classList.toggle('vis');
+  if(id==='edit-dnd-rules') renderEditDNDRules();
+  if(id==='edit-protein'){
+    const t=S.proteinTarget||150;
+    document.getElementById('ep-target').value=t;
+  }
+  if(id==='edit-meal'){
+    document.getElementById('em-label').value=S.mealLabel||'';
+  }
+}
+
+function saveProteinTarget(){
+  const v=+document.getElementById('ep-target').value||150;
+  S.proteinTarget=v;save();
+  toggleEdit('edit-protein');
+  rToday();
+}
+
+function saveMealLabel(){
+  const v=document.getElementById('em-label').value.trim();
+  S.mealLabel=v||null;save();
+  toggleEdit('edit-meal');
+  rToday();
+}
+
+function renderEditDNDRules(){
+  const rules=getDNDRules();
+  const el=document.getElementById('edit-dnd-list');
+  if(!el)return;
+  if(rules.length===0){el.innerHTML='<div style="font-size:11px;color:var(--m);padding:6px 0">No rules yet. Add them below.</div>';return;}
+  el.innerHTML=rules.map((r,i)=>`
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+      <input class="edit-inp" value="${r.text}" id="dnd-edit-${i}" style="flex:1"/>
+      <button class="edit-save" onclick="saveDNDRule(${i})">Save</button>
+      <button class="edit-del" onclick="deleteDNDRule('${r.id}')">✕</button>
+    </div>`).join('');
+}
+
+function saveDNDRule(i){
+  const rules=getDNDRules();
+  if(!rules[i])return;
+  const v=document.getElementById('dnd-edit-'+i).value.trim();
+  if(!v)return;
+  rules[i].text=v;
+  S.dndRules=rules;save();
+  rDND();renderEditDNDRules();
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+try{
+  load();
+  migrateDND();
+  rToday();
+  updateStrip();
+}catch(e){
+  console.error("Init error:",e);
+}
+</script>
+</body>
+</html>
