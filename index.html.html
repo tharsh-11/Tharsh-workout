@@ -249,6 +249,86 @@ textarea:focus{outline:none;border-color:var(--a);}
 .edit-btn{background:transparent;border:none;color:#555;font-size:12px;cursor:pointer;padding:2px 5px;transition:color .15s;}
 .edit-btn:hover{color:var(--a);}
 
+
+/* ── STREAK ANIMATION ── */
+@keyframes flicker{0%,100%{text-shadow:0 0 10px #FF6B35,0 0 20px #FF6B35}50%{text-shadow:0 0 20px #FFD93D,0 0 40px #FFD93D}}
+.streak-fire{animation:flicker 1.4s ease-in-out infinite;display:inline-block;}
+@keyframes popIn{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0deg)}}
+.pr-badge{animation:popIn .4s cubic-bezier(.34,1.56,.64,1);display:inline-block;}
+
+/* ── REST TIMER ── */
+#rest-timer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+#rest-timer-overlay.vis{display:flex;}
+.timer-ring{width:140px;height:140px;border-radius:50%;border:4px solid #1e1e2a;display:flex;align-items:center;justify-content:center;position:relative;}
+.timer-ring svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+.timer-ring circle{fill:none;stroke:#FF6B35;stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .9s linear;}
+.timer-num{font-family:var(--fd);font-size:52px;font-weight:800;color:#fff;letter-spacing:2px;z-index:1;}
+.timer-label{font-size:12px;color:#888;letter-spacing:2px;text-transform:uppercase;}
+.timer-skip{padding:10px 28px;border-radius:50px;background:rgba(255,107,53,.2);border:1px solid rgba(255,107,53,.4);color:var(--a);font-size:13px;font-weight:600;cursor:pointer;}
+
+/* ── BODY WEIGHT ── */
+.bw-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.bw-inp{width:90px;background:var(--bg);border:1px solid #2a2a3a;border-radius:8px;color:var(--txt);font-size:20px;font-family:var(--fd);font-weight:700;padding:8px 12px;text-align:center;}
+.bw-inp:focus{outline:none;border-color:var(--a);}
+.bw-history{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.bw-history::-webkit-scrollbar{display:none;}
+.bw-chip{flex-shrink:0;background:var(--s2);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;}
+.bw-chip-val{font-family:var(--fd);font-size:16px;color:var(--a);font-weight:700;}
+.bw-chip-date{font-size:9px;color:var(--m);}
+
+/* ── MEAL LOGGER ── */
+.meal-slot{background:var(--s2);border-radius:10px;border:1px solid var(--b);padding:10px 12px;margin-bottom:7px;}
+.meal-slot-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.meal-slot-label{font-family:var(--fd);font-size:12px;letter-spacing:1px;color:var(--m);}
+.meal-inp{width:100%;background:transparent;border:none;color:var(--txt);font-size:12px;font-family:var(--fb);padding:2px 0;resize:none;line-height:1.5;}
+.meal-inp:focus{outline:none;}
+.meal-inp::placeholder{color:#333;}
+
+/* ── WATER BADGE ── */
+.water-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:50px;background:rgba(78,201,192,.15);border:1px solid rgba(78,201,192,.3);color:var(--b2);font-size:11px;font-weight:600;margin-top:6px;}
+
+/* ── TIME INTENTION ── */
+.ti-slot{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.ti-time{flex-shrink:0;font-family:var(--fd);font-size:13px;color:var(--a);font-weight:700;padding-top:8px;min-width:70px;}
+.ti-inp{flex:1;background:var(--s2);border:1px solid var(--b);border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb);resize:none;line-height:1.5;}
+.ti-inp:focus{outline:none;border-color:var(--a);}
+
+/* ── PHOTO LOG ── */
+.photo-slot{background:var(--s2);border-radius:10px;border:1px dashed rgba(255,255,255,.1);padding:14px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.photo-slot:hover{border-color:var(--a);}
+.photo-slot img{width:100%;border-radius:7px;object-fit:cover;}
+.photo-label{font-size:11px;color:var(--m);margin-top:5px;}
+
+/* ── CONSISTENCY SCORE ── */
+.cs-ring{width:110px;height:110px;margin:0 auto 10px;position:relative;}
+.cs-ring svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+.cs-ring circle{fill:none;stroke-width:10;stroke-linecap:round;}
+.cs-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.cs-num{font-family:var(--fd);font-weight:800;font-size:32px;color:var(--a);}
+.cs-lbl{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:1px;}
+
+/* ── MONTHLY CARD ── */
+.monthly-card{background:linear-gradient(135deg,var(--s1),var(--s2));border-radius:14px;border:1px solid rgba(255,107,53,.2);padding:16px;margin-bottom:10px;}
+.monthly-title{font-family:var(--fd);font-size:18px;color:var(--a);letter-spacing:1px;margin-bottom:12px;}
+.monthly-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.monthly-stat{background:var(--bg);border-radius:9px;padding:10px;}
+.monthly-stat-val{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--txt);}
+.monthly-stat-lbl{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* ── PR BADGE ── */
+.pr-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.pr-item{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:50px;background:rgba(255,217,61,.12);border:1px solid rgba(255,217,61,.3);font-size:11px;color:var(--y);}
+
+/* ── WHATSAPP SHARE ── */
+.share-btn{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:50px;background:linear-gradient(135deg,#25D366,#128C7E);border:none;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);transition:all .2s;width:100%;}
+.share-btn:hover{filter:brightness(1.1);}
+
+/* ── HOME SCREEN GUIDE ── */
+.guide-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+.guide-num{width:26px;height:26px;border-radius:50%;background:var(--a);color:#fff;font-family:var(--fd);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.guide-text{font-size:13px;color:#ccc;line-height:1.6;}
+.guide-note{font-size:11px;color:var(--m);margin-top:3px;}
+
 @media(max-width:480px){.logo{font-size:19px;}.nb .nl{display:none;}.wbox{width:42px;height:42px;}}
 </style>
 </head>
@@ -279,19 +359,74 @@ textarea:focus{outline:none;border-color:var(--a);}
 
 <!-- ═══ TODAY ═══ -->
 <div id="view-today" class="view on">
-  <!-- Date scroller -->
   <div class="date-strip" id="date-strip"></div>
 
-  <!-- Workout -->
+  <!-- STREAK + BODY WEIGHT -->
+  <div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+    <div style="flex:1">
+      <div class="sec-t" style="margin:0 0 4px">🔥 STREAK</div>
+      <div id="streak-display" style="font-family:var(--fd);font-size:36px;font-weight:800;color:var(--a)">0</div>
+      <div style="font-size:10px;color:var(--m)">weeks active</div>
+    </div>
+    <div style="flex:1;border-left:1px solid var(--b);padding-left:14px">
+      <div class="sec-t" style="margin:0 0 6px">⚖️ BODY WEIGHT</div>
+      <div class="bw-row">
+        <input class="bw-inp" id="bw-input" type="number" placeholder="kg" step="0.1" min="30" max="200"/>
+        <button onclick="saveBW()" style="padding:8px 14px;border-radius:8px;background:var(--a);border:none;color:#fff;font-size:12px;font-weight:600">Log</button>
+      </div>
+      <div class="bw-history" id="bw-history"></div>
+    </div>
+  </div>
+
+  <!-- WORKOUT -->
   <div id="today-workout"></div>
 
-  <!-- Warmup -->
+  <!-- REST TIMER BUTTON -->
+  <div class="card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <div>
+      <div class="sec-t" style="margin:0 0 2px">⏱️ REST TIMER</div>
+      <div style="font-size:11px;color:var(--m)">Start between sets</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button onclick="startTimer(30)" style="padding:8px 14px;border-radius:50px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.3);color:var(--a);font-size:12px;font-weight:600">30s</button>
+      <button onclick="startTimer(60)" style="padding:8px 14px;border-radius:50px;background:rgba(255,107,53,.2);border:1px solid rgba(255,107,53,.4);color:var(--a);font-size:13px;font-weight:700">60s</button>
+      <button onclick="startTimer(90)" style="padding:8px 14px;border-radius:50px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.3);color:var(--a);font-size:12px;font-weight:600">90s</button>
+      <button onclick="startTimer(120)" style="padding:8px 14px;border-radius:50px;background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.2);color:var(--a);font-size:12px;font-weight:600">2min</button>
+    </div>
+  </div>
+
+  <!-- PERSONAL RECORDS -->
+  <div class="card" id="pr-card" style="display:none">
+    <div class="sec-t" style="margin:0 0 6px">🏆 PERSONAL RECORDS</div>
+    <div class="pr-row" id="pr-list"></div>
+  </div>
+
+  <!-- WARMUP -->
   <div class="sec-t">🔥 WARMUP — 10 MIN (No Equipment)</div>
   <div class="wu-list" id="wu-list"></div>
 
-  <!-- Water -->
+  <!-- TIME INTENTION -->
   <div class="card">
-    <div class="sec-t" style="margin-top:0;margin-bottom:8px">💧 WATER INTAKE</div>
+    <div class="sec-t" style="margin:0 0 10px">🕐 TIME INTENTION</div>
+    <div id="ti-slots"></div>
+    <div style="font-size:10px;color:var(--m);margin-top:4px">Plan your day in 1-hour blocks. Saved daily.</div>
+  </div>
+
+  <!-- MEAL LOGGER -->
+  <div class="card">
+    <div class="sec-t" style="margin:0 0 10px">🍽️ MEAL LOG</div>
+    <div class="meal-slot"><div class="meal-slot-header"><span class="meal-slot-label">☀️ BREAKFAST</span></div><textarea class="meal-inp" id="meal-breakfast" rows="2" placeholder="What did you eat for breakfast?"></textarea></div>
+    <div class="meal-slot"><div class="meal-slot-header"><span class="meal-slot-label">🌤️ LUNCH</span></div><textarea class="meal-inp" id="meal-lunch" rows="2" placeholder="What did you eat for lunch?"></textarea></div>
+    <div class="meal-slot"><div class="meal-slot-header"><span class="meal-slot-label">🌙 DINNER</span></div><textarea class="meal-inp" id="meal-dinner" rows="2" placeholder="What did you eat for dinner?"></textarea></div>
+    <div class="meal-slot"><div class="meal-slot-header"><span class="meal-slot-label">🍎 SNACKS</span></div><textarea class="meal-inp" id="meal-snacks" rows="1" placeholder="Any snacks?"></textarea></div>
+  </div>
+
+  <!-- WATER -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div class="sec-t" style="margin:0">💧 WATER INTAKE</div>
+      <div id="water-badge-wrap"></div>
+    </div>
     <div style="display:flex;align-items:baseline;gap:5px">
       <span style="font-family:var(--fd);font-weight:700;font-size:28px;color:var(--b2)" id="w-val">0</span>
       <span style="font-size:12px;color:var(--m)">/ 8 cups today</span>
@@ -300,101 +435,51 @@ textarea:focus{outline:none;border-color:var(--a);}
     <div class="pbar" style="margin-top:10px"><div class="pbar-f" id="w-bar" style="background:var(--b2);width:0%"></div></div>
   </div>
 
-  <!-- Protein Scale -->
+  <!-- PROTEIN -->
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
       <div class="sec-t" style="margin:0">🥩 PROTEIN INTAKE</div>
       <button class="edit-btn" onclick="toggleEdit('edit-protein')" title="Edit target">✏️ Edit</button>
     </div>
-    <div id="edit-protein" class="edit-modal">
-      <div style="font-size:11px;color:var(--m);margin-bottom:7px">Set your daily protein target (g)</div>
-      <div class="edit-row">
-        <input class="edit-inp" id="ep-target" type="number" placeholder="Target grams e.g. 150"/>
-        <button class="edit-save" onclick="saveProteinTarget()">Save</button>
-        <button class="edit-cancel" onclick="toggleEdit('edit-protein')">✕</button>
-      </div>
-    </div>
+    <div id="edit-protein" class="edit-modal"><div style="font-size:11px;color:var(--m);margin-bottom:7px">Set your daily protein target (g)</div><div class="edit-row"><input class="edit-inp" id="ep-target" type="number" placeholder="Target grams e.g. 150"/><button class="edit-save" onclick="saveProteinTarget()">Save</button><button class="edit-cancel" onclick="toggleEdit('edit-protein')">✕</button></div></div>
     <div class="scale-val" id="prot-val" style="color:var(--r)">0</div>
     <div class="scale-unit">grams today — drag to set</div>
-    <div class="scale-wrap">
-      <div class="scale-label"><span>0g</span><span>50g</span><span>100g</span><span>150g</span><span>200g</span></div>
-      <div class="scale-track">
-        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
-        <div class="scale-scroll" id="prot-scale" data-key="protein" data-max="200" data-step="5"></div>
-      </div>
-    </div>
+    <div class="scale-wrap"><div class="scale-label"><span>0g</span><span>50g</span><span>100g</span><span>150g</span><span>200g</span></div><div class="scale-track"><div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div><div class="scale-scroll" id="prot-scale" data-key="protein" data-max="200" data-step="5"></div></div></div>
     <div class="pbar"><div class="pbar-f" id="prot-bar" style="background:var(--r);width:0%"></div></div>
-    <div style="font-size:10px;color:var(--m);margin-top:5px">Target: 150g · Drag the scale ←→ to update</div>
   </div>
 
-  <!-- Food / Meal Quality Scale -->
+  <!-- SLEEP -->
   <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-      <div class="sec-t" style="margin:0">🍽️ MEAL QUALITY</div>
-      <button class="edit-btn" onclick="toggleEdit('edit-meal')" title="Edit">✏️ Edit</button>
-    </div>
-    <div id="edit-meal" class="edit-modal">
-      <div style="font-size:11px;color:var(--m);margin-bottom:7px">Rename the meal quality label if needed</div>
-      <div class="edit-row">
-        <input class="edit-inp" id="em-label" placeholder="Label e.g. Diet Quality"/>
-        <button class="edit-save" onclick="saveMealLabel()">Save</button>
-        <button class="edit-cancel" onclick="toggleEdit('edit-meal')">✕</button>
-      </div>
-    </div>
-    <div class="scale-val" id="food-val" style="color:var(--y)">0</div>
-    <div class="scale-unit">out of 10 — how clean was your eating today?</div>
-    <div class="scale-wrap">
-      <div class="scale-label"><span>Poor</span><span>OK</span><span>Good</span><span>Great</span><span>Perfect</span></div>
-      <div class="scale-track">
-        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
-        <div class="scale-scroll" id="food-scale" data-key="food" data-max="10" data-step="1"></div>
-      </div>
-    </div>
-    <div class="pbar"><div class="pbar-f" id="food-bar" style="background:var(--y);width:0%"></div></div>
-  </div>
-
-  <!-- Daily Note -->
-  <div class="card">
-    <div class="sec-t" style="margin-top:0;margin-bottom:8px">📝 TODAY'S NOTE</div>
-    <textarea id="daily-note" rows="4" placeholder="How did today feel? What was hard? What to improve tomorrow? Any wins to celebrate?"></textarea>
-    <div style="font-size:10px;color:var(--m);margin-top:5px">Saved automatically · Used in your weekly AI report</div>
-  </div>
-
-  <!-- Sleep -->
-  <div class="card" style="margin-bottom:4px">
-    <div class="sec-t" style="margin-top:0;margin-bottom:4px">😴 SLEEP LAST NIGHT</div>
+    <div class="sec-t" style="margin:0 0 4px">😴 SLEEP LAST NIGHT</div>
     <div class="scale-val" id="sleep-val" style="color:var(--p)">0</div>
     <div class="scale-unit">hours — drag to set</div>
-    <div class="scale-wrap">
-      <div class="scale-label"><span>0h</span><span>2h</span><span>4h</span><span>6h</span><span>8h+</span></div>
-      <div class="scale-track">
-        <div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div>
-        <div class="scale-scroll" id="sleep-scale" data-key="sleep" data-max="10" data-step="0.5"></div>
-      </div>
-    </div>
+    <div class="scale-wrap"><div class="scale-label"><span>0h</span><span>2h</span><span>4h</span><span>6h</span><span>8h+</span></div><div class="scale-track"><div class="scale-pointer"><div class="pointer-line"></div><div class="pointer-arrow"></div></div><div class="scale-scroll" id="sleep-scale" data-key="sleep" data-max="10" data-step="0.5"></div></div></div>
     <div class="pbar"><div class="pbar-f" id="sleep-bar" style="background:var(--p);width:0%"></div></div>
   </div>
 
-  <!-- Do Not Do This -->
+  <!-- DO NOT DO THIS -->
   <div class="dnd-card" style="margin-top:10px">
     <div class="dnd-header">
       <div class="dnd-title">🚫 DO NOT DO THIS <span class="dnd-badge">DANGER ZONE</span></div>
-      <button class="edit-btn" onclick="toggleEdit('edit-dnd-rules')" title="Manage rules" style="color:#FF5C7A;font-size:11px">✏️ Manage</button>
+      <button class="edit-btn" onclick="toggleEdit('edit-dnd-rules')" style="color:#FF5C7A;font-size:11px">✏️ Manage</button>
       <span id="dnd-score" style="font-family:var(--fd);font-size:13px;color:#FF5C7A"></span>
     </div>
-    <p style="font-size:11px;color:rgba(255,92,122,.6);margin-bottom:10px;line-height:1.5">Rules you add here appear <strong style="color:rgba(255,92,122,.9)">every day</strong>. Answer YES/NO daily — tracked in reports and graphs.</p>
-    <div class="dnd-add">
-      <input class="dnd-input" id="dnd-input" placeholder="e.g. No junk food, No skipping warmup..." maxlength="60" onkeydown="if(event.key==='Enter')addDND()"/>
-      <button class="dnd-add-btn" onclick="addDND()">+ Add Rule</button>
-    </div>
+    <p style="font-size:11px;color:rgba(255,92,122,.6);margin-bottom:10px;line-height:1.5">Rules appear every day. Answer YES/NO — tracked in reports.</p>
+    <div class="dnd-add"><input class="dnd-input" id="dnd-input" placeholder="e.g. No junk food..." maxlength="60" onkeydown="if(event.key==='Enter')addDND()"/><button class="dnd-add-btn" onclick="addDND()">+ Add Rule</button></div>
     <div id="dnd-list"></div>
     <div id="edit-dnd-rules" class="edit-modal"><div id="edit-dnd-list"></div></div>
-    <div class="dnd-hint">🔴 YES = I did it (bad) &nbsp;·&nbsp; 🟢 NO = I didn't do it (good) &nbsp;·&nbsp; Rules persist every day automatically</div>
+    <div class="dnd-hint">🔴 YES = I did it (bad) &nbsp;·&nbsp; 🟢 NO = I didn't (good)</div>
   </div>
 
-  <!-- Day rating -->
+  <!-- DAILY NOTE -->
+  <div class="card">
+    <div class="sec-t" style="margin:0 0 8px">📝 TODAY'S NOTE</div>
+    <textarea id="daily-note" rows="3" placeholder="How did today feel? What to improve tomorrow?"></textarea>
+  </div>
+
+  <!-- RATE DAY -->
   <div class="card" style="margin-top:10px">
-    <div class="sec-t" style="margin-top:0;margin-bottom:8px">⭐ RATE THIS DAY</div>
+    <div class="sec-t" style="margin:0 0 8px">⭐ RATE THIS DAY</div>
     <div class="stars" id="day-stars"></div>
   </div>
 </div>
@@ -411,8 +496,7 @@ textarea:focus{outline:none;border-color:var(--a);}
   <div id="add-ex-modal" style="display:none;background:var(--s2);border-radius:12px;border:1px solid rgba(255,107,53,.3);padding:14px;margin-bottom:12px">
     <div style="font-family:var(--fd);font-size:12px;letter-spacing:2px;color:var(--a);margin-bottom:10px">NEW EXERCISE</div>
     <input id="aex-name" placeholder="Exercise name" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb)"/>
-    <div style="font-size:10px;color:var(--m);margin-bottom:4px;letter-spacing:.5px">ADD TO MUSCLE GROUP</div>
-    <select id="aex-muscle" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb);appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23888%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 10px center;cursor:pointer"></select>
+    <input id="aex-muscle" placeholder="Muscle group" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb)"/>
     <div style="display:flex;gap:7px;margin-bottom:7px">
       <input id="aex-sets" placeholder="Sets e.g. 3" type="number" min="1" max="10" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
       <input id="aex-reps" placeholder="Reps e.g. 12-15" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
@@ -430,13 +514,54 @@ textarea:focus{outline:none;border-color:var(--a);}
 
 <!-- ═══ PROGRESS ═══ -->
 <div id="view-progress" class="view">
-  <div style="font-family:var(--fd);font-weight:700;font-size:15px;letter-spacing:2px;color:var(--txt);margin-bottom:16px;padding-top:2px">PROGRESS GRAPHS</div>
-  <div class="graph-card"><div class="graph-title">💪 Workout Completion <span class="graph-sub">% of exercises done per training day</span></div><div style="position:relative;height:160px"><canvas id="chart-workout"></canvas></div></div>
-  <div class="graph-card"><div class="graph-title">🥩 Protein Intake <span class="graph-sub">grams per day</span></div><div style="position:relative;height:160px"><canvas id="chart-protein"></canvas></div></div>
-  <div class="graph-card"><div class="graph-title">🍽️ Meal Quality <span class="graph-sub">score out of 10</span></div><div style="position:relative;height:160px"><canvas id="chart-meal"></canvas></div></div>
+  <!-- Consistency Score -->
+  <div class="card" style="text-align:center;padding:20px">
+    <div class="sec-t" style="margin:0 0 12px">🎯 WEEKLY CONSISTENCY SCORE</div>
+    <div class="cs-ring">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="48" stroke="#1e1e2a" stroke-width="10" fill="none"/>
+        <circle id="cs-arc" cx="55" cy="55" r="48" stroke="var(--a)" stroke-width="10" fill="none"
+          stroke-dasharray="301.6" stroke-dashoffset="301.6" style="transition:stroke-dashoffset .8s ease"/>
+      </svg>
+      <div class="cs-val"><div class="cs-num" id="cs-score">0</div><div class="cs-lbl">/ 100</div></div>
+    </div>
+    <div id="cs-breakdown" style="font-size:11px;color:var(--m);line-height:1.8"></div>
+  </div>
+
+  <!-- Monthly Summary -->
+  <div id="monthly-summary"></div>
+
+  <!-- Before / After Photos -->
+  <div class="card">
+    <div class="sec-t" style="margin:0 0 10px">📸 BEFORE / AFTER PHOTO LOG</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <div style="font-size:10px;color:var(--m);margin-bottom:6px;text-align:center">BEFORE</div>
+        <div class="photo-slot" onclick="triggerPhoto('before')">
+          <div id="photo-before-wrap"><div style="font-size:28px">📷</div><div class="photo-label">Tap to add photo tag</div></div>
+        </div>
+        <input type="text" id="photo-before-note" placeholder="Week / date note..." class="edit-inp" style="margin-top:6px;width:100%"/>
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--m);margin-bottom:6px;text-align:center">AFTER</div>
+        <div class="photo-slot" onclick="triggerPhoto('after')">
+          <div id="photo-after-wrap"><div style="font-size:28px">📷</div><div class="photo-label">Tap to add photo tag</div></div>
+        </div>
+        <input type="text" id="photo-after-note" placeholder="Week / date note..." class="edit-inp" style="margin-top:6px;width:100%"/>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--m);margin-top:10px;line-height:1.5">📌 Photos are tagged with a date label only. Keep photos in your camera roll for privacy.</div>
+  </div>
+
+  <!-- Graphs -->
+  <div style="font-family:var(--fd);font-weight:700;font-size:13px;letter-spacing:2px;color:var(--m);margin:16px 0 10px">PROGRESS GRAPHS</div>
+  <div class="graph-card"><div class="graph-title">💪 Workout Completion <span class="graph-sub">% per training day</span></div><div style="position:relative;height:160px"><canvas id="chart-workout"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">🥩 Protein <span class="graph-sub">grams per day</span></div><div style="position:relative;height:160px"><canvas id="chart-protein"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">🍽️ Meal Quality <span class="graph-sub">score / 10</span></div><div style="position:relative;height:160px"><canvas id="chart-meal"></canvas></div></div>
   <div class="graph-card"><div class="graph-title">😴 Sleep <span class="graph-sub">hours per night</span></div><div style="position:relative;height:160px"><canvas id="chart-sleep"></canvas></div></div>
+  <div class="graph-card"><div class="graph-title">⚖️ Body Weight <span class="graph-sub">kg over time</span></div><div style="position:relative;height:160px"><canvas id="chart-bw"></canvas></div></div>
   <div class="graph-card">
-    <div class="graph-title">🚫 Do Not Do This <span class="graph-sub">NO=kept(1) · YES=broke(0)</span></div>
+    <div class="graph-title">🚫 Do Not Do This <span class="graph-sub">NO=1(kept) · YES=0(broke)</span></div>
     <div id="dnd-legend" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:4px"></div>
     <div style="position:relative;height:160px"><canvas id="chart-dnd"></canvas></div>
   </div>
@@ -466,6 +591,37 @@ textarea:focus{outline:none;border-color:var(--a);}
     <p style="font-size:12px;color:var(--m);margin-bottom:11px">Download all your progress, notes and nutrition as a text file.</p>
     <button class="rpt-btn" onclick="exportData()" style="background:var(--s2);color:var(--txt);border:1px solid var(--b)">⬇️ Export as .txt</button>
   </div>
+
+  <!-- WhatsApp Share -->
+  <div class="card">
+    <div class="sec-t" style="margin:0 0 8px">📲 SHARE TO WHATSAPP</div>
+    <p style="font-size:12px;color:var(--m);margin-bottom:12px">Share your weekly summary with a friend or trainer instantly.</p>
+    <button class="share-btn" onclick="shareWhatsApp()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Share Weekly Summary on WhatsApp
+    </button>
+  </div>
+
+  <!-- Home Screen Guide -->
+  <div class="card">
+    <div class="sec-t" style="margin:0 0 12px">📱 ADD TO HOME SCREEN</div>
+    <div id="home-guide"></div>
+  </div>
+</div>
+
+
+<!-- REST TIMER OVERLAY -->
+<div id="rest-timer-overlay">
+  <div class="timer-label">REST TIMER</div>
+  <div class="timer-ring">
+    <svg width="140" height="140" viewBox="0 0 140 140">
+      <circle id="timer-track" cx="70" cy="70" r="64" stroke="#1e1e2a" stroke-width="8" fill="none"/>
+      <circle id="timer-arc" cx="70" cy="70" r="64" stroke="#FF6B35" stroke-width="4" stroke-linecap="round" fill="none"
+        stroke-dasharray="402" stroke-dashoffset="0"/>
+    </svg>
+    <div class="timer-num" id="timer-display">60</div>
+  </div>
+  <button class="timer-skip" onclick="stopTimer()">Skip ✕</button>
 </div>
 
 </main>
@@ -492,19 +648,19 @@ const SPLITS = {
     days:["Monday","Thursday"],emoji:"💪",ac:"#FF6B35",gr:"linear-gradient(135deg,#FF6B35,#FF3366)",
     muscleGroups:{
       "Chest":[
-        {name:"Banded Push-Up",sets:4,reps:"10–12",tip:"Loop band across upper back under shoulders, hold ends under palms. Feel extra resistance on the way up.",yt:"https://www.youtube.com/results?search_query=resistance+band+push+up+tutorial",ytl:"🔍 Search: Resistance Band Push-Up"},
-        {name:"Band Chest Press (Standing)",sets:4,reps:"12–15",tip:"Anchor band behind you at chest height. Stand in staggered stance, press handles straight forward. Squeeze pecs at full extension.",yt:"https://www.youtube.com/results?search_query=resistance+band+chest+press+standing+tutorial",ytl:"🔍 Search: Band Chest Press"},
-        {name:"Band Chest Fly (Standing)",sets:3,reps:"12–15",tip:"Anchor band at chest height either side. Bring hands together in wide arc in front, squeeze at centre for 1 sec.",yt:"https://www.youtube.com/results?search_query=resistance+band+chest+fly+standing+tutorial",ytl:"🔍 Search: Band Chest Fly"},
+        {name:"Banded Push-Up",sets:4,reps:"10–12",tip:"Loop band across upper back under shoulders, hold ends under palms. Feel extra resistance on the way up.",yt:"https://www.youtube.com/watch?v=IODxDxX7oi4",ytl:"Resistance Band Push-Up"},
+        {name:"Band Chest Press",sets:4,reps:"12–15",tip:"Anchor band behind you at chest height. Stand in staggered stance, press handles straight forward. Squeeze pecs at full extension.",yt:"https://www.youtube.com/watch?v=UydUK8KLqt8",ytl:"Resistance Band Chest Press"},
+        {name:"Band Chest Fly",sets:3,reps:"12–15",tip:"Anchor band at chest height either side. Bring hands together in wide arc in front, squeeze at centre for 1 sec.",yt:"https://www.youtube.com/watch?v=8lDC4Ri9zAQ",ytl:"Resistance Band Chest Fly"},
       ],
       "Shoulders":[
-        {name:"Band Overhead Press",sets:4,reps:"12–15",tip:"Stand on band centre, hold handles at shoulders. Press straight overhead until arms fully extend. Control the descent.",yt:"https://www.youtube.com/results?search_query=resistance+band+overhead+press+tutorial",ytl:"🔍 Search: Band Overhead Press"},
-        {name:"Band Lateral Raise",sets:3,reps:"15",tip:"Stand on band, raise arms out to shoulder height with slight elbow bend. Don't shrug — keep traps relaxed.",yt:"https://www.youtube.com/results?search_query=resistance+band+lateral+raise+tutorial",ytl:"🔍 Search: Band Lateral Raise"},
-        {name:"Band Front Raise",sets:3,reps:"12",tip:"Stand on band, raise arms straight in front to shoulder height. Control the lowering phase slowly.",yt:"https://www.youtube.com/results?search_query=resistance+band+front+raise+tutorial",ytl:"🔍 Search: Band Front Raise"},
+        {name:"Band Overhead Press",sets:4,reps:"12–15",tip:"Stand on band centre, hold handles at shoulders. Press straight overhead until arms fully extend. Control the descent.",yt:"https://www.youtube.com/watch?v=qEwKCR5JCog",ytl:"Resistance Band Overhead Press"},
+        {name:"Band Lateral Raise",sets:3,reps:"15",tip:"Stand on band, raise arms out to shoulder height with slight elbow bend. Don't shrug — keep traps relaxed.",yt:"https://www.youtube.com/watch?v=3VcKaXpzqRo",ytl:"Resistance Band Lateral Raise"},
+        {name:"Band Front Raise",sets:3,reps:"12",tip:"Stand on band, raise arms straight in front to shoulder height. Control the lowering phase slowly.",yt:"https://www.youtube.com/watch?v=Fk6o2NMbEW8",ytl:"Resistance Band Front Raise"},
       ],
       "Triceps":[
-        {name:"Band Overhead Tricep Extension",sets:3,reps:"15",tip:"Step on band, hold behind head with both hands, fully extend arms upward. Keep elbows pointing forward.",yt:"https://www.youtube.com/results?search_query=resistance+band+overhead+tricep+extension+tutorial",ytl:"🔍 Search: Band Overhead Tricep Extension"},
-        {name:"Band Tricep Pushdown",sets:3,reps:"15",tip:"Anchor band overhead. Keep elbows at sides, push handles down until arms fully straight. Squeeze at bottom.",yt:"https://www.youtube.com/results?search_query=resistance+band+tricep+pushdown+tutorial",ytl:"🔍 Search: Band Tricep Pushdown"},
-        {name:"Band Tricep Kickback",sets:3,reps:"12 each",tip:"Hinge forward 45°, anchor band under front foot, fix upper arm parallel to floor, extend forearm back.",yt:"https://www.youtube.com/results?search_query=resistance+band+tricep+kickback+tutorial",ytl:"🔍 Search: Band Tricep Kickback"},
+        {name:"Overhead Tricep Extension",sets:3,reps:"15",tip:"Step on band, hold behind head with both hands, fully extend arms upward. Keep elbows pointing forward.",yt:"https://www.youtube.com/watch?v=YbX7Wd8jQ-U",ytl:"Band Tricep Overhead Extension"},
+        {name:"Tricep Pushdown",sets:3,reps:"15",tip:"Anchor band overhead. Keep elbows at sides, push handles down until arms fully straight. Squeeze at bottom.",yt:"https://www.youtube.com/watch?v=2-LAMcpzODU",ytl:"Resistance Band Tricep Pushdown"},
+        {name:"Tricep Kickback",sets:3,reps:"12 each",tip:"Hinge forward 45°, anchor band under front foot, fix upper arm parallel to floor, extend forearm back.",yt:"https://www.youtube.com/watch?v=6SS6K3lAwZ8",ytl:"Resistance Band Tricep Kickback"},
       ],
     },
     get exercises(){return Object.values(this.muscleGroups).flat();}
@@ -513,15 +669,15 @@ const SPLITS = {
     days:["Tuesday","Friday"],emoji:"🏋️",ac:"#4EC9C0",gr:"linear-gradient(135deg,#4EC9C0,#2196F3)",
     muscleGroups:{
       "Back":[
-        {name:"Seated Band Row",sets:4,reps:"12–15",tip:"Sit tall, loop band around feet, pull handles to belly button, drive elbows behind you and squeeze shoulder blades together.",yt:"https://www.youtube.com/results?search_query=resistance+band+seated+row+tutorial",ytl:"🔍 Search: Seated Band Row"},
-        {name:"Band Lat Pulldown",sets:4,reps:"12",tip:"Anchor band overhead, kneel or sit tall. Pull elbows down to your sides — not your hands. Feel the lats stretch at top.",yt:"https://www.youtube.com/results?search_query=resistance+band+lat+pulldown+tutorial",ytl:"🔍 Search: Band Lat Pulldown"},
-        {name:"Bent-Over Band Row",sets:3,reps:"12–15",tip:"Stand on band, hinge 45° at hips, keep back flat. Pull handles to lower ribs — not upper chest. Elbows close to body.",yt:"https://www.youtube.com/results?search_query=resistance+band+bent+over+row+tutorial",ytl:"🔍 Search: Bent-Over Band Row"},
-        {name:"Band Face Pull",sets:3,reps:"15",tip:"Anchor at face height. Pull handles toward ears, elbows high and flared out. Great for rear delts and rotator cuff.",yt:"https://www.youtube.com/results?search_query=resistance+band+face+pull+tutorial",ytl:"🔍 Search: Band Face Pull"},
+        {name:"Seated Band Row",sets:4,reps:"12–15",tip:"Sit tall, loop band around feet, pull handles to belly button, drive elbows behind you and squeeze shoulder blades together.",yt:"https://www.youtube.com/watch?v=GZbfZ033f74",ytl:"Resistance Band Seated Row"},
+        {name:"Band Lat Pulldown",sets:4,reps:"12",tip:"Anchor band overhead, kneel or sit tall. Pull elbows down to your sides — not your hands. Feel the lats stretch at top.",yt:"https://www.youtube.com/watch?v=CAwf7n6Luuc",ytl:"Resistance Band Lat Pulldown"},
+        {name:"Bent-Over Band Row",sets:3,reps:"12–15",tip:"Stand on band, hinge 45° at hips, keep back flat. Pull handles to lower ribs — not upper chest. Elbows close to body.",yt:"https://www.youtube.com/watch?v=FWJR5Ve8bnQ",ytl:"Resistance Band Bent Over Row"},
+        {name:"Band Face Pull",sets:3,reps:"15",tip:"Anchor at face height. Pull handles toward ears, elbows high and flared out. Great for rear delts and rotator cuff.",yt:"https://www.youtube.com/watch?v=rep-qVOkqgk",ytl:"Resistance Band Face Pull"},
       ],
       "Biceps":[
-        {name:"Band Bicep Curl",sets:3,reps:"15",tip:"Stand on band, curl handles up with palms forward. Slow 3-second lowering builds more muscle than rushing down.",yt:"https://www.youtube.com/results?search_query=resistance+band+bicep+curl+tutorial",ytl:"🔍 Search: Band Bicep Curl"},
-        {name:"Band Hammer Curl",sets:3,reps:"12",tip:"Neutral grip (thumbs up), curl with full control. Hits brachialis and forearm thickness alongside biceps.",yt:"https://www.youtube.com/results?search_query=resistance+band+hammer+curl+tutorial",ytl:"🔍 Search: Band Hammer Curl"},
-        {name:"Band Concentration Curl",sets:3,reps:"12 each",tip:"Stand on band one foot, curl one arm at a time. Elbow braced against inner thigh for strict isolation.",yt:"https://www.youtube.com/results?search_query=resistance+band+concentration+curl+tutorial",ytl:"🔍 Search: Band Concentration Curl"},
+        {name:"Band Bicep Curl",sets:3,reps:"15",tip:"Stand on band, curl handles up with palms forward. Slow 3-second lowering builds more muscle than rushing down.",yt:"https://www.youtube.com/watch?v=av7-8igSXTs",ytl:"Resistance Band Bicep Curl"},
+        {name:"Band Hammer Curl",sets:3,reps:"12",tip:"Neutral grip (thumbs up), curl with full control. Hits brachialis and forearm thickness alongside biceps.",yt:"https://www.youtube.com/watch?v=zC3nLlEvin4",ytl:"Resistance Band Hammer Curl"},
+        {name:"Band Concentration Curl",sets:3,reps:"12 each",tip:"Stand on band one foot, curl one arm at a time. Elbow braced against inner thigh for strict isolation.",yt:"https://www.youtube.com/watch?v=Jh2ZBEMOQ98",ytl:"Resistance Band Concentration Curl"},
       ],
     },
     get exercises(){return Object.values(this.muscleGroups).flat();}
@@ -530,17 +686,17 @@ const SPLITS = {
     days:["Wednesday","Saturday"],emoji:"🦵",ac:"#FFD93D",gr:"linear-gradient(135deg,#FFD93D,#FF6B35)",
     muscleGroups:{
       "Quads & Glutes":[
-        {name:"Band Squat",sets:4,reps:"15–20",tip:"Stand on band, hold handles at shoulders. Sit deep until thighs parallel, drive through heels to stand. Keep knees tracking toes.",yt:"https://www.youtube.com/results?search_query=resistance+band+squat+tutorial",ytl:"🔍 Search: Band Squat"},
-        {name:"Band Reverse Lunge",sets:3,reps:"12 each",tip:"Stand on band with front foot, hold handles at shoulders. Step back and lower knee toward floor with control.",yt:"https://www.youtube.com/results?search_query=resistance+band+reverse+lunge+tutorial",ytl:"🔍 Search: Band Reverse Lunge"},
-        {name:"Lateral Band Walk",sets:3,reps:"15 each way",tip:"Place band above knees or hold handles. Wide side steps maintaining tension — great for glute medius activation.",yt:"https://www.youtube.com/results?search_query=resistance+band+lateral+walk+tutorial",ytl:"🔍 Search: Band Lateral Walk"},
+        {name:"Band Squat",sets:4,reps:"15–20",tip:"Stand on band, hold handles at shoulders. Sit deep until thighs parallel, drive through heels to stand. Keep knees tracking toes.",yt:"https://www.youtube.com/watch?v=aclHkVaku9U",ytl:"Resistance Band Squat"},
+        {name:"Band Reverse Lunge",sets:3,reps:"12 each",tip:"Stand on band with front foot, hold handles at shoulders. Step back and lower knee toward floor with control.",yt:"https://www.youtube.com/watch?v=xrjTDSGiMpY",ytl:"Resistance Band Reverse Lunge"},
+        {name:"Lateral Band Walk",sets:3,reps:"15 each way",tip:"Place band above knees or hold handles. Wide side steps maintaining tension — great for glute medius activation.",yt:"https://www.youtube.com/watch?v=kwn5_LRNeOk",ytl:"Resistance Band Lateral Walk"},
       ],
       "Hamstrings":[
-        {name:"Band Romanian Deadlift",sets:4,reps:"12–15",tip:"Stand on band, hold handles. Hinge at hips, push them back, keep back straight. Feel the hamstring stretch before driving back up.",yt:"https://www.youtube.com/results?search_query=resistance+band+romanian+deadlift+tutorial",ytl:"🔍 Search: Band Romanian Deadlift"},
-        {name:"Band Glute Bridge",sets:3,reps:"20",tip:"Lie on back, band across hips anchored to floor under feet, drive through heels to lift. Squeeze glutes hard at top for 1 full second before lowering.",yt:"https://www.youtube.com/results?search_query=resistance+band+glute+bridge+tutorial",ytl:"🔍 Search: Band Glute Bridge"},
-        {name:"Band Leg Curl (Standing)",sets:3,reps:"12",tip:"Anchor band at ankle height, hook it around your ankle, curl heel toward glute. Control the extension slowly.",yt:"https://www.youtube.com/results?search_query=resistance+band+standing+leg+curl+tutorial",ytl:"🔍 Search: Band Standing Leg Curl"},
+        {name:"Romanian Deadlift",sets:4,reps:"12–15",tip:"Stand on band, hold handles. Hinge at hips, push them back, keep back straight. Feel the hamstring stretch before driving back up.",yt:"https://www.youtube.com/watch?v=JCXUYuzwNrM",ytl:"Resistance Band Romanian Deadlift"},
+        {name:"Band Glute Bridge",sets:3,reps:"20",tip:"Anchor band above hips, drive through heels to lift. Squeeze glutes hard at top for 1 full second before lowering.",yt:"https://www.youtube.com/watch?v=OUgsJ8-Vi0E",ytl:"Resistance Band Glute Bridge"},
+        {name:"Band Leg Curl",sets:3,reps:"12",tip:"Anchor band at ankle level, hook it around your ankle, curl heel toward glute. Control the extension slowly.",yt:"https://www.youtube.com/watch?v=EE4WSZS7Zs0",ytl:"Resistance Band Leg Curl"},
       ],
       "Calves":[
-        {name:"Band Calf Raise",sets:4,reps:"20",tip:"Stand on band, hold handles. Rise on toes slowly — 2 seconds up, hold 1 sec, 3 seconds down. Full range of motion.",yt:"https://www.youtube.com/results?search_query=resistance+band+calf+raise+tutorial",ytl:"🔍 Search: Band Calf Raise"},
+        {name:"Band Calf Raise",sets:4,reps:"20",tip:"Stand on band, hold handles. Rise on toes slowly — 2 seconds up, hold 1 sec, 3 seconds down. Full range of motion.",yt:"https://www.youtube.com/watch?v=gwLzBJYoWlI",ytl:"Resistance Band Calf Raise"},
       ],
     },
     get exercises(){return Object.values(this.muscleGroups).flat();}
@@ -626,6 +782,7 @@ function updateStrip(){
     if(weekPct(wn)>=50)streak++;else break;
   }
   document.getElementById("s-streak").textContent=streak+"w";
+  const sdEl=document.getElementById("streak-display");if(sdEl&&streak>=3){sdEl.innerHTML=`<span class="streak-fire">🔥${streak}🔥</span>`;}else if(sdEl){sdEl.textContent=streak;}
 }
 
 // ═══════════════════════════════════════════════
@@ -695,68 +852,41 @@ function rToday(){
       </div>
       <div class="pbar" style="margin-bottom:12px"><div class="pbar-f" style="background:${sp.gr};width:${pct}%"></div></div>
       ${(()=>{
-        let trackerHtml='';
-        const mgKeys2=Object.keys(sp.muscleGroups);
-        const cExs2=getCustomEx(split);
-        let bIdx=0;
-        let tNum=0;
-        mgKeys2.forEach(mgName=>{
-          const mgExs=sp.muscleGroups[mgName];
-          const mgCustom=cExs2.map((ex,ci)=>({ex,ci})).filter(({ex})=>(ex.muscleGroup||ex.muscle)===mgName);
-          trackerHtml+=`<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}12;border-left:2px solid ${sp.ac};padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
-          mgExs.forEach(ex=>{
-            tNum++;
-            const ov=S.exOverrides&&S.exOverrides[split]&&S.exOverrides[split][bIdx];
-            const dex=ov?{...ex,...ov}:ex;
-            const key=`${selectedDate}-ex-b${bIdx}`;
-            const ck=S.logs&&(S.logs[key]||S.logs[`${selectedDate}-ex-${bIdx}`]);
-            const tk="tr-"+key;const op=exTrack===tk;
-            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}">
+        let trackerHtml = '';
+        const mgKeys2 = Object.keys(sp.muscleGroups);
+        let bIdx = 0;
+        mgKeys2.forEach(mgName => {
+          const mgExs = sp.muscleGroups[mgName];
+          trackerHtml += `<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}12;border-left:2px solid ${sp.ac};padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
+          mgExs.forEach((ex) => {
+            const ov = S.exOverrides&&S.exOverrides[split]&&S.exOverrides[split][bIdx];
+            const dex = ov?{...ex,...ov}:ex;
+            const key = `${selectedDate}-ex-b${bIdx}`;
+            const ck = S.logs&&(S.logs[key]||S.logs[`${selectedDate}-ex-${bIdx}`]);
+            const tk = "tr-"+key; const op = exTrack===tk;
+            trackerHtml += `<div class="tex${ck?" ck":""}" id="tc-${key}">
               <div class="tex-r">
                 <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
                 <div class="tex-inf" onclick="tTrEx('${tk}')">
-                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${dex.name}</div>
+                  <div class="tex-nm${ck?" ck":""}">${dex.name}</div>
                   <div class="tex-ms">${mgName}</div>
                 </div>
                 <div class="tex-st" style="color:${sp.ac}">${dex.sets}×${dex.reps}</div>
-                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
+                <div class="chev" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
               </div>
-              <div class="tex-b${op?" op":""}" id="tb-${tk}">
+              <div class="tex-b${op?" op":""}">
                 <div class="tip">💡 ${dex.tip||"Focus on good form."}</div>
-                ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
+                ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
               </div>
             </div>`;
             bIdx++;
           });
-          mgCustom.forEach(({ex,ci})=>{
-            tNum++;
-            const key=`${selectedDate}-ex-c${ci}`;
-            const ck=S.logs&&S.logs[key];
-            const tk="tr-"+key;const op=exTrack===tk;
-            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}" style="border-color:${sp.ac}55">
-              <div class="tex-r">
-                <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
-                <div class="tex-inf" onclick="tTrEx('${tk}')">
-                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${ex.name} <span style="font-size:9px;color:${sp.ac};background:${sp.ac}20;border-radius:3px;padding:1px 4px">CUSTOM</span></div>
-                  <div class="tex-ms">${mgName}</div>
-                </div>
-                <div class="tex-st" style="color:${sp.ac}">${ex.sets}×${ex.reps}</div>
-                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
-              </div>
-              <div class="tex-b${op?" op":""}" id="tb-${tk}">
-                <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
-              </div>
-            </div>`;
-          });
         });
-        const ungrouped2=cExs2.map((ex,ci)=>({ex,ci})).filter(({ex})=>{
-          const mg=ex.muscleGroup||ex.muscle;
-          return !mg||!mgKeys2.includes(mg);
-        });
-        if(ungrouped2.length>0){
-          trackerHtml+=`<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:#666;background:rgba(255,255,255,.04);border-left:2px solid #444;padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">OTHER</div>`;
-          ungrouped2.forEach(({ex,ci})=>{
-            tNum++;
+        // Custom exercises
+        const cExs2 = getCustomEx(split);
+        if(cExs2.length>0){
+          trackerHtml += `<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:#666;background:rgba(255,255,255,.04);border-left:2px solid #444;padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">CUSTOM</div>`;
+          cExs2.forEach((ex,ci)=>{
             const key=`${selectedDate}-ex-c${ci}`;
             const ck=S.logs&&S.logs[key];
             const tk="tr-"+key;const op=exTrack===tk;
@@ -764,13 +894,13 @@ function rToday(){
               <div class="tex-r">
                 <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
                 <div class="tex-inf" onclick="tTrEx('${tk}')">
-                  <div class="tex-nm${ck?" ck":""}">${tNum}. ${ex.name}</div>
+                  <div class="tex-nm${ck?" ck":""}">${ex.name}</div>
                   <div class="tex-ms">${ex.muscle||"Custom"}</div>
                 </div>
                 <div class="tex-st" style="color:#888">${ex.sets}×${ex.reps}</div>
-                <div class="chev" id="ch-${tk}" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
+                <div class="chev" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
               </div>
-              <div class="tex-b${op?" op":""}" id="tb-${tk}">
+              <div class="tex-b${op?" op":""}">
                 <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
               </div>
             </div>`;
@@ -811,6 +941,14 @@ function rToday(){
   // Do Not Do This
   rDND();
 
+  // New features
+  renderStreak();
+  rBWHistory();
+  renderTimeIntention();
+  loadMeals();
+  renderWaterBadge();
+  checkPRs();
+
   // Day rating
   const dr=S.dayRating&&S.dayRating[selectedDate]||0;
   document.getElementById("day-stars").innerHTML=[1,2,3,4,5].map(r=>
@@ -828,18 +966,7 @@ function tEx(key,tk){
   if(btn){btn.classList.add("pop");setTimeout(()=>btn&&btn.classList.remove("pop"),400);}
   setTimeout(()=>{rToday();updateStrip();},120);
 }
-function tTrEx(k){
-  const wasOpen = exTrack === k;
-  exTrack = wasOpen ? null : k;
-  document.querySelectorAll('.tex-b.op').forEach(el => el.classList.remove('op'));
-  document.querySelectorAll('.chev').forEach(el => el.style.transform = 'none');
-  if (!wasOpen) {
-    const panel = document.getElementById('tb-' + k);
-    const chev  = document.getElementById('ch-' + k);
-    if (panel) panel.classList.add('op');
-    if (chev)  chev.style.transform = 'rotate(90deg)';
-  }
-}
+function tTrEx(k){exTrack=exTrack===k?null:k;rToday();}
 function tWU(i){
   if(!S.warmup)S.warmup={};
   const key=`${selectedDate}-wu-${i}`;
@@ -847,7 +974,7 @@ function tWU(i){
   save();rToday();updateStrip();
 }
 function setWater(n){
-  const nut=getNut(selectedDate);nut.water=n;setNut(selectedDate,nut);rToday();updateStrip();
+  const nut=getNut(selectedDate);nut.water=n;setNut(selectedDate,nut);rToday();updateStrip();renderWaterBadge();
 }
 function setDayRating(r){
   if(!S.dayRating)S.dayRating={};S.dayRating[selectedDate]=r;save();rToday();
@@ -1015,92 +1142,59 @@ function rPlan(){
     `<button class="stab${cSplit===n?" active":""}" style="${cSplit===n?`border-color:${sp.ac};background:${sp.ac}1a;color:${sp.ac}`:""}" onclick="selSplit('${n}')">${sp.emoji} ${n}</button>`
   ).join("");
   const sp=SPLITS[cSplit];
-  const customExs=getCustomEx(cSplit);
-  const mgKeys=Object.keys(sp.muscleGroups);
-  const totalCount=sp.exercises.length+customExs.length;
   document.getElementById("p-hero").innerHTML=`
     <div class="hero"><div class="hero-in" style="background:${sp.gr}" data-e="${sp.emoji}">
       <div class="hero-t">${cSplit.toUpperCase()}</div>
-      <div class="hero-tags">${sp.days.map(d=>`<span class="htag">${d}</span>`).join("")}<span class="htag">${totalCount} exercises</span></div>
+      <div class="hero-tags">${sp.days.map(d=>`<span class="htag">${d}</span>`).join("")}<span class="htag">${sp.exercises.length} exercises</span></div>
     </div></div>`;
-
-  // Single unified display counter across ALL exercises (built-in + custom)
-  let displayNum=0;
-  let builtInIdx=0;
-  let exHtml='';
-
-  mgKeys.forEach(mgName=>{
-    const mgExs=sp.muscleGroups[mgName];
-    const mgCustom=customExs.map((ex,ci)=>({ex,ci})).filter(({ex})=>(ex.muscleGroup||ex.muscle)===mgName);
-    exHtml+=`<div style="margin-bottom:4px">
+  // Render exercises grouped by muscle group
+  const customExs = getCustomEx(cSplit);
+  let exHtml = '';
+  
+  // Built-in muscle groups
+  const mgKeys = Object.keys(sp.muscleGroups);
+  let builtInIdx = 0;
+  mgKeys.forEach(mgName => {
+    const mgExs = sp.muscleGroups[mgName];
+    exHtml += `<div style="margin-bottom:4px">
       <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}15;border-left:3px solid ${sp.ac};padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">${mgName.toUpperCase()}</div>`;
-
-    // Built-in exercises for this muscle group
-    mgExs.forEach(ex=>{
-      displayNum++;
-      const ov=S.exOverrides&&S.exOverrides[cSplit]&&S.exOverrides[cSplit][builtInIdx];
-      const dex=ov?{...ex,...ov}:ex;
-      const k=`plan-${cSplit}-${builtInIdx}`;
-      const op=exPlan===k;
-      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${builtInIdx}-b`;
-      exHtml+=`<div class="exc" id="${sid}">
+    mgExs.forEach((ex,i) => {
+      const ov = S.exOverrides&&S.exOverrides[cSplit]&&S.exOverrides[cSplit][builtInIdx];
+      const displayEx = ov ? {...ex,...ov} : ex;
+      const k = `plan-${cSplit}-${builtInIdx}`;
+      const op = exPlan === k;
+      const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${builtInIdx}-b`;
+      exHtml += `<div class="exc" id="${sid}">
         <div class="exc-h" onclick="tPlanEx('${k}')">
-          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(displayNum).padStart(2,"0")}</div>
-          <div style="flex:1"><div class="exc-nm">${dex.name}</div><div class="exc-ms">${mgName}</div></div>
+          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(builtInIdx+1).padStart(2,"0")}</div>
+          <div style="flex:1"><div class="exc-nm">${displayEx.name}</div><div class="exc-ms">${mgName}</div></div>
           <div style="display:flex;align-items:center;gap:6px">
-            <div><div class="exc-st" style="color:${sp.ac}">${dex.sets}×${dex.reps}</div><div class="exc-sl">sets×reps</div></div>
+            <div><div class="exc-st" style="color:${sp.ac}">${displayEx.sets}×${displayEx.reps}</div><div class="exc-sl">sets×reps</div></div>
             <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${builtInIdx},false)" title="Edit">✏️</button>
           </div>
           <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
         </div>
         <div class="exc-b${op?" op":""}">
-          <div class="tip">💡 ${dex.tip||"Focus on good form."}</div>
-          ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
+          <div class="tip">💡 ${displayEx.tip||"Focus on good form."}</div>
+          ${displayEx.yt?`<a class="ytb" href="${displayEx.yt}" target="_blank" rel="noopener">${ytIco()} ${displayEx.ytl||"Watch Tutorial"}</a>`:""}
         </div>
       </div>`;
       builtInIdx++;
     });
-
-    // Custom exercises for this muscle group — numbered in sequence
-    mgCustom.forEach(({ex,ci})=>{
-      displayNum++;
-      const k=`plan-${cSplit}-custom-${ci}`;
-      const op=exPlan===k;
-      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
-      exHtml+=`<div class="exc" id="${sid}" style="border-color:${sp.ac}55">
-        <div class="exc-h" onclick="tPlanEx('${k}')">
-          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(displayNum).padStart(2,"0")}</div>
-          <div style="flex:1"><div class="exc-nm">${ex.name} <span style="font-size:9px;color:${sp.ac};background:${sp.ac}20;border-radius:4px;padding:1px 5px">CUSTOM</span></div><div class="exc-ms">${mgName}</div></div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <div><div class="exc-st" style="color:${sp.ac}">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
-            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${ci},true)" title="Edit">✏️</button>
-          </div>
-          <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
-        </div>
-        <div class="exc-b${op?" op":""}">
-          <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
-        </div>
-      </div>`;
-    });
-    exHtml+=`</div>`;
+    exHtml += `</div>`;
   });
 
-  // Fallback: custom exercises with unrecognised muscle group
-  const ungrouped=customExs.map((ex,ci)=>({ex,ci})).filter(({ex})=>{
-    const mg=ex.muscleGroup||ex.muscle;
-    return !mg||!mgKeys.includes(mg);
-  });
-  if(ungrouped.length>0){
-    exHtml+=`<div style="margin-bottom:4px">
-      <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:#888;background:rgba(255,255,255,.05);border-left:3px solid #555;padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">OTHER</div>`;
-    ungrouped.forEach(({ex,ci})=>{
-      displayNum++;
-      const k=`plan-${cSplit}-custom-${ci}`;
-      const op=exPlan===k;
-      const sid=`exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
-      exHtml+=`<div class="exc" id="${sid}">
+  // Custom exercises section
+  if(customExs.length > 0){
+    exHtml += `<div style="margin-bottom:4px">
+      <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:#888;background:rgba(255,255,255,.05);border-left:3px solid #555;padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">CUSTOM EXERCISES</div>`;
+    customExs.forEach((ex,ci) => {
+      const k = `plan-${cSplit}-custom-${ci}`;
+      const op = exPlan === k;
+      const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
+      exHtml += `<div class="exc" id="${sid}">
         <div class="exc-h" onclick="tPlanEx('${k}')">
-          <div class="exc-n" style="background:#55555522;color:#888">${String(displayNum).padStart(2,"0")}</div>
+          <div class="exc-n" style="background:#55555522;color:#888">${String(builtInIdx+ci+1).padStart(2,"0")}</div>
           <div style="flex:1"><div class="exc-nm">${ex.name} <span style="font-size:9px;color:#555;background:#1e1e2a;border-radius:4px;padding:1px 5px">CUSTOM</span></div><div class="exc-ms">${ex.muscle||"Custom"}</div></div>
           <div style="display:flex;align-items:center;gap:6px">
             <div><div class="exc-st" style="color:#888">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
@@ -1113,10 +1207,10 @@ function rPlan(){
         </div>
       </div>`;
     });
-    exHtml+=`</div>`;
+    exHtml += `</div>`;
   }
-
-  document.getElementById("p-exs").innerHTML=exHtml;
+  
+  document.getElementById("p-exs").innerHTML = exHtml;
   document.getElementById("sched").innerHTML=DAYS.map(day=>{
     const split=DS[day];const sp2=split?SPLITS[split]:null;
     return `<div class="sch-c" style="border-color:${sp2?sp2.ac+"44":"var(--b)"};background:${sp2?sp2.ac+"0d":"var(--s2)"}">
@@ -1126,13 +1220,7 @@ function rPlan(){
     </div>`;
   }).join("");
 }
-function selSplit(n){
-  cSplit=n;
-  // Close the add exercise modal so dropdown refreshes with new split's muscle groups
-  const m=document.getElementById('add-ex-modal');
-  if(m) m.style.display='none';
-  rPlan();
-}
+function selSplit(n){cSplit=n;rPlan();}
 function tPlanEx(k){exPlan=exPlan===k?null:k;rPlan();}
 
 // ═══════════════════════════════════════════════
@@ -1372,6 +1460,8 @@ function rProgress(){
 function rReport(){
   const wn=dateToWeekNum(selectedDate);
   document.getElementById("rpt-wk").textContent=wn;
+  renderPhotoSlots();
+  renderHomeGuide();
 }
 
 function buildWeeklyCtx(){
@@ -1519,31 +1609,26 @@ function getCustomEx(split){ return (S.customEx&&S.customEx[split])||[]; }
 
 function showAddEx(){
   const m=document.getElementById('add-ex-modal');
-  const isOpen=m.style.display==='block';
-  m.style.display=isOpen?'none':'block';
-  if(!isOpen){
-    // Always reset fields and repopulate dropdown for the current split
+  m.style.display=m.style.display==='none'||!m.style.display?'block':'none';
+  if(m.style.display==='block'){
     document.getElementById('aex-name').value='';
+    document.getElementById('aex-muscle').value='';
     document.getElementById('aex-sets').value='';
     document.getElementById('aex-reps').value='';
     document.getElementById('aex-tip').value='';
-    const sel=document.getElementById('aex-muscle');
-    const groups=Object.keys(SPLITS[cSplit].muscleGroups);
-    sel.innerHTML=groups.map(g=>`<option value="${g}">${g}</option>`).join('');
-    sel.selectedIndex=0;
   }
 }
 
 function saveAddEx(){
   const name=document.getElementById('aex-name').value.trim();
-  const muscleGroup=document.getElementById('aex-muscle').value;
+  const muscle=document.getElementById('aex-muscle').value.trim()||'Custom';
   const sets=+document.getElementById('aex-sets').value||3;
   const reps=document.getElementById('aex-reps').value.trim()||'12';
   const tip=document.getElementById('aex-tip').value.trim()||'Focus on good form.';
   if(!name){alert('Please enter an exercise name');return;}
   if(!S.customEx)S.customEx={};
   if(!S.customEx[cSplit])S.customEx[cSplit]=[];
-  S.customEx[cSplit].push({name,muscle:muscleGroup,muscleGroup,sets,reps,tip});
+  S.customEx[cSplit].push({name,muscle,sets,reps,tip});
   save();
   document.getElementById('add-ex-modal').style.display='none';
   rPlan();
@@ -1656,6 +1741,417 @@ function saveDNDRule(i){
   rules[i].text=v;
   S.dndRules=rules;save();
   rDND();renderEditDNDRules();
+}
+
+
+// ═══════════════════════════════════════════════
+// REST TIMER
+// ═══════════════════════════════════════════════
+let timerInterval=null,timerTotal=60,timerLeft=60;
+function startTimer(secs){
+  clearInterval(timerInterval);
+  timerTotal=secs;timerLeft=secs;
+  const overlay=document.getElementById('rest-timer-overlay');
+  const arc=document.getElementById('timer-arc');
+  const disp=document.getElementById('timer-display');
+  const C=2*Math.PI*64; // circumference
+  overlay.classList.add('vis');
+  function tick(){
+    disp.textContent=timerLeft;
+    arc.style.strokeDashoffset=C*(1-timerLeft/timerTotal);
+    if(timerLeft<=0){clearInterval(timerInterval);beep();setTimeout(stopTimer,800);}
+    timerLeft--;
+  }
+  tick();
+  timerInterval=setInterval(tick,1000);
+}
+function stopTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('rest-timer-overlay').classList.remove('vis');
+}
+function beep(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator();const g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.value=880;o.type='sine';
+    g.gain.setValueAtTime(.5,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.4);
+    o.start(ctx.currentTime);o.stop(ctx.currentTime+.4);
+  }catch(e){}
+}
+
+// ═══════════════════════════════════════════════
+// BODY WEIGHT LOG
+// ═══════════════════════════════════════════════
+function saveBW(){
+  const v=parseFloat(document.getElementById('bw-input').value);
+  if(!v||v<30||v>300){alert('Enter a valid weight (30–300kg)');return;}
+  if(!S.bwLog)S.bwLog=[];
+  const entry={date:selectedDate,kg:v};
+  // remove existing entry for same date
+  S.bwLog=S.bwLog.filter(e=>e.date!==selectedDate);
+  S.bwLog.push(entry);
+  S.bwLog.sort((a,b)=>a.date.localeCompare(b.date));
+  save();rBWHistory();
+}
+function rBWHistory(){
+  const el=document.getElementById('bw-history');const inp=document.getElementById('bw-input');
+  if(!el)return;
+  const log=(S.bwLog||[]).slice(-7).reverse();
+  const todayEntry=log.find(e=>e.date===selectedDate);
+  if(todayEntry&&inp) inp.value=todayEntry.kg;
+  el.innerHTML=log.map(e=>{
+    const d=new Date(e.date+"T12:00:00");
+    return`<div class="bw-chip"><div class="bw-chip-val">${e.kg}</div><div class="bw-chip-date">${MO[d.getMonth()].slice(0,3)} ${d.getDate()}</div></div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// STREAK DISPLAY + FIRE ANIMATION
+// ═══════════════════════════════════════════════
+function computeStreak(){
+  let s=0;
+  const today=new Date(todayStr()+"T12:00:00");
+  for(let i=0;i<52;i++){
+    const d=new Date(today);d.setDate(today.getDate()-i*7);
+    const wn=dateToWeekNum(d.toISOString().split('T')[0]);
+    if(weekPct(wn)>=50)s++;else break;
+  }
+  return s;
+}
+function renderStreak(){
+  const el=document.getElementById('streak-display');if(!el)return;
+  const s=computeStreak();
+  const fire=s>=3?'🔥':'';
+  el.innerHTML=`<span class="${s>=3?'streak-fire':''}">${fire}${s}${fire}</span>`;
+}
+
+// ═══════════════════════════════════════════════
+// PERSONAL RECORDS
+// ═══════════════════════════════════════════════
+function checkPRs(){
+  const dayName=dateToDay(selectedDate);
+  const split=DS[dayName];if(!split)return;
+  const sp=SPLITS[split];
+  const mgKeys=Object.keys(sp.muscleGroups);
+  const prs=[];
+  let bi=0;
+  mgKeys.forEach(mg=>{
+    sp.muscleGroups[mg].forEach((ex)=>{
+      const key=`${selectedDate}-ex-b${bi}`;
+      const oldKey=`${selectedDate}-ex-${bi}`;
+      if(S.logs&&(S.logs[key]||S.logs[oldKey])){
+        // Check if this is the first time completing this exercise
+        if(!S.prs)S.prs={};
+        if(!S.prs[ex.name]){
+          S.prs[ex.name]=selectedDate;
+          prs.push(ex.name);
+          save();
+        }
+      }
+      bi++;
+    });
+  });
+  const card=document.getElementById('pr-card');
+  const list=document.getElementById('pr-list');
+  const allPRs=Object.entries(S.prs||{});
+  if(allPRs.length>0&&card&&list){
+    card.style.display='block';
+    list.innerHTML=allPRs.map(([name,date])=>{
+      const d=new Date(date+"T12:00:00");
+      return`<div class="pr-item pr-badge">🏆 ${name} <span style="opacity:.6;font-size:9px">${MO[d.getMonth()].slice(0,3)} ${d.getDate()}</span></div>`;
+    }).join('');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// TIME INTENTION
+// ═══════════════════════════════════════════════
+const TIME_SLOTS=['6–7 AM','7–8 AM','8–9 AM','9–10 AM','10–11 AM','11–12 PM','12–1 PM','1–2 PM','2–3 PM','3–4 PM','4–5 PM','5–6 PM','6–7 PM','7–8 PM','8–9 PM','9–10 PM'];
+function renderTimeIntention(){
+  const el=document.getElementById('ti-slots');if(!el)return;
+  const stored=(S.timeIntent&&S.timeIntent[selectedDate])||{};
+  el.innerHTML=TIME_SLOTS.map((slot,i)=>`
+    <div class="ti-slot">
+      <div class="ti-time">${slot}</div>
+      <textarea class="ti-inp" rows="1" id="ti-${i}" placeholder="What will you do?">${stored[i]||''}</textarea>
+    </div>`).join('');
+  TIME_SLOTS.forEach((_,i)=>{
+    const ta=document.getElementById('ti-'+i);
+    if(ta) ta.oninput=()=>{
+      if(!S.timeIntent)S.timeIntent={};
+      if(!S.timeIntent[selectedDate])S.timeIntent[selectedDate]={};
+      S.timeIntent[selectedDate][i]=ta.value;save();
+    };
+  });
+}
+
+// ═══════════════════════════════════════════════
+// MEAL LOGGER
+// ═══════════════════════════════════════════════
+function loadMeals(){
+  const meals=(S.meals&&S.meals[selectedDate])||{};
+  ['breakfast','lunch','dinner','snacks'].forEach(m=>{
+    const el=document.getElementById('meal-'+m);
+    if(el){el.value=meals[m]||'';el.oninput=()=>saveMeal(m,el.value);}
+  });
+}
+function saveMeal(slot,val){
+  if(!S.meals)S.meals={};
+  if(!S.meals[selectedDate])S.meals[selectedDate]={};
+  S.meals[selectedDate][slot]=val;save();
+}
+
+// ═══════════════════════════════════════════════
+// WATER REMINDER BADGE
+// ═══════════════════════════════════════════════
+function renderWaterBadge(){
+  const wrap=document.getElementById('water-badge-wrap');if(!wrap)return;
+  const h=new Date().getHours();
+  const water=(S.nut&&S.nut[selectedDate]&&S.nut[selectedDate].water)||0;
+  const isToday=selectedDate===todayStr();
+  if(isToday&&h>=14&&water<6){
+    wrap.innerHTML=`<div class="water-badge">⚠️ Drink up! Only ${water}/8</div>`;
+  } else if(water>=8){
+    wrap.innerHTML=`<div class="water-badge" style="background:rgba(61,214,140,.15);border-color:rgba(61,214,140,.3);color:var(--g)">✅ Goal reached!</div>`;
+  } else { wrap.innerHTML=''; }
+}
+
+// ═══════════════════════════════════════════════
+// PHOTO LOG (date-tagged notes)
+// ═══════════════════════════════════════════════
+function triggerPhoto(side){
+  const note=prompt(`Add a date/label for your ${side} photo (e.g. "Week 1 - Mar 23"):`);
+  if(!note)return;
+  if(!S.photos)S.photos={};
+  S.photos[side]={label:note,date:selectedDate};save();
+  renderPhotoSlots();
+}
+function renderPhotoSlots(){
+  ['before','after'].forEach(side=>{
+    const wrap=document.getElementById('photo-'+side+'-wrap');
+    const noteInp=document.getElementById('photo-'+side+'-note');
+    if(!wrap)return;
+    const photo=S.photos&&S.photos[side];
+    if(photo){
+      wrap.innerHTML=`<div style="font-size:32px">📷</div><div style="font-family:var(--fd);font-size:14px;color:var(--a);margin-top:4px">${photo.label}</div><div style="font-size:10px;color:var(--m)">${photo.date}</div><button onclick="event.stopPropagation();clearPhoto('${side}')" style="margin-top:8px;background:transparent;border:1px solid #333;border-radius:6px;color:#666;font-size:10px;padding:3px 8px">Clear</button>`;
+    } else {
+      wrap.innerHTML=`<div style="font-size:28px">📷</div><div class="photo-label">Tap to add photo tag</div>`;
+    }
+    if(noteInp){
+      noteInp.value=photo?photo.note||'':'';
+      noteInp.oninput=()=>{if(S.photos&&S.photos[side])S.photos[side].note=noteInp.value;save();};
+    }
+  });
+}
+function clearPhoto(side){if(S.photos)delete S.photos[side];save();renderPhotoSlots();}
+
+// ═══════════════════════════════════════════════
+// CONSISTENCY SCORE
+// ═══════════════════════════════════════════════
+function calcConsistency(wn){
+  const start=new Date(2026,2,23);
+  let wScore=0,nScore=0,sScore=0,dScore=0;
+  let wDays=0,nDays=0,sDays=0,dDays=0;
+  DAYS.forEach((day,di)=>{
+    const dt=new Date(start);dt.setDate(start.getDate()+(wn-1)*7+di);
+    const ds=dt.toISOString().split('T')[0];
+    const split=DS[day];
+    if(split){
+      wDays++;
+      const exs=SPLITS[split].exercises;
+      const done=exs.filter((_,j)=>S.logs&&(S.logs[`${ds}-ex-b${j}`]||S.logs[`${ds}-ex-${j}`])).length;
+      wScore+=Math.round(done/exs.length*100);
+    }
+    const nut=getNut(ds);
+    if(nut.protein>0){nDays++;nScore+=Math.min(100,Math.round(nut.protein/(S.proteinTarget||150)*100));}
+    if(nut.sleep>0){sDays++;sScore+=Math.min(100,Math.round(nut.sleep/8*100));}
+    const rules=getDNDRules();
+    if(rules.length>0){
+      const ans=getDNDAnswers(ds);
+      const noCount=rules.filter(r=>ans[r.id]==='no').length;
+      const answered=rules.filter(r=>ans[r.id]!=null).length;
+      if(answered>0){dDays++;dScore+=Math.round(noCount/answered*100);}
+    }
+  });
+  const W=wDays?wScore/wDays:0;
+  const N=nDays?nScore/nDays:W; // fallback to workout if not tracked
+  const Sl=sDays?sScore/sDays:W;
+  const D=dDays?dScore/dDays:W;
+  return Math.round(W*.4+N*.2+Sl*.2+D*.2);
+}
+function renderConsistency(){
+  const wn=dateToWeekNum(selectedDate);
+  const score=calcConsistency(wn);
+  const scoreEl=document.getElementById('cs-score');
+  const arcEl=document.getElementById('cs-arc');
+  const bdEl=document.getElementById('cs-breakdown');
+  if(scoreEl) scoreEl.textContent=score;
+  if(arcEl){
+    const C=2*Math.PI*48;
+    arcEl.style.strokeDashoffset=C*(1-score/100);
+    arcEl.style.stroke=score>=80?'#3DD68C':score>=60?'#FFD93D':score>=40?'#FF6B35':'#FF5C7A';
+  }
+  if(bdEl) bdEl.innerHTML=`Workout 40% + Protein 20% + Sleep 20% + Habits 20%<br><span style="color:var(--a);font-weight:600">${score>=80?'🌟 Excellent!':score>=60?'💪 Good work!':score>=40?'📈 Keep going!':'🎯 Stay consistent!'}</span>`;
+}
+
+// ═══════════════════════════════════════════════
+// MONTHLY SUMMARY
+// ═══════════════════════════════════════════════
+function renderMonthlySummary(){
+  const el=document.getElementById('monthly-summary');if(!el)return;
+  const today=new Date(todayStr()+"T12:00:00");
+  const month=today.getMonth();const year=today.getFullYear();
+  const monthName=MO[month]+' '+year;
+  // Find weeks in this month
+  const monthWeeks=WEEKS.filter(w=>w.month===month);
+  if(!monthWeeks.length){el.innerHTML='';return;}
+  const pcts=monthWeeks.map(w=>weekPct(w.n));
+  const bestPct=Math.max(...pcts);
+  const avgPct=Math.round(pcts.reduce((a,b)=>a+b,0)/pcts.length);
+  const activeWks=pcts.filter(p=>p>0).length;
+  const bestWk=monthWeeks[pcts.indexOf(bestPct)];
+  // Avg sleep this month
+  const start=new Date(2026,2,23);
+  let sleepSum=0,sleepDays=0,protSum=0,protDays=0;
+  monthWeeks.forEach(wk=>{
+    DAYS.forEach((day,di)=>{
+      const dt=new Date(start);dt.setDate(start.getDate()+(wk.n-1)*7+di);
+      const ds=dt.toISOString().split('T')[0];
+      const n=getNut(ds);
+      if(n.sleep>0){sleepSum+=n.sleep;sleepDays++;}
+      if(n.protein>0){protSum+=n.protein;protDays++;}
+    });
+  });
+  el.innerHTML=`<div class="monthly-card">
+    <div class="monthly-title">${monthName} Summary</div>
+    <div class="monthly-grid">
+      <div class="monthly-stat"><div class="monthly-stat-val">${activeWks}/${monthWeeks.length}</div><div class="monthly-stat-lbl">Active Weeks</div></div>
+      <div class="monthly-stat"><div class="monthly-stat-val">${avgPct}%</div><div class="monthly-stat-lbl">Avg Completion</div></div>
+      <div class="monthly-stat"><div class="monthly-stat-val">${sleepDays?+(sleepSum/sleepDays).toFixed(1):0}h</div><div class="monthly-stat-lbl">Avg Sleep</div></div>
+      <div class="monthly-stat"><div class="monthly-stat-val">${protDays?Math.round(protSum/protDays):0}g</div><div class="monthly-stat-lbl">Avg Protein</div></div>
+    </div>
+    ${bestWk?`<div style="font-size:11px;color:var(--m);margin-top:10px">⭐ Best week: Week ${bestWk.n} (${bestWk.date}) — ${bestPct}%</div>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════
+// WHATSAPP SHARE
+// ═══════════════════════════════════════════════
+function shareWhatsApp(){
+  const wn=dateToWeekNum(selectedDate);
+  const score=calcConsistency(wn);
+  const pct=weekPct(wn);
+  const streak=computeStreak();
+  const nut=getNut(selectedDate);
+  const lines=[
+    `💪 *BAND STRONG — Week ${wn} Report*`,
+    ``,
+    `🔥 Streak: ${streak} weeks`,
+    `✅ Workout: ${pct}%`,
+    `🎯 Consistency Score: ${score}/100`,
+    `🥩 Protein today: ${nut.protein||0}g`,
+    `😴 Sleep: ${nut.sleep||0}h`,
+    ``,
+    `${score>=80?'🌟 Smashing it!':score>=60?'💪 Solid week!':score>=40?'📈 Getting better!':'🎯 Keep showing up!'}`,
+    ``,
+    `_Tracked with BAND STRONG 💪_`
+  ];
+  const msg=encodeURIComponent(lines.join('\n'));
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+
+// ═══════════════════════════════════════════════
+// HOME SCREEN GUIDE
+// ═══════════════════════════════════════════════
+function renderHomeGuide(){
+  const el=document.getElementById('home-guide');if(!el)return;
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid=/android/i.test(navigator.userAgent);
+  let steps=[];
+  if(isIOS){
+    steps=[
+      {n:'1',t:'Open this page in <strong>Safari</strong>',note:'Must be Safari — Chrome on iOS won\'t work for this'},
+      {n:'2',t:'Tap the <strong>Share button</strong> at the bottom of Safari',note:'The box with an arrow pointing upward ↑'},
+      {n:'3',t:'Scroll down and tap <strong>"Add to Home Screen"</strong>'},
+      {n:'4',t:'Name it <strong>Band Strong</strong> then tap <strong>Add</strong>'},
+      {n:'✓',t:'Done! Open from your home screen like an app'},
+    ];
+  } else if(isAndroid){
+    steps=[
+      {n:'1',t:'Open this page in <strong>Chrome</strong>'},
+      {n:'2',t:'Tap the <strong>3-dot menu ⋮</strong> in the top right'},
+      {n:'3',t:'Tap <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong>'},
+      {n:'4',t:'Tap <strong>Add</strong> to confirm'},
+      {n:'✓',t:'Done! Appears on your home screen like a native app'},
+    ];
+  } else {
+    steps=[
+      {n:'📱',t:'On <strong>iPhone</strong>: Open in Safari → Share → Add to Home Screen'},
+      {n:'🤖',t:'On <strong>Android</strong>: Open in Chrome → Menu ⋮ → Add to Home Screen'},
+      {n:'💻',t:'On <strong>Desktop</strong>: Look for the install icon ⊕ in the address bar'},
+    ];
+  }
+  el.innerHTML=steps.map(s=>`<div class="guide-step"><div class="guide-num">${s.n}</div><div><div class="guide-text">${s.t}</div>${s.note?`<div class="guide-note">${s.note}</div>`:''}</div></div>`).join('');
+}
+
+// ═══════════════════════════════════════════════
+// BODY WEIGHT GRAPH
+// ═══════════════════════════════════════════════
+function drawBWGraph(){
+  const log=S.bwLog||[];if(log.length<2)return;
+  const vals=log.map(e=>e.kg);
+  const labels=log.map(e=>{const d=new Date(e.date+"T12:00:00");return MO[d.getMonth()].slice(0,3)+' '+d.getDate();});
+  const min=Math.floor(Math.min(...vals)-2);
+  const max=Math.ceil(Math.max(...vals)+2);
+  const c=document.getElementById('chart-bw');if(!c)return;
+  const parent=c.parentElement;
+  const W=parent.offsetWidth||320;const H=160;
+  c.width=W;c.height=H;
+  const ctx=c.getContext('2d');
+  const pad={top:12,right:12,bottom:28,left:40};
+  const gW=W-pad.left-pad.right;const gH=H-pad.top-pad.bottom;
+  ctx.clearRect(0,0,W,H);
+  const color='#4EC9C0';
+  // grid
+  for(let g=0;g<=4;g++){
+    const y=pad.top+gH-(g/4)*gH;
+    ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+gW,y);ctx.stroke();
+    ctx.fillStyle='#555';ctx.font='9px DM Sans,sans-serif';ctx.textAlign='right';
+    ctx.fillText(+(min+(g/4)*(max-min)).toFixed(1),pad.left-4,y+3);
+  }
+  // x labels
+  ctx.fillStyle='#444';ctx.textAlign='center';ctx.font='9px DM Sans,sans-serif';
+  const step=Math.max(1,Math.floor(vals.length/6));
+  for(let i=0;i<vals.length;i+=step){
+    const x=pad.left+(i/(vals.length-1||1))*gW;
+    ctx.fillText(labels[i],x,H-8);
+  }
+  // fill
+  ctx.beginPath();
+  for(let i=0;i<vals.length;i++){
+    const x=pad.left+(i/(vals.length-1||1))*gW;
+    const y=pad.top+gH-((vals[i]-min)/(max-min))*gH;
+    if(i===0){ctx.moveTo(x,pad.top+gH);ctx.lineTo(x,y);}else ctx.lineTo(x,y);
+  }
+  ctx.lineTo(pad.left+gW,pad.top+gH);ctx.closePath();
+  ctx.fillStyle=color+'22';ctx.fill();
+  // line
+  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.lineJoin='round';
+  for(let i=0;i<vals.length;i++){
+    const x=pad.left+(i/(vals.length-1||1))*gW;
+    const y=pad.top+gH-((vals[i]-min)/(max-min))*gH;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  // dots
+  for(let i=0;i<vals.length;i++){
+    const x=pad.left+(i/(vals.length-1||1))*gW;
+    const y=pad.top+gH-((vals[i]-min)/(max-min))*gH;
+    ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+  }
 }
 
 // ═══════════════════════════════════════════════
