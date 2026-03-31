@@ -740,7 +740,9 @@ function updateStrip(){
   const split=DS[dayName];
   let done=0,total=0;
   if(split){
+    const delIdxs=(S.deletedEx&&S.deletedEx[split])||[];
     SPLITS[split].exercises.forEach((_,i)=>{
+      if(delIdxs.includes(i)) return;
       total++;
       if(S.logs&&(S.logs[`${selectedDate}-ex-b${i}`]||S.logs[`${selectedDate}-ex-${i}`]))done++;
     });
@@ -817,12 +819,13 @@ function rToday(){
   if(!sp){
     wc.innerHTML=`<div class="rest-c"><div style="font-size:46px">😴</div><div style="font-family:var(--fd);font-size:20px;color:var(--m);margin-top:10px;letter-spacing:1px">REST DAY — ${dayName}</div><div style="font-size:12px;color:#444;margin-top:5px">Stretch, hydrate, recover. You've earned it.</div></div>`;
   } else {
-    const builtDone=sp.exercises.filter((_,i)=>S.logs&&(S.logs[`${selectedDate}-ex-b${i}`]||S.logs[`${selectedDate}-ex-${i}`])).length;
+    const deletedIdxs2 = (S.deletedEx&&S.deletedEx[split])||[];
+    const builtDone=sp.exercises.filter((_,i)=>!deletedIdxs2.includes(i)&&S.logs&&(S.logs[`${selectedDate}-ex-b${i}`]||S.logs[`${selectedDate}-ex-${i}`])).length;
     const custDone=(getCustomEx(split)||[]).filter((_,ci)=>S.logs&&S.logs[`${selectedDate}-ex-c${ci}`]).length;
     const done=builtDone+custDone;
-    const total=sp.exercises.length+(getCustomEx(split)||[]).length;
-    const allDone=done===total;
-    const pct=Math.round(done/total*100);
+    const total=(sp.exercises.length-deletedIdxs2.length)+(getCustomEx(split)||[]).length;
+    const allDone=total>0&&done===total;
+    const pct=total>0?Math.round(done/total*100):0;
     wc.innerHTML=`
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
         <div>
@@ -837,19 +840,25 @@ function rToday(){
         let bIdx = 0;
         mgKeys2.forEach(mgName => {
           const mgExs = sp.muscleGroups[mgName];
-          trackerHtml += `<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}12;border-left:2px solid ${sp.ac};padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
+          const visibleInGroup = mgExs.filter((_,i) => !deletedIdxs2.includes(bIdx+i));
+          if(visibleInGroup.length > 0){
+            trackerHtml += `<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}12;border-left:2px solid ${sp.ac};padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
+          }
           mgExs.forEach((ex) => {
-            const ov = S.exOverrides&&S.exOverrides[split]&&S.exOverrides[split][bIdx];
+            const curIdx = bIdx;
+            bIdx++;
+            if(deletedIdxs2.includes(curIdx)) return; // skip deleted
+            const ov = S.exOverrides&&S.exOverrides[split]&&S.exOverrides[split][curIdx];
             const dex = ov?{...ex,...ov}:ex;
-            const key = `${selectedDate}-ex-b${bIdx}`;
-            const ck = S.logs&&(S.logs[key]||S.logs[`${selectedDate}-ex-${bIdx}`]);
+            const key = `${selectedDate}-ex-b${curIdx}`;
+            const ck = S.logs&&(S.logs[key]||S.logs[`${selectedDate}-ex-${curIdx}`]);
             const tk = "tr-"+key; const op = exTrack===tk;
             trackerHtml += `<div class="tex${ck?" ck":""}" id="tc-${key}">
               <div class="tex-r">
                 <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
                 <div class="tex-inf" onclick="tTrEx('${tk}')">
                   <div class="tex-nm${ck?" ck":""}">${dex.name}</div>
-                  <div class="tex-ms">${mgName}</div>
+                  <div class="tex-ms">${dex.muscle||mgName}</div>
                 </div>
                 <div class="tex-st" style="color:${sp.ac}">${dex.sets}×${dex.reps}</div>
                 <div class="chev" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
@@ -859,31 +868,34 @@ function rToday(){
                 ${dex.yt?`<a class="ytb" href="${dex.yt}" target="_blank" rel="noopener">${ytIco()} ${dex.ytl||"Watch Tutorial"}</a>`:""}
               </div>
             </div>`;
-            bIdx++;
           });
         });
-        // Custom exercises
+        // Custom exercises — grouped by muscle
         const cExs2 = getCustomEx(split);
         if(cExs2.length>0){
-          trackerHtml += `<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:#666;background:rgba(255,255,255,.04);border-left:2px solid #444;padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">CUSTOM</div>`;
-          cExs2.forEach((ex,ci)=>{
-            const key=`${selectedDate}-ex-c${ci}`;
-            const ck=S.logs&&S.logs[key];
-            const tk="tr-"+key;const op=exTrack===tk;
-            trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}">
-              <div class="tex-r">
-                <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
-                <div class="tex-inf" onclick="tTrEx('${tk}')">
-                  <div class="tex-nm${ck?" ck":""}">${ex.name}</div>
-                  <div class="tex-ms">${ex.muscle||"Custom"}</div>
+          const customByMuscle2={};
+          cExs2.forEach((ex,ci)=>{const m=ex.muscle||'Custom';if(!customByMuscle2[m])customByMuscle2[m]=[];customByMuscle2[m].push({ex,ci});});
+          Object.entries(customByMuscle2).forEach(([mgName,items])=>{
+            trackerHtml+=`<div style="font-family:var(--fd);font-size:10px;letter-spacing:2px;color:var(--g);background:rgba(61,214,140,.06);border-left:2px solid var(--g);padding:4px 9px;border-radius:0 5px 5px 0;margin:10px 0 6px">${mgName.toUpperCase()}</div>`;
+            items.forEach(({ex,ci})=>{
+              const key=`${selectedDate}-ex-c${ci}`;
+              const ck=S.logs&&S.logs[key];
+              const tk="tr-"+key;const op=exTrack===tk;
+              trackerHtml+=`<div class="tex${ck?" ck":""}" id="tc-${key}">
+                <div class="tex-r">
+                  <button class="cb${ck?" ck":""}" id="cb-${key}" onclick="tEx('${key}','${tk}')">${ck?ckIco():""}</button>
+                  <div class="tex-inf" onclick="tTrEx('${tk}')">
+                    <div class="tex-nm${ck?" ck":""}">${ex.name}</div>
+                    <div class="tex-ms">${ex.muscle||"Custom"}</div>
+                  </div>
+                  <div class="tex-st" style="color:var(--g)">${ex.sets}×${ex.reps}</div>
+                  <div class="chev" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
                 </div>
-                <div class="tex-st" style="color:#888">${ex.sets}×${ex.reps}</div>
-                <div class="chev" style="transform:${op?"rotate(90deg)":"none"}" onclick="tTrEx('${tk}')">›</div>
-              </div>
-              <div class="tex-b${op?" op":""}">
-                <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
-              </div>
-            </div>`;
+                <div class="tex-b${op?" op":""}">
+                  <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+                </div>
+              </div>`;
+            });
           });
         }
         return trackerHtml;
@@ -1120,35 +1132,47 @@ function rPlan(){
     `<button class="stab${cSplit===n?" active":""}" style="${cSplit===n?`border-color:${sp.ac};background:${sp.ac}1a;color:${sp.ac}`:""}" onclick="selSplit('${n}')">${sp.emoji} ${n}</button>`
   ).join("");
   const sp=SPLITS[cSplit];
+  const deletedIdxs = (S.deletedEx&&S.deletedEx[cSplit])||[];
+  const totalEx = sp.exercises.length - deletedIdxs.length + getCustomEx(cSplit).length;
   document.getElementById("p-hero").innerHTML=`
     <div class="hero"><div class="hero-in" style="background:${sp.gr}" data-e="${sp.emoji}">
       <div class="hero-t">${cSplit.toUpperCase()}</div>
-      <div class="hero-tags">${sp.days.map(d=>`<span class="htag">${d}</span>`).join("")}<span class="htag">${sp.exercises.length} exercises</span></div>
+      <div class="hero-tags">${sp.days.map(d=>`<span class="htag">${d}</span>`).join("")}<span class="htag">${totalEx} exercises</span>${deletedIdxs.length?`<button onclick="restoreAllEx('${cSplit}')" style="background:rgba(0,0,0,.3);border:none;border-radius:50px;padding:3px 11px;font-size:10px;color:#fff;cursor:pointer;font-family:var(--fb)">↩ Restore ${deletedIdxs.length} deleted</button>`:''}
+      </div>
     </div></div>`;
-  // Render exercises grouped by muscle group
+
   const customExs = getCustomEx(cSplit);
   let exHtml = '';
-  
-  // Built-in muscle groups
   const mgKeys = Object.keys(sp.muscleGroups);
   let builtInIdx = 0;
+
   mgKeys.forEach(mgName => {
     const mgExs = sp.muscleGroups[mgName];
+    // collect visible exercises for this muscle group
+    const visible = [];
+    mgExs.forEach((ex) => {
+      const idx = builtInIdx;
+      if(!deletedIdxs.includes(idx)){
+        const ov = S.exOverrides&&S.exOverrides[cSplit]&&S.exOverrides[cSplit][idx];
+        const displayEx = ov ? {...ex,...ov} : ex;
+        visible.push({displayEx, idx});
+      }
+      builtInIdx++;
+    });
+    if(visible.length===0) return; // whole group deleted — hide header
     exHtml += `<div style="margin-bottom:4px">
       <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:${sp.ac};background:${sp.ac}15;border-left:3px solid ${sp.ac};padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">${mgName.toUpperCase()}</div>`;
-    mgExs.forEach((ex,i) => {
-      const ov = S.exOverrides&&S.exOverrides[cSplit]&&S.exOverrides[cSplit][builtInIdx];
-      const displayEx = ov ? {...ex,...ov} : ex;
-      const k = `plan-${cSplit}-${builtInIdx}`;
+    visible.forEach(({displayEx, idx}) => {
+      const k = `plan-${cSplit}-${idx}`;
       const op = exPlan === k;
-      const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${builtInIdx}-b`;
+      const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${idx}-b`;
       exHtml += `<div class="exc" id="${sid}">
         <div class="exc-h" onclick="tPlanEx('${k}')">
-          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(builtInIdx+1).padStart(2,"0")}</div>
-          <div style="flex:1"><div class="exc-nm">${displayEx.name}</div><div class="exc-ms">${mgName}</div></div>
+          <div class="exc-n" style="background:${sp.ac}22;color:${sp.ac}">${String(idx+1).padStart(2,"0")}</div>
+          <div style="flex:1"><div class="exc-nm">${displayEx.name}</div><div class="exc-ms">${displayEx.muscle||mgName}</div></div>
           <div style="display:flex;align-items:center;gap:6px">
             <div><div class="exc-st" style="color:${sp.ac}">${displayEx.sets}×${displayEx.reps}</div><div class="exc-sl">sets×reps</div></div>
-            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${builtInIdx},false)" title="Edit">✏️</button>
+            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${idx},false)" title="Edit">✏️</button>
           </div>
           <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
         </div>
@@ -1157,37 +1181,45 @@ function rPlan(){
           ${displayEx.yt?`<a class="ytb" href="${displayEx.yt}" target="_blank" rel="noopener">${ytIco()} ${displayEx.ytl||"Watch Tutorial"}</a>`:""}
         </div>
       </div>`;
-      builtInIdx++;
     });
     exHtml += `</div>`;
   });
 
-  // Custom exercises section
+  // Custom exercises — group by muscle name
   if(customExs.length > 0){
-    exHtml += `<div style="margin-bottom:4px">
-      <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:#888;background:rgba(255,255,255,.05);border-left:3px solid #555;padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">CUSTOM EXERCISES</div>`;
+    // Group custom by muscle
+    const customByMuscle = {};
     customExs.forEach((ex,ci) => {
-      const k = `plan-${cSplit}-custom-${ci}`;
-      const op = exPlan === k;
-      const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
-      exHtml += `<div class="exc" id="${sid}">
-        <div class="exc-h" onclick="tPlanEx('${k}')">
-          <div class="exc-n" style="background:#55555522;color:#888">${String(builtInIdx+ci+1).padStart(2,"0")}</div>
-          <div style="flex:1"><div class="exc-nm">${ex.name} <span style="font-size:9px;color:#555;background:#1e1e2a;border-radius:4px;padding:1px 5px">CUSTOM</span></div><div class="exc-ms">${ex.muscle||"Custom"}</div></div>
-          <div style="display:flex;align-items:center;gap:6px">
-            <div><div class="exc-st" style="color:#888">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
-            <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${ci},true)" title="Edit">✏️</button>
-          </div>
-          <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
-        </div>
-        <div class="exc-b${op?" op":""}">
-          <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
-        </div>
-      </div>`;
+      const m = ex.muscle||'Custom';
+      if(!customByMuscle[m]) customByMuscle[m]=[];
+      customByMuscle[m].push({ex,ci});
     });
-    exHtml += `</div>`;
+    Object.entries(customByMuscle).forEach(([mgName, items]) => {
+      exHtml += `<div style="margin-bottom:4px">
+        <div style="font-family:var(--fd);font-size:11px;letter-spacing:2px;color:var(--g);background:rgba(61,214,140,.08);border-left:3px solid var(--g);padding:5px 10px;border-radius:0 6px 6px 0;margin-bottom:7px">${mgName.toUpperCase()} <span style="font-size:9px;opacity:.6;font-family:var(--fb);letter-spacing:0">CUSTOM</span></div>`;
+      items.forEach(({ex,ci}) => {
+        const k = `plan-${cSplit}-custom-${ci}`;
+        const op = exPlan === k;
+        const sid = `exc-card-${cSplit.replace(/[\s\/]/g,"_")}-${ci}-c`;
+        exHtml += `<div class="exc" id="${sid}">
+          <div class="exc-h" onclick="tPlanEx('${k}')">
+            <div class="exc-n" style="background:rgba(61,214,140,.15);color:var(--g)">${String(ci+1).padStart(2,"0")}</div>
+            <div style="flex:1"><div class="exc-nm">${ex.name}</div><div class="exc-ms">${ex.muscle||'Custom'}</div></div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <div><div class="exc-st" style="color:var(--g)">${ex.sets}×${ex.reps}</div><div class="exc-sl">sets×reps</div></div>
+              <button class="edit-btn" onclick="event.stopPropagation();showEditEx('${cSplit}',${ci},true)" title="Edit">✏️</button>
+            </div>
+            <div class="chev2" style="transform:${op?"rotate(90deg)":"none"}">›</div>
+          </div>
+          <div class="exc-b${op?" op":""}">
+            <div class="tip">💡 ${ex.tip||"Focus on good form."}</div>
+          </div>
+        </div>`;
+      });
+      exHtml += `</div>`;
+    });
   }
-  
+
   document.getElementById("p-exs").innerHTML = exHtml;
   document.getElementById("sched").innerHTML=DAYS.map(day=>{
     const split=DS[day];const sp2=split?SPLITS[split]:null;
@@ -1664,6 +1696,20 @@ function deleteCustomEx(split, idx){
   save();rPlan();rToday();
 }
 
+function deleteBuiltInEx(split, idx){
+  if(!confirm('Delete this exercise? It will be removed from your plan permanently (you can restore by clearing app data).')) return;
+  if(!S.deletedEx) S.deletedEx={};
+  if(!S.deletedEx[split]) S.deletedEx[split]=[];
+  if(!S.deletedEx[split].includes(idx)) S.deletedEx[split].push(idx);
+  save(); rPlan(); rToday();
+}
+
+function restoreAllEx(split){
+  if(!S.deletedEx) return;
+  delete S.deletedEx[split];
+  save(); rPlan(); rToday();
+}
+
 function showEditEx(split, idx, isCustom){
   const eid = 'editex-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b');
   const existing = document.getElementById(eid);
@@ -1692,7 +1738,7 @@ function showEditEx(split, idx, isCustom){
     <input class="edit-inp" id="${eid}-tip" value="${ex.tip||''}" placeholder="Form tip" style="width:100%;margin-bottom:10px"/>
     <div style="display:flex;gap:6px">
       <button class="edit-save" onclick="applyEditEx('${eid}','${safeSplit}',${idx},${isCustom})">Save</button>
-      ${isCustom?`<button class="edit-del" onclick="deleteCustomEx('${safeSplit}',${idx})">Delete</button>`:''}
+      <button class="edit-del" onclick="${isCustom?`deleteCustomEx('${safeSplit}',${idx})`:`deleteBuiltInEx('${safeSplit}',${idx})`}">🗑 Delete</button>
       <button class="edit-cancel" onclick="document.getElementById('${eid}').remove()">Cancel</button>
     </div>`;
 
