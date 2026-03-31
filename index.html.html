@@ -334,6 +334,13 @@ textarea:focus{outline:none;border-color:var(--a);}
 #streak-fire-btn{transition:filter .3s, opacity .3s, transform .25s cubic-bezier(.34,1.56,.64,1) !important;}
 #streak-fire-btn:active{transform:scale(1.3) !important;}
 
+
+/* MUSCLE RADIO CHIPS */
+.mg-radio{display:none;}
+.mg-chip{padding:6px 13px;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#888;font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.mg-radio:checked + .mg-chip{border-color:var(--a);background:rgba(255,107,53,.2);color:var(--a);}
+.mg-chip:hover{border-color:rgba(255,107,53,.4);color:var(--a);}
+
 @media(max-width:480px){.logo{font-size:19px;}.nb .nl{display:none;}.wbox{width:42px;height:42px;}}
 </style>
 </head>
@@ -484,18 +491,23 @@ textarea:focus{outline:none;border-color:var(--a);}
     <button onclick="showAddEx()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:50px;background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.35);color:var(--a);font-size:11px;font-weight:600;font-family:var(--fb)">+ Add Exercise</button>
   </div>
   <!-- Add exercise modal -->
-  <div id="add-ex-modal" style="display:none;background:var(--s2);border-radius:12px;border:1px solid rgba(255,107,53,.3);padding:14px;margin-bottom:12px">
-    <div style="font-family:var(--fd);font-size:12px;letter-spacing:2px;color:var(--a);margin-bottom:10px">NEW EXERCISE</div>
-    <input id="aex-name" placeholder="Exercise name" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb)"/>
-    <input id="aex-muscle" placeholder="Muscle group" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:7px;font-family:var(--fb)"/>
-    <div style="display:flex;gap:7px;margin-bottom:7px">
-      <input id="aex-sets" placeholder="Sets e.g. 3" type="number" min="1" max="10" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
+  <div id="add-ex-modal" style="display:none;background:var(--s2);border-radius:12px;border:1px solid rgba(255,107,53,.3);padding:16px;margin-bottom:12px">
+    <div style="font-family:var(--fd);font-size:12px;letter-spacing:2px;color:var(--a);margin-bottom:12px">NEW EXERCISE</div>
+    <input id="aex-name" placeholder="Exercise name *" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:13px;padding:9px 12px;margin-bottom:10px;font-family:var(--fb)"/>
+    <!-- Muscle Group picker -->
+    <div style="font-size:10px;color:var(--m);letter-spacing:1.5px;margin-bottom:7px">MUSCLE GROUP *</div>
+    <div id="aex-muscle-radios" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px"></div>
+    <div style="display:flex;gap:7px;margin-bottom:8px;align-items:center">
+      <input id="aex-muscle-custom" placeholder="Or type a new muscle group..." style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)" oninput="onCustomMuscleType()"/>
+    </div>
+    <div style="display:flex;gap:7px;margin-bottom:10px">
+      <input id="aex-sets" placeholder="Sets e.g. 3" type="number" min="1" max="20" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
       <input id="aex-reps" placeholder="Reps e.g. 12-15" style="flex:1;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;font-family:var(--fb)"/>
     </div>
-    <input id="aex-tip" placeholder="Form tip (optional)" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:10px;font-family:var(--fb)"/>
+    <input id="aex-tip" placeholder="Form tip (optional)" style="width:100%;background:var(--bg);border:1px solid #252535;border-radius:8px;color:var(--txt);font-size:12px;padding:8px 11px;margin-bottom:12px;font-family:var(--fb)"/>
     <div style="display:flex;gap:7px">
-      <button onclick="saveAddEx()" style="flex:1;padding:9px;border-radius:8px;background:var(--a);border:none;color:#fff;font-size:12px;font-weight:600;font-family:var(--fb)">Save Exercise</button>
-      <button onclick="document.getElementById('add-ex-modal').style.display='none'" style="padding:9px 14px;border-radius:8px;background:transparent;border:1px solid #333;color:#888;font-size:12px;font-family:var(--fb)">Cancel</button>
+      <button onclick="saveAddEx()" style="flex:1;padding:10px;border-radius:8px;background:var(--a);border:none;color:#fff;font-size:13px;font-weight:600;font-family:var(--fb)">Save Exercise</button>
+      <button onclick="document.getElementById('add-ex-modal').style.display='none'" style="padding:10px 14px;border-radius:8px;background:transparent;border:1px solid #333;color:#888;font-size:12px;font-family:var(--fb)">Cancel</button>
     </div>
   </div>
   <div id="p-exs"></div>
@@ -750,7 +762,7 @@ function updateStrip(){
     const wn=dateToWeekNum(ds);
     if(weekPct(wn)>=50)streak++;else break;
   }
-  document.getElementById("s-streak").textContent=computeStreak()+"w";
+  document.getElementById("s-streak").textContent=computeStreak()+"d";
 }
 
 // ═══════════════════════════════════════════════
@@ -1573,32 +1585,77 @@ function exportData(){
 // Custom exercises stored in S.customEx = { splitName: [{name,muscle,sets,reps,tip}] }
 function getCustomEx(split){ return (S.customEx&&S.customEx[split])||[]; }
 
+// Returns all muscle group names for the current split (built-in + any custom ones)
+function getMuscleGroups(split){
+  const sp = SPLITS[split];
+  const builtin = sp ? Object.keys(sp.muscleGroups) : [];
+  // Custom exercises may add new muscle names
+  const customMuscles = (getCustomEx(split)||[])
+    .map(e=>e.muscle).filter(Boolean)
+    .filter(m=>!builtin.includes(m));
+  return [...builtin, ...new Set(customMuscles)];
+}
+
+function buildMuscleRadios(containerId, split, selected){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const muscles = getMuscleGroups(split);
+  container.innerHTML = muscles.map((m,i) => {
+    const id = containerId+'-r-'+i;
+    const checked = m === selected ? 'checked' : '';
+    return `<label style="display:inline-flex;align-items:center">
+      <input type="radio" class="mg-radio" name="${containerId}" id="${id}" value="${m}" ${checked} onchange="onMuscleRadioChange('${containerId}')"/>
+      <span class="mg-chip" for="${id}">${m}</span>
+    </label>`;
+  }).join('');
+}
+
+function getSelectedMuscle(containerId){
+  // Priority: custom text input if filled, else selected radio
+  const custom = (document.getElementById(containerId.replace('radios','custom'))||{}).value||'';
+  if(custom.trim()) return custom.trim();
+  const checked = document.querySelector(`input[name="${containerId}"]:checked`);
+  return checked ? checked.value : '';
+}
+
+function onMuscleRadioChange(containerId){
+  // Clear custom input when a radio is selected
+  const customInp = document.getElementById(containerId.replace('radios','custom'));
+  if(customInp) customInp.value = '';
+}
+
+function onCustomMuscleType(){
+  // Deselect all radios when typing a custom muscle
+  document.querySelectorAll('input[name="aex-muscle-radios"]').forEach(r=>r.checked=false);
+}
+
 function showAddEx(){
-  const m=document.getElementById('add-ex-modal');
-  m.style.display=m.style.display==='none'||!m.style.display?'block':'none';
-  if(m.style.display==='block'){
-    document.getElementById('aex-name').value='';
-    document.getElementById('aex-muscle').value='';
-    document.getElementById('aex-sets').value='';
-    document.getElementById('aex-reps').value='';
-    document.getElementById('aex-tip').value='';
+  const m = document.getElementById('add-ex-modal');
+  const isOpen = m.style.display === 'block';
+  m.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen){
+    document.getElementById('aex-name').value = '';
+    document.getElementById('aex-muscle-custom').value = '';
+    document.getElementById('aex-sets').value = '';
+    document.getElementById('aex-reps').value = '';
+    document.getElementById('aex-tip').value = '';
+    buildMuscleRadios('aex-muscle-radios', cSplit, '');
   }
 }
 
 function saveAddEx(){
-  const name=document.getElementById('aex-name').value.trim();
-  const muscle=document.getElementById('aex-muscle').value.trim()||'Custom';
-  const sets=+document.getElementById('aex-sets').value||3;
-  const reps=document.getElementById('aex-reps').value.trim()||'12';
-  const tip=document.getElementById('aex-tip').value.trim()||'Focus on good form.';
-  if(!name){alert('Please enter an exercise name');return;}
-  if(!S.customEx)S.customEx={};
-  if(!S.customEx[cSplit])S.customEx[cSplit]=[];
-  S.customEx[cSplit].push({name,muscle,sets,reps,tip});
+  const name   = document.getElementById('aex-name').value.trim();
+  const muscle = getSelectedMuscle('aex-muscle-radios') || 'Custom';
+  const sets   = +document.getElementById('aex-sets').value || 3;
+  const reps   = document.getElementById('aex-reps').value.trim() || '12';
+  const tip    = document.getElementById('aex-tip').value.trim() || 'Focus on good form.';
+  if(!name){ alert('Please enter an exercise name'); return; }
+  if(!S.customEx) S.customEx = {};
+  if(!S.customEx[cSplit]) S.customEx[cSplit] = [];
+  S.customEx[cSplit].push({name, muscle, sets, reps, tip});
   save();
-  document.getElementById('add-ex-modal').style.display='none';
-  rPlan();
-  rToday();
+  document.getElementById('add-ex-modal').style.display = 'none';
+  rPlan(); rToday();
 }
 
 function deleteCustomEx(split, idx){
@@ -1608,51 +1665,63 @@ function deleteCustomEx(split, idx){
 }
 
 function showEditEx(split, idx, isCustom){
-  // inline edit — toggle a mini form below the exercise card
-  const eid='editex-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b');
-  const existing=document.getElementById(eid);
-  if(existing){existing.remove();return;}
-  const ex=isCustom?getCustomEx(split)[idx]:SPLITS[split].exercises[idx];
-  if(!ex)return;
-  const div=document.createElement('div');
-  div.id=eid;
-  div.className='edit-modal vis';
-  div.style.marginTop='6px';
-  div.innerHTML=`
-    <div style="font-size:10px;color:var(--m);margin-bottom:7px">EDIT EXERCISE</div>
-    <input class="edit-inp" id="${eid}-name" value="${ex.name}" placeholder="Name" style="width:100%;margin-bottom:5px"/>
-    <input class="edit-inp" id="${eid}-muscle" value="${ex.muscle}" placeholder="Muscle" style="width:100%;margin-bottom:5px"/>
-    <div style="display:flex;gap:6px;margin-bottom:5px">
+  const eid = 'editex-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b');
+  const existing = document.getElementById(eid);
+  if(existing){ existing.remove(); return; }
+  const ex = isCustom ? getCustomEx(split)[idx] : SPLITS[split].exercises[idx];
+  if(!ex) return;
+  const safeSplit = split.replace(/'/g,"\'");
+  const radiosId = eid+'-muscle-radios';
+  const customId = eid+'-muscle-custom';
+
+  const div = document.createElement('div');
+  div.id = eid;
+  div.className = 'edit-modal vis';
+  div.style.cssText = 'margin-top:6px;padding:14px;';
+  div.innerHTML = `
+    <div style="font-size:10px;color:var(--m);margin-bottom:8px;letter-spacing:1.5px">EDIT EXERCISE</div>
+    <input class="edit-inp" id="${eid}-name" value="${ex.name}" placeholder="Name" style="width:100%;margin-bottom:8px"/>
+    <div style="font-size:10px;color:var(--m);letter-spacing:1.2px;margin-bottom:6px">MUSCLE GROUP</div>
+    <div id="${radiosId}" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px"></div>
+    <input class="edit-inp" id="${customId}" placeholder="Or type a new muscle group..."
+      style="width:100%;margin-bottom:8px" oninput="document.querySelectorAll('input[name=\"${radiosId}\"]').forEach(r=>r.checked=false)"/>
+    <div style="display:flex;gap:6px;margin-bottom:8px">
       <input class="edit-inp" id="${eid}-sets" value="${ex.sets}" type="number" placeholder="Sets" style="flex:1"/>
       <input class="edit-inp" id="${eid}-reps" value="${ex.reps}" placeholder="Reps" style="flex:1"/>
     </div>
-    <input class="edit-inp" id="${eid}-tip" value="${ex.tip||''}" placeholder="Form tip" style="width:100%;margin-bottom:8px"/>
+    <input class="edit-inp" id="${eid}-tip" value="${ex.tip||''}" placeholder="Form tip" style="width:100%;margin-bottom:10px"/>
     <div style="display:flex;gap:6px">
-      <button class="edit-save" onclick="applyEditEx('${eid}','${split}',${idx},${isCustom})">Save</button>
-      <button class="edit-del" onclick="deleteCustomEx('${split}',${idx})">Delete</button>
+      <button class="edit-save" onclick="applyEditEx('${eid}','${safeSplit}',${idx},${isCustom})">Save</button>
+      ${isCustom?`<button class="edit-del" onclick="deleteCustomEx('${safeSplit}',${idx})">Delete</button>`:''}
       <button class="edit-cancel" onclick="document.getElementById('${eid}').remove()">Cancel</button>
     </div>`;
-  const card=document.getElementById('exc-card-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b'));
+
+  const card = document.getElementById('exc-card-'+split.replace(/[\s\/]/g,'_')+'-'+idx+'-'+(isCustom?'c':'b'));
   if(card) card.after(div);
+
+  // Build radios after DOM insert
+  buildMuscleRadios(radiosId, split, ex.muscle);
 }
 
 function applyEditEx(eid, split, idx, isCustom){
-  const name=document.getElementById(eid+'-name').value.trim();
-  const muscle=document.getElementById(eid+'-muscle').value.trim();
-  const sets=+document.getElementById(eid+'-sets').value||3;
-  const reps=document.getElementById(eid+'-reps').value.trim()||'12';
-  const tip=document.getElementById(eid+'-tip').value.trim();
-  if(!name)return;
+  const name   = document.getElementById(eid+'-name').value.trim();
+  const radiosId = eid+'-muscle-radios';
+  const customId = eid+'-muscle-custom';
+  const custom = (document.getElementById(customId)||{}).value||'';
+  const muscle = custom.trim() || getSelectedMuscle(radiosId) || 'Custom';
+  const sets   = +document.getElementById(eid+'-sets').value || 3;
+  const reps   = document.getElementById(eid+'-reps').value.trim() || '12';
+  const tip    = document.getElementById(eid+'-tip').value.trim();
+  if(!name) return;
   if(isCustom){
-    if(!S.customEx||!S.customEx[split])return;
-    S.customEx[split][idx]={name,muscle,sets,reps,tip};
+    if(!S.customEx||!S.customEx[split]) return;
+    S.customEx[split][idx] = {name, muscle, sets, reps, tip};
   } else {
-    // Store built-in overrides separately
-    if(!S.exOverrides)S.exOverrides={};
-    if(!S.exOverrides[split])S.exOverrides[split]={};
-    S.exOverrides[split][idx]={name,muscle,sets,reps,tip};
+    if(!S.exOverrides) S.exOverrides = {};
+    if(!S.exOverrides[split]) S.exOverrides[split] = {};
+    S.exOverrides[split][idx] = {name, muscle, sets, reps, tip};
   }
-  save();rPlan();
+  save(); rPlan();
 }
 
 // ═══════════════════════════════════════════════
@@ -1777,35 +1846,45 @@ function rBWHistory(){
 // STREAK DISPLAY + FIRE ANIMATION
 // ═══════════════════════════════════════════════
 function computeStreak(){
-  // Count consecutive days going backwards from today that have been marked
-  let s=0;
-  const today=new Date(todayStr()+"T12:00:00");
-  for(let i=0;i<365;i++){
-    const d=new Date(today);d.setDate(today.getDate()-i);
-    const ds=d.toISOString().split('T')[0];
-    if(S.streakDays&&S.streakDays[ds]) s++;
-    else if(i>0) break; // gap — stop (allow today to not be marked yet)
+  // Strict daily streak: count consecutive days going back from yesterday.
+  // Today not being marked yet doesn't break the streak.
+  // Any single missed day resets to 0.
+  const todayDs = todayStr();
+  const todayMarked = !!(S.streakDays && S.streakDays[todayDs]);
+  let s = todayMarked ? 1 : 0;
+  const base = new Date(todayDs+"T12:00:00");
+  for(let i=1; i<365; i++){
+    const d = new Date(base); d.setDate(base.getDate()-i);
+    const ds = d.toISOString().split('T')[0];
+    if(S.streakDays && S.streakDays[ds]) s++;
+    else break; // missed a day — streak resets
   }
   return s;
 }
 function renderStreak(){
-  const s=computeStreak();
-  // Update strip
-  const stripEl=document.getElementById('s-streak');
-  if(stripEl) stripEl.textContent=s+'w';
+  const s = computeStreak();
+  const isMarked = !!(S.streakDays && S.streakDays[selectedDate]);
 
-  // Update fire button state
-  const btn=document.getElementById('streak-fire-btn');
-  const lbl=document.getElementById('streak-fire-label');
-  const cnt=document.getElementById('streak-count');
+  // Strip top bar
+  const stripEl = document.getElementById('s-streak');
+  if(stripEl) stripEl.textContent = s + 'd';
+
+  // Fire button
+  const btn = document.getElementById('streak-fire-btn');
+  const lbl = document.getElementById('streak-fire-label');
+  const cnt = document.getElementById('streak-count');
   if(!btn) return;
 
-  const isMarked=!!(S.streakDays&&S.streakDays[selectedDate]);
-  btn.style.filter=isMarked?'none':'grayscale(1)';
-  btn.style.opacity=isMarked?'1':'0.4';
-  btn.style.transform=isMarked?'scale(1.1)':'scale(1)';
-  if(lbl) lbl.textContent=isMarked?'ACTIVE TODAY ✓':'TAP TO MARK';
-  if(cnt) cnt.textContent=s+'w';
+  btn.style.filter  = isMarked ? 'none' : 'grayscale(1)';
+  btn.style.opacity = isMarked ? '1' : '0.4';
+  btn.style.transform = isMarked ? 'scale(1.1)' : 'scale(1)';
+  if(lbl) lbl.textContent = isMarked ? 'ACTIVE TODAY ✓' : 'TAP TO MARK';
+  if(cnt){
+    const suffix = s === 1 ? 'day' : 'days';
+    cnt.innerHTML = s > 0
+      ? `<span class="${s>=7?'streak-fire':''}">${s>=7?'🔥':''} ${s} ${suffix}</span>`
+      : `<span style="color:var(--m)">0 days</span>`;
+  }
 }
 
 function markTodayStreak(){
